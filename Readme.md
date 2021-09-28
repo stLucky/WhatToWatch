@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть»
 
-* Студент: [Сергей Левин](https://up.htmlacademy.ru/react/8/user/1566267).
-* Наставник: `Неизвестно`.
+- Студент: [Сергей Левин](https://up.htmlacademy.ru/react/8/user/1566267).
+- Наставник: [Алексей Хабиров](https://htmlacademy.ru/profile/alex_khab).
 
 ---
 
