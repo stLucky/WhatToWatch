@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть»
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability)](https://codeclimate.com/github/stLucky/1566267-what-to-watch-8)
-[![Project check](https://github.com/stLucky/1566267-what-to-watch-8/actions/workflows/check.yml/badge.svg)](https://github.com/stLucky/1566267-what-to-watch-8/actions/workflows/check.yml)
+[![Eslint](https://github.com/stLucky/1566267-what-to-watch-8/actions/workflows/check.yml/badge.svg)](https://github.com/stLucky/1566267-what-to-watch-8/actions/workflows/check.yml)
 
 - Студент: [Сергей Левин](https://up.htmlacademy.ru/react/8/user/1566267).
 - Наставник: [Алексей Хабиров](https://htmlacademy.ru/profile/alex_khab).
