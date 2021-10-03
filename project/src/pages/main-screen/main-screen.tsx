@@ -1,18 +1,19 @@
-import FilmsList from '../../films-list/films-list';
-import Footer from '../../footer/footer';
-import SortMenu from '../../sort-menu/sort-menu';
-import Header from '../../header/header';
+import FilmsList from '../../components/films-list/films-list';
+import Footer from '../../components/footer/footer';
+import SortMenu from '../../components/sort-menu/sort-menu';
+import Header from '../../components/header/header';
 
-
-type MainScreenProps  = {
+type MainScreenProps = {
   promoFilmInfo: {
-    title: string,
-    genre: string,
-    releaseDate: number
-  }
-}
+    title: string;
+    genre: string;
+    releaseDate: number;
+  };
+};
 
-function MainScreen({promoFilmInfo: {title, genre, releaseDate }}: MainScreenProps  ): JSX.Element {
+function MainScreen({
+  promoFilmInfo: { title, genre, releaseDate },
+}: MainScreenProps): JSX.Element {
   return (
     <>
       <section className="film-card">
@@ -22,12 +23,17 @@ function MainScreen({promoFilmInfo: {title, genre, releaseDate }}: MainScreenPro
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <Header className="film-card__head" isAuthorizedUser/>
+        <Header className="film-card__head" isAuthorizedUser />
 
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img
+                src="img/the-grand-budapest-hotel-poster.jpg"
+                alt="The Grand Budapest Hotel poster"
+                width="218"
+                height="327"
+              />
             </div>
 
             <div className="film-card__desc">
@@ -38,13 +44,19 @@ function MainScreen({promoFilmInfo: {title, genre, releaseDate }}: MainScreenPro
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
+                <button
+                  className="btn btn--play film-card__button"
+                  type="button"
+                >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list film-card__button" type="button">
+                <button
+                  className="btn btn--list film-card__button"
+                  type="button"
+                >
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
                   </svg>
@@ -59,16 +71,18 @@ function MainScreen({promoFilmInfo: {title, genre, releaseDate }}: MainScreenPro
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <SortMenu/>
-          <FilmsList/>
+          <SortMenu />
+          <FilmsList />
           <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
+            <button className="catalog__button" type="button">
+              Show more
+            </button>
           </div>
         </section>
-
-        <Footer/>
+        <Footer />
       </div>
-    </>);
+    </>
+  );
 }
 
 export default MainScreen;

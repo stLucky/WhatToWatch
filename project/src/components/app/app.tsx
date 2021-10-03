@@ -1,4 +1,4 @@
-import MainScreen from '../pages/main-screen/main-screen';
+import MainScreen from '../../pages/main-screen/main-screen';
 
 type AppScreenProps = {
   promoFilmInfo: {
@@ -8,7 +8,7 @@ type AppScreenProps = {
   }
 }
 
-function App({promoFilmInfo}: AppScreenProps): JSX.Element {
+function App({ promoFilmInfo }: AppScreenProps): JSX.Element {
 
   return <MainScreen promoFilmInfo={promoFilmInfo}/>;
 }

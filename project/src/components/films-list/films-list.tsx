@@ -83,10 +83,12 @@ const listFilms = [
   },
 ];
 
-function FilmsList(): JSX.Element{
+function FilmsList(): JSX.Element {
   return (
     <div className="catalog__films-list">
-      {listFilms.map((film) => <FilmCard  image={film.img} title={film.title} key={film.title}/>)}
+      {listFilms.map((film) => (
+        <FilmCard image={film.img} title={film.title} key={film.title} />
+      ))}
     </div>
   );
 }
