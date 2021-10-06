@@ -1,7 +1,7 @@
-import FilmsList from '../../components/films-list/films-list';
-import Footer from '../../components/footer/footer';
-import SortMenu from '../../components/sort-menu/sort-menu';
-import Header from '../../components/header/header';
+import FilmsList from '../components/films-list/films-list';
+import Footer from '../components/footer/footer';
+import SortMenu from '../components/sort-menu/sort-menu';
+import Header from '../components/header/header';
 
 type MainScreenProps = {
   promoFilmInfo: {

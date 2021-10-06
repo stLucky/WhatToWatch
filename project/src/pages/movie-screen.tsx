@@ -1,7 +1,7 @@
-import Footer from '../../components/footer/footer';
-import Header from '../../components/header/header';
+import Footer from '../components/footer/footer';
+import Header from '../components/header/header';
 
-function MoviePage(): JSX.Element {
+function MovieScreen(): JSX.Element {
   return (
     <>
       <section className="film-card film-card--full">
@@ -205,4 +205,4 @@ function MoviePage(): JSX.Element {
   );
 }
 
-export default MoviePage;
+export default MovieScreen;

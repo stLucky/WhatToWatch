@@ -4,7 +4,7 @@ import UserMenu from '../user-menu/user-menu';
 type HeaderProps = {
   pathLogo?: string;
   className?: string;
-  children?: JSX.Element;
+  children?: JSX.Element | [];
   isAuthorizedUser?: boolean;
   isSignInPage?: boolean;
 };
