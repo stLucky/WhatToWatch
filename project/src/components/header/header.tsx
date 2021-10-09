@@ -1,10 +1,11 @@
+import { ReactNode } from 'react';
 import Logo from '../logo/logo';
 import UserMenu from '../user-menu/user-menu';
 
 type HeaderProps = {
   pathLogo?: string;
   className?: string;
-  children?: JSX.Element | [];
+  children?: ReactNode;
   isAuthorizedUser?: boolean;
   isSignInPage?: boolean;
 };

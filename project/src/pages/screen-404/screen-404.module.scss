@@ -1,0 +1,23 @@
+.header {
+  margin: 0;
+}
+
+.main-layout {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.text {
+  font-size: 60px;
+  line-height: 60px;
+}
+
+.link {
+  font-size: 30px;
+  line-height: 40px;
+}

@@ -6,7 +6,7 @@ import MyListScreen from '../../pages/my-list-screen';
 import MovieScreen from '../../pages/movie-screen';
 import AddReviewScreen from '../../pages/add-review-screen';
 import PlayerScreen from '../../pages/player-screen';
-import Screen404 from '../../pages/screen-404';
+import Screen404 from '../../pages/screen-404/screen-404';
 import PrivateRoute from '../private-route/private-route';
 
 type AppScreenProps = {
@@ -32,14 +32,16 @@ function App({ promoFilmInfo }: AppScreenProps): JSX.Element {
           path={AppRoute.MyList}
           render={() => <MyListScreen />}
           authorizationStatus={AuthorizationStatus.NoAuth}
-        >
-        </PrivateRoute>
+        />
         <Route path={AppRoute.Film} exact>
           <MovieScreen />
         </Route>
-        <Route path={AppRoute.AddReview} exact>
-          <AddReviewScreen />
-        </Route>
+        <PrivateRoute
+          exact
+          path={AppRoute.AddReview}
+          render={() => <AddReviewScreen />}
+          authorizationStatus={AuthorizationStatus.NoAuth}
+        />
         <Route path={AppRoute.Player} exact>
           <PlayerScreen />
         </Route>
