@@ -1,5 +1,5 @@
-import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
-import Header from '../../components/header/header';
+import Breadcrumbs from '../components/breadcrumbs/breadcrumbs';
+import Header from '../components/header/header';
 
 function AddReviewScreen(): JSX.Element {
   return (
