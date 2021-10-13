@@ -13,7 +13,7 @@ function PrivateRoute({exact, path, render, authorizationStatus} : PrivateRouteP
       exact={exact}
       path={path}
       render={() => (
-        authorizationStatus === AuthorizationStatus.Auth
+        authorizationStatus === AuthorizationStatus.NoAuth
           ? render()
           : <Redirect to={AppRoute.Login} />
       )}

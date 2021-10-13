@@ -1,10 +1,22 @@
-function PlayerScreen(): JSX.Element {
+import { Films, Film } from '../types/films';
+import { useParams } from 'react-router-dom';
+import { getTimeFromMins } from '../utils';
+
+type PlayerScreenProps = {
+  films: Films
+};
+
+function PlayerScreen({films}: PlayerScreenProps): JSX.Element {
+  const { id }: {id: string}= useParams();
+
+  const currentFilm: Film | undefined = films.find((film) => film.id === +id);
+
   return (
     <div className="player">
       <video
         src="#"
         className="player__video"
-        poster="img/player-poster.jpg"
+        poster={currentFilm?.posterImage}
       >
       </video>
 
@@ -25,7 +37,7 @@ function PlayerScreen(): JSX.Element {
               Toggler
             </div>
           </div>
-          <div className="player__time-value">1:30:29</div>
+          <div className="player__time-value">{getTimeFromMins(currentFilm?.runTime)}</div>
         </div>
 
         <div className="player__controls-row">
@@ -35,7 +47,7 @@ function PlayerScreen(): JSX.Element {
             </svg>
             <span>Play</span>
           </button>
-          <div className="player__name">Transpotting</div>
+          <div className="player__name">{currentFilm?.name}</div>
 
           <button type="button" className="player__full-screen">
             <svg viewBox="0 0 27 27" width="27" height="27">
