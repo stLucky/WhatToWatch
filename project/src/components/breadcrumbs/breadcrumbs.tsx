@@ -1,6 +1,6 @@
 type BreadcrumbsProps = {
-  filmName: string | undefined
-  id: number | undefined
+  filmName: string
+  id: number
 }
 
 function Breadcrumbs({filmName, id}: BreadcrumbsProps): JSX.Element {

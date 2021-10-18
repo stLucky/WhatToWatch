@@ -1,8 +1,4 @@
-export const getFormattedRatig= (rating: number | undefined): string => {
-  if (!rating) {
-    return 'Incorrect';
-  }
-
+export const getFormattedRatig= (rating: number ): string => {
   if (rating > 0 && rating < 3) {
     return 'Bad';
   }
@@ -26,12 +22,8 @@ export const getFormattedRatig= (rating: number | undefined): string => {
   return 'Incorrect';
 };
 
-export const getTimeFromMins = (mins: number | undefined): string =>  {
-  if (!mins) {
-    return 'incorrected time';
-  }
-
-  const hours = Math.trunc(mins/60);
+export const getTimeFromMins = (mins: number): string => {
+  const hours = Math.trunc(mins / 60);
   const minutes = mins % 60;
 
   return `${hours}:${minutes}`;

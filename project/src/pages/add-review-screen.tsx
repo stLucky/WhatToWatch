@@ -1,4 +1,5 @@
 import Breadcrumbs from '../components/breadcrumbs/breadcrumbs';
+import Screen404 from './screen-404/screen-404';
 import Header from '../components/header/header';
 import CommentForm from '../components/comment-form/comment-form';
 import { AppRoute } from '../const';
@@ -10,39 +11,43 @@ type AddReviewScreenProps = {
 };
 
 function AddReviewScreen({ films }: AddReviewScreenProps): JSX.Element {
-  const { id }: {id: string}= useParams();
+  const { id }: {id: string} = useParams();
 
   const currentFilm: Film | undefined = films.find((film) => film.id === +id);
 
-  return (
-    <section className="film-card film-card--full">
-      <div className="film-card__header">
-        <div className="film-card__bg">
-          <img
-            src={currentFilm?.backgroundImage}
-            alt={currentFilm?.name}
-          />
+  if (currentFilm) {
+    return (
+      <section className="film-card film-card--full">
+        <div className="film-card__header">
+          <div className="film-card__bg">
+            <img
+              src={currentFilm.backgroundImage}
+              alt={currentFilm.name}
+            />
+          </div>
+
+          <h1 className="visually-hidden">WTW</h1>
+
+          <Header pathLogo={AppRoute.Root} isAuthorizedUser>
+            <Breadcrumbs filmName={currentFilm.name} id={currentFilm.id} />
+          </Header>
+
+          <div className="film-card__poster film-card__poster--small">
+            <img
+              src={currentFilm.posterImage}
+              alt={`${currentFilm.name} poster`}
+              width="218"
+              height="327"
+            />
+          </div>
         </div>
 
-        <h1 className="visually-hidden">WTW</h1>
+        <CommentForm />
+      </section>
+    );
+  }
 
-        <Header pathLogo={AppRoute.Root} isAuthorizedUser>
-          <Breadcrumbs filmName={currentFilm?.name} id={currentFilm?.id} />
-        </Header>
-
-        <div className="film-card__poster film-card__poster--small">
-          <img
-            src={currentFilm?.posterImage}
-            alt={`${currentFilm?.name} poster`}
-            width="218"
-            height="327"
-          />
-        </div>
-      </div>
-
-      <CommentForm />
-    </section>
-  );
+  return <Screen404 />;
 }
 
 export default AddReviewScreen;

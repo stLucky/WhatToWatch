@@ -7,9 +7,15 @@ type FilmsListProps = {
 }
 
 function FilmsList({ films }: FilmsListProps): JSX.Element {
-  const [isActiveCard, setActiveCard]= useState<null | number>(null);
+  type ActiveCard = null | number
+
+  const [activeCard, setActiveCard]= useState<ActiveCard>(null);
   // eslint-disable-next-line no-console
-  console.log(isActiveCard);
+  console.log(activeCard);
+
+  const handleMouseAction = (id: ActiveCard) => {
+    setActiveCard(id);
+  };
 
   return (
     <div className={'catalog__films-list'}>
@@ -17,12 +23,8 @@ function FilmsList({ films }: FilmsListProps): JSX.Element {
         <FilmCard
           film={film}
           key={film.id}
-          onCardEnter={(id) => {
-            setActiveCard(id);
-          }}
-          onCardLeave={(id) => {
-            setActiveCard(id);
-          }}
+          onCardEnter={handleMouseAction}
+          onCardLeave={handleMouseAction}
         />
       ))}
     </div>

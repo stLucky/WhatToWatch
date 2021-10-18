@@ -10,7 +10,7 @@ import Screen404 from '../../pages/screen-404/screen-404';
 import PrivateRoute from '../private-route/private-route';
 import { Films }from '../../types/films';
 
-type AppScreenProps={
+type AppScreenProps = {
   promoFilmInfo: {
     title: string,
     genre: string,
