@@ -1,6 +1,6 @@
 import MainScreen from '../../pages/main-screen';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import SignInScreen from '../../pages/sign-in-screen';
 import MyListScreen from '../../pages/my-list-screen';
 import MovieScreen from '../../pages/movie-screen';
@@ -8,21 +8,23 @@ import AddReviewScreen from '../../pages/add-review-screen';
 import PlayerScreen from '../../pages/player-screen';
 import Screen404 from '../../pages/screen-404/screen-404';
 import PrivateRoute from '../private-route/private-route';
+import { Films }from '../../types/films';
 
 type AppScreenProps = {
   promoFilmInfo: {
     title: string,
     genre: string,
     releaseDate: number
-  }
+  },
+  films: Films,
 }
 
-function App({ promoFilmInfo }: AppScreenProps): JSX.Element {
+function App({ promoFilmInfo, films }: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/" exact>
-          <MainScreen promoFilmInfo={promoFilmInfo} />
+          <MainScreen promoFilmInfo={promoFilmInfo} films={films} />
         </Route>
         <Route path={AppRoute.Login} exact>
           <SignInScreen />
@@ -30,20 +32,20 @@ function App({ promoFilmInfo }: AppScreenProps): JSX.Element {
         <PrivateRoute
           exact
           path={AppRoute.MyList}
-          render={() => <MyListScreen />}
+          render={() => <MyListScreen films={films}/>}
           authorizationStatus={AuthorizationStatus.NoAuth}
         />
         <Route path={AppRoute.Film} exact>
-          <MovieScreen />
+          <MovieScreen films={films}/>
         </Route>
         <PrivateRoute
           exact
           path={AppRoute.AddReview}
-          render={() => <AddReviewScreen />}
+          render={() => <AddReviewScreen films={films}/>}
           authorizationStatus={AuthorizationStatus.NoAuth}
         />
         <Route path={AppRoute.Player} exact>
-          <PlayerScreen />
+          <PlayerScreen films={films}/>
         </Route>
         <Route>
           <Screen404 />

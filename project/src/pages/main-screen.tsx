@@ -2,17 +2,20 @@ import FilmsList from '../components/films-list/films-list';
 import Footer from '../components/footer/footer';
 import SortMenu from '../components/sort-menu/sort-menu';
 import Header from '../components/header/header';
+import { Films } from '../types/films';
+
 
 type MainScreenProps = {
   promoFilmInfo: {
     title: string;
     genre: string;
     releaseDate: number;
-  };
+  },
+  films: Films
 };
 
 function MainScreen({
-  promoFilmInfo: { title, genre, releaseDate },
+  promoFilmInfo: { title, genre, releaseDate }, films,
 }: MainScreenProps): JSX.Element {
   return (
     <>
@@ -72,7 +75,7 @@ function MainScreen({
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <SortMenu />
-          <FilmsList />
+          <FilmsList films={films}/>
           <div className="catalog__more">
             <button className="catalog__button" type="button">
               Show more
