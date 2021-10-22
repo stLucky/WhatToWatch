@@ -1,22 +1,27 @@
 import Footer from '../components/footer/footer';
 import Header from '../components/header/header';
 import FilmsList from '../components/films-list/films-list';
+import FilmTabs from '../components/film-tabs/film-tabs';
 import Screen404 from './screen-404/screen-404';
 import { AppRoute } from '../const';
 import { useParams } from 'react-router-dom';
 import { Films, Film } from '../types/films';
-import { getFormattedRatig } from '../utils';
+import { Reviews } from '../types/reviews';
+
 
 const MAX_VISIBLE_MORE_FILMS = 4;
 
 type MovieScreenProps = {
   films: Films;
+  reviews: Reviews;
 };
 
-function MovieScreen({ films }: MovieScreenProps): JSX.Element {
+function MovieScreen({ films, reviews }: MovieScreenProps): JSX.Element {
   const { id }: { id: string } = useParams();
 
   const currentFilm: Film | undefined = films.find((film) => film.id === +id);
+  const currentReviews: Reviews = reviews.filter((review) => review.id === +id);
+  const  similarGenreFilms: Films = films.filter((film) => film.genre === currentFilm?.genre);
 
   if (currentFilm) {
     return (
@@ -88,49 +93,7 @@ function MovieScreen({ films }: MovieScreenProps): JSX.Element {
               </div>
 
               <div className="film-card__desc">
-                <nav className="film-nav film-card__nav">
-                  <ul className="film-nav__list">
-                    <li className="film-nav__item film-nav__item--active">
-                      <a href="#" className="film-nav__link">
-                        Overview
-                      </a>
-                    </li>
-                    <li className="film-nav__item">
-                      <a href="#" className="film-nav__link">
-                        Details
-                      </a>
-                    </li>
-                    <li className="film-nav__item">
-                      <a href="#" className="film-nav__link">
-                        Reviews
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
-
-                <div className="film-rating">
-                  <div className="film-rating__score">{currentFilm.rating}</div>
-                  <p className="film-rating__meta">
-                    <span className="film-rating__level">
-                      {getFormattedRatig(currentFilm.rating)}
-                    </span>
-                    <span className="film-rating__count">
-                      {currentFilm.scoresCount} ratings
-                    </span>
-                  </p>
-                </div>
-
-                <div className="film-card__text">
-                  <p>{currentFilm.description}</p>
-
-                  <p className="film-card__director">
-                    <strong>Director: {currentFilm.director}</strong>
-                  </p>
-
-                  <p className="film-card__starring">
-                    <strong>{currentFilm.starring.join(', ')}</strong>
-                  </p>
-                </div>
+                <FilmTabs currentFilm={currentFilm} currentReviews={currentReviews}/>
               </div>
             </div>
           </div>
@@ -139,7 +102,7 @@ function MovieScreen({ films }: MovieScreenProps): JSX.Element {
         <div className="page-content">
           <section className="catalog catalog--like-this">
             <h2 className="catalog__title">More like this</h2>
-            <FilmsList films={films.slice(MAX_VISIBLE_MORE_FILMS)} />
+            <FilmsList films={similarGenreFilms.slice(MAX_VISIBLE_MORE_FILMS)} />
           </section>
           <Footer path={AppRoute.Root} />
         </div>
