@@ -1,4 +1,4 @@
-export const getFormattedRatig= (rating: number ): string => {
+export const getFormattedRating= (rating: number ): string => {
   if (rating > 0 && rating < 3) {
     return 'Bad';
   }
@@ -22,9 +22,19 @@ export const getFormattedRatig= (rating: number ): string => {
   return 'Incorrect';
 };
 
-export const getTimeFromMins = (mins: number): string => {
+export const getTimeFromMins = (mins: number, type: 'player' | 'info'): string => {
   const hours = Math.trunc(mins / 60);
   const minutes = mins % 60;
 
-  return `${hours}:${minutes}`;
+  return (type === 'player') ? `${hours}:${minutes}` : `${hours}h ${minutes}m`;
+};
+
+export const getFormattedDate = (date: string): string => {
+  const formattedDate = new Date(date).toLocaleString('en', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+
+  return formattedDate;
 };

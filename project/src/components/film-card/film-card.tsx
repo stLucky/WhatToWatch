@@ -1,32 +1,33 @@
 import { Link } from 'react-router-dom';
+import {useState} from 'react';
 import { Film } from '../../types/films';
+import VideoPlayer from '../video-player/video-player';
 
 type FilmCardProps = {
   film: Film
-  onCardEnter: (id: number) => void;
-  onCardLeave: (id: null) => void;
 };
 
 function FilmCard({
   film,
-  onCardEnter,
-  onCardLeave,
 }: FilmCardProps): JSX.Element {
-  const handleMouseEnter = () => {
-    onCardEnter(film.id);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const playVideo = () => {
+    setIsPlaying(true);
   };
-  const handleMouseLeave = () => {
-    onCardLeave(null);
+
+  const stopVideo = () => {
+    setIsPlaying(false);
   };
 
   return (
     <article
       className="small-film-card catalog__films-card"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onMouseEnter={playVideo}
+      onMouseLeave={stopVideo}
     >
-      <div className="small-film-card__image">
-        <img src={film.previewImage} alt={film.name} width="280" height="175" />
+      <div className="small-film-card__image"  >
+        <VideoPlayer videoSrc={film.videoLink} posterSrc={film.previewImage} isPlaying={isPlaying}/>
       </div>
       <h3 className="small-film-card__title">
         <Link className="small-film-card__link" to={`/films/${film.id}`}>

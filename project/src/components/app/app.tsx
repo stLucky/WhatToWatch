@@ -8,16 +8,18 @@ import AddReviewScreen from '../../pages/add-review-screen';
 import PlayerScreen from '../../pages/player-screen';
 import Screen404 from '../../pages/screen-404/screen-404';
 import PrivateRoute from '../private-route/private-route';
-import { Films }from '../../types/films';
+import { Films } from '../../types/films';
+import { reviews } from '../../mocks/reviews';
 
 type AppScreenProps = {
   promoFilmInfo: {
-    title: string,
-    genre: string,
-    releaseDate: number
-  },
-  films: Films,
-}
+    title: string;
+    genre: string;
+    releaseDate: number;
+  };
+
+  films: Films;
+};
 
 function App({ promoFilmInfo, films }: AppScreenProps): JSX.Element {
   return (
@@ -32,20 +34,20 @@ function App({ promoFilmInfo, films }: AppScreenProps): JSX.Element {
         <PrivateRoute
           exact
           path={AppRoute.MyList}
-          render={() => <MyListScreen films={films}/>}
+          render={() => <MyListScreen films={films} />}
           authorizationStatus={AuthorizationStatus.NoAuth}
         />
         <Route path={AppRoute.Film} exact>
-          <MovieScreen films={films}/>
+          <MovieScreen films={films} reviews={reviews} />
         </Route>
         <PrivateRoute
           exact
           path={AppRoute.AddReview}
-          render={() => <AddReviewScreen films={films}/>}
+          render={() => <AddReviewScreen films={films} />}
           authorizationStatus={AuthorizationStatus.NoAuth}
         />
         <Route path={AppRoute.Player} exact>
-          <PlayerScreen films={films}/>
+          <PlayerScreen films={films} />
         </Route>
         <Route>
           <Screen404 />

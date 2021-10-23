@@ -18,7 +18,7 @@ function PlayerScreen({ films }: PlayerScreenProps): JSX.Element {
         <video
           src="#"
           className="player__video"
-          poster={currentFilm?.posterImage}
+          poster={currentFilm.posterImage}
         >
         </video>
 
@@ -39,7 +39,7 @@ function PlayerScreen({ films }: PlayerScreenProps): JSX.Element {
                 Toggler
               </div>
             </div>
-            <div className="player__time-value">{getTimeFromMins(currentFilm?.runTime)}</div>
+            <div className="player__time-value">{getTimeFromMins(currentFilm.runTime, 'player')}</div>
           </div>
 
           <div className="player__controls-row">
@@ -49,7 +49,7 @@ function PlayerScreen({ films }: PlayerScreenProps): JSX.Element {
               </svg>
               <span>Play</span>
             </button>
-            <div className="player__name">{currentFilm?.name}</div>
+            <div className="player__name">{currentFilm.name}</div>
 
             <button type="button" className="player__full-screen">
               <svg viewBox="0 0 27 27" width="27" height="27">
