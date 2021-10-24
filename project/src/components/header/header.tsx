@@ -3,23 +3,23 @@ import Logo from '../logo/logo';
 import UserMenu from '../user-menu/user-menu';
 
 type HeaderProps = {
-  pathLogo?: string;
   className?: string;
   children?: ReactNode;
   isAuthorizedUser?: boolean;
   isSignInPage?: boolean;
+  onMain?: boolean;
 };
 
 function Header({
-  pathLogo,
   className = '',
   children,
   isAuthorizedUser = false,
   isSignInPage = false,
+  onMain = false,
 }: HeaderProps): JSX.Element {
   return (
     <header className={`page-header ${className}`}>
-      <Logo path={pathLogo} />
+      <Logo onMain={onMain}/>
       {children}
       {!isSignInPage && <UserMenu isAuthorized={isAuthorizedUser} />}
     </header>

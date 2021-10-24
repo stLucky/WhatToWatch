@@ -1,13 +1,13 @@
 import Logo from '../logo/logo';
 
 type FooterProps = {
-  path?: string;
+  onMain?: boolean;
 };
 
-function Footer({ path }: FooterProps): JSX.Element {
+function Footer({ onMain = false }: FooterProps): JSX.Element {
   return (
     <footer className="page-footer">
-      <Logo path={path} className="logo__link--light" />
+      <Logo onMain={onMain} className="logo__link--light" />
       <div className="copyright">
         <p>© 2019 What to watch Ltd.</p>
       </div>

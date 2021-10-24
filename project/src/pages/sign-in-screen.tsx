@@ -1,11 +1,10 @@
 import Footer from '../components/footer/footer';
 import Header from '../components/header/header';
-import { AppRoute } from '../const';
 
 function SignInScreen(): JSX.Element {
   return (
     <div className="user-page">
-      <Header pathLogo={AppRoute.Root}  className="user-page__head" isSignInPage>
+      <Header className="user-page__head" isSignInPage>
         <h1 className="page-title user-page__title">Sign in</h1>
       </Header>
 
@@ -51,7 +50,7 @@ function SignInScreen(): JSX.Element {
         </form>
       </div>
 
-      <Footer path={AppRoute.Root}  />
+      <Footer />
     </div>
   );
 }

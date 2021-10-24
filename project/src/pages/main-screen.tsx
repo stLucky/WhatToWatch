@@ -26,7 +26,7 @@ function MainScreen({
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <Header className="film-card__head" isAuthorizedUser />
+        <Header className="film-card__head" isAuthorizedUser onMain />
 
         <div className="film-card__wrap">
           <div className="film-card__info">
@@ -75,14 +75,14 @@ function MainScreen({
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <SortMenu />
-          <FilmsList films={films}/>
+          <FilmsList films={films} hasPlayer/>
           <div className="catalog__more">
             <button className="catalog__button" type="button">
               Show more
             </button>
           </div>
         </section>
-        <Footer />
+        <Footer onMain/>
       </div>
     </>
   );
