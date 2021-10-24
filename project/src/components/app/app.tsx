@@ -1,5 +1,6 @@
 import MainScreen from '../../pages/main-screen';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import ScrollToTop from '../scroll-to-top/scroll-to-top';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import SignInScreen from '../../pages/sign-in-screen';
 import MyListScreen from '../../pages/my-list-screen';
@@ -24,6 +25,7 @@ type AppScreenProps = {
 function App({ promoFilmInfo, films }: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
+      <ScrollToTop/>
       <Switch>
         <Route path="/" exact>
           <MainScreen promoFilmInfo={promoFilmInfo} films={films} />

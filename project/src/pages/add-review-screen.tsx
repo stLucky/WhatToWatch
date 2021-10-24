@@ -2,7 +2,6 @@ import Breadcrumbs from '../components/breadcrumbs/breadcrumbs';
 import Screen404 from './screen-404/screen-404';
 import Header from '../components/header/header';
 import CommentForm from '../components/comment-form/comment-form';
-import { AppRoute } from '../const';
 import { useParams } from 'react-router-dom';
 import { Films, Film } from '../types/films';
 
@@ -28,7 +27,7 @@ function AddReviewScreen({ films }: AddReviewScreenProps): JSX.Element {
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <Header pathLogo={AppRoute.Root} isAuthorizedUser>
+          <Header isAuthorizedUser>
             <Breadcrumbs filmName={currentFilm.name} id={currentFilm.id} />
           </Header>
 

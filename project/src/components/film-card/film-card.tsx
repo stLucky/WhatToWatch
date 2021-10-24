@@ -1,40 +1,75 @@
 import { Link } from 'react-router-dom';
-import {useState} from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Film } from '../../types/films';
 import VideoPlayer from '../video-player/video-player';
+import styles from './film-card.module.scss';
 
 type FilmCardProps = {
-  film: Film
+  film: Film;
+  hasPlayer: boolean;
 };
 
-function FilmCard({
-  film,
-}: FilmCardProps): JSX.Element {
+const TIME_VIDEO_DELAY = 1000;
+
+function FilmCard({ film, hasPlayer }: FilmCardProps): JSX.Element {
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const playVideo = () => {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const timeRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const getPreviewElement = () => {
+    if (hasPlayer) {
+      return (
+        <VideoPlayer
+          videoSrc={film.videoLink}
+          posterSrc={film.previewImage}
+          ref={videoRef}
+        />
+      );
+    }
+
+    return <img src={film.previewImage} alt={film.name} />;
+  };
+
+  const handlePlayVideo = () => {
     setIsPlaying(true);
   };
 
-  const stopVideo = () => {
+  const handleStopVideo = () => {
     setIsPlaying(false);
   };
 
+  useEffect(() => {
+    if (videoRef.current === null) {
+      return;
+    }
+
+    if (isPlaying) {
+      timeRef.current = setTimeout(
+        () => videoRef.current?.play(),
+        TIME_VIDEO_DELAY,
+      );
+    } else {
+      videoRef.current.load();
+    }
+
+    return () => {
+      timeRef.current && clearTimeout(timeRef.current);
+    };
+  }, [isPlaying]);
+
   return (
-    <article
-      className="small-film-card catalog__films-card"
-      onMouseEnter={playVideo}
-      onMouseLeave={stopVideo}
+    <Link
+      className={`small-film-card catalog__films-card ${styles.link}`}
+      to={`/films/${film.id}`}
     >
-      <div className="small-film-card__image"  >
-        <VideoPlayer videoSrc={film.videoLink} posterSrc={film.previewImage} isPlaying={isPlaying}/>
-      </div>
-      <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={`/films/${film.id}`}>
+      <article onMouseEnter={handlePlayVideo} onMouseLeave={handleStopVideo}>
+        <div className="small-film-card__image">{getPreviewElement()}</div>
+        <h3 className="small-film-card__title small-film-card__link">
           {film.name}
-        </Link>
-      </h3>
-    </article>
+        </h3>
+      </article>
+    </Link>
   );
 }
 
