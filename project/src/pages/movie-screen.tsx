@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 import { Films, Film } from '../types/films';
 import { Reviews } from '../types/reviews';
 
-const MAX_VISIBLE_MORE_FILMS = 4;
+const MAX_VISIBLE_SIMILAR_FILMS = 4;
 
 type MovieScreenProps = {
   films: Films;
@@ -102,7 +102,7 @@ function MovieScreen({ films, reviews }: MovieScreenProps): JSX.Element {
           <section className="catalog catalog--like-this">
             <h2 className="catalog__title">More like this</h2>
             <FilmsList
-              films={similarGenreFilms.slice(MAX_VISIBLE_MORE_FILMS)}
+              films={similarGenreFilms.slice(0, MAX_VISIBLE_SIMILAR_FILMS)}
               hasPlayer={false}
             />
           </section>

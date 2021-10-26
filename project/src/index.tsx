@@ -1,9 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import App from './components/app/app';
 import { films } from './mocks/films';
+import { reducer } from './store/reducer';
 
-const Setting={
+const Setting = {
   PromoFilmInfo: {
     title: 'The Grand Budapest Hotel',
     genre: 'Drama',
@@ -11,8 +15,13 @@ const Setting={
   },
 };
 
+const store = createStore(reducer, composeWithDevTools());
+
 ReactDOM.render(
   <React.StrictMode>
-    <App promoFilmInfo={Setting.PromoFilmInfo} films={films}/>
+    <Provider store={store}>
+      <App promoFilmInfo={Setting.PromoFilmInfo} films={films} />
+    </Provider>
   </React.StrictMode>,
-  document.getElementById('root'));
+  document.getElementById('root'),
+);

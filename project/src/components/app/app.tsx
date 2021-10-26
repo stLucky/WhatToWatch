@@ -25,10 +25,10 @@ type AppScreenProps = {
 function App({ promoFilmInfo, films }: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
-      <ScrollToTop/>
+      <ScrollToTop />
       <Switch>
         <Route path="/" exact>
-          <MainScreen promoFilmInfo={promoFilmInfo} films={films} />
+          <MainScreen promoFilmInfo={promoFilmInfo} />
         </Route>
         <Route path={AppRoute.Login} exact>
           <SignInScreen />

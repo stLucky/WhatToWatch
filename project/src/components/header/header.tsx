@@ -1,14 +1,13 @@
-import { ReactNode } from 'react';
+import { PropsWithChildren } from 'react';
 import Logo from '../logo/logo';
 import UserMenu from '../user-menu/user-menu';
 
-type HeaderProps = {
+type HeaderProps = PropsWithChildren<{
   className?: string;
-  children?: ReactNode;
   isAuthorizedUser?: boolean;
   isSignInPage?: boolean;
   onMain?: boolean;
-};
+}>;
 
 function Header({
   className = '',

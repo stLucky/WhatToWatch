@@ -1,22 +1,56 @@
+import { useEffect } from 'react';
+import { Dispatch } from 'redux';
+import { connect, ConnectedProps } from 'react-redux';
 import FilmsList from '../components/films-list/films-list';
 import Footer from '../components/footer/footer';
-import SortMenu from '../components/sort-menu/sort-menu';
+import FilmsGenres from '../components/films-genres/films-genres';
 import Header from '../components/header/header';
-import { Films } from '../types/films';
-
+import ShowMore from '../components/show-more/show-more';
+import { State } from '../types/state';
+import { getGenres } from '../films';
+import { SHOWN_COUNT_FILMS } from '../const';
+import { resetCounter } from '../store/action';
+import { Actions } from '../types/action';
 
 type MainScreenProps = {
   promoFilmInfo: {
     title: string;
     genre: string;
     releaseDate: number;
-  },
-  films: Films
+  };
 };
 
+const mapStateToProps = ({ films, counter }: State) => ({
+  films,
+  counter,
+});
+
+const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
+  onResetCounter() {
+    dispatch(resetCounter());
+  },
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = PropsFromRedux & MainScreenProps;
+
 function MainScreen({
-  promoFilmInfo: { title, genre, releaseDate }, films,
-}: MainScreenProps): JSX.Element {
+  promoFilmInfo: { title, genre, releaseDate },
+  films,
+  counter,
+  onResetCounter,
+}: ConnectedComponentProps): JSX.Element {
+
+  const renderedFilms = films.slice(0, counter);
+  const isRenderedShowMore =
+    films.length > SHOWN_COUNT_FILMS && films.length !== renderedFilms.length;
+
+  useEffect(() => {
+    onResetCounter();
+  }, [onResetCounter]);
+
   return (
     <>
       <section className="film-card">
@@ -74,18 +108,16 @@ function MainScreen({
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <SortMenu />
-          <FilmsList films={films} hasPlayer/>
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">
-              Show more
-            </button>
-          </div>
+          <FilmsGenres genres={getGenres()} />
+          <FilmsList films={renderedFilms} hasPlayer />
+          {isRenderedShowMore && <ShowMore />}
         </section>
-        <Footer onMain/>
+        <Footer onMain />
       </div>
     </>
   );
 }
 
-export default MainScreen;
+export { MainScreen };
+
+export default connector(MainScreen);
