@@ -1,14 +1,14 @@
-import { changeGenre, getFilms, incrementCounter, resetCounter } from '../store/action';
+import { changeActiveGenre, getFilms, incrementLimit, resetLimit } from '../store/action';
 
 export enum ActionTypes {
-  ChangeGenre = 'films/changeGenre',
+  ChangeActiveGenre = 'films/changeGenre',
   GetFilms = 'films/getFilms',
-  IncrementCounter = 'films/incrementCounter',
-  ResetCounter = 'films/resetCounter',
+  IncrementLimit = 'films/incrementLimit',
+  ResetLimit = 'films/resetLimit',
 }
 
 export type Actions =
-  | ReturnType<typeof changeGenre>
+  | ReturnType<typeof changeActiveGenre>
   | ReturnType<typeof getFilms>
-  | ReturnType<typeof incrementCounter>
-  | ReturnType<typeof resetCounter>;
+  | ReturnType<typeof incrementLimit>
+  | ReturnType<typeof resetLimit>;

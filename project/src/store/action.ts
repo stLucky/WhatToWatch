@@ -1,20 +1,21 @@
 import { ActionTypes } from '../types/action';
-import { Films } from '../types/films';
+import { FilmsType } from '../types/films';
 
-export const changeGenre = (genre: string) => ({
-  type: ActionTypes.ChangeGenre,
+export const changeActiveGenre = (genre: string) => ({
+  type: ActionTypes.ChangeActiveGenre,
   payload: genre,
 } as const);
 
-export const getFilms = (films: Films) => ({
+export const getFilms = (films: FilmsType) => ({
   type: ActionTypes.GetFilms,
   payload: films,
 } as const);
 
-export const incrementCounter = () => ({
-  type: ActionTypes.IncrementCounter,
+export const incrementLimit = (offset: number) => ({
+  type: ActionTypes.IncrementLimit,
+  payload: offset,
 } as const);
 
-export const resetCounter = () => ({
-  type: ActionTypes.ResetCounter,
+export const resetLimit = () => ({
+  type: ActionTypes.ResetLimit,
 } as const);

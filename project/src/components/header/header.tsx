@@ -18,7 +18,7 @@ function Header({
 }: HeaderProps): JSX.Element {
   return (
     <header className={`page-header ${className}`}>
-      <Logo onMain={onMain}/>
+      <Logo onMain={onMain} />
       {children}
       {!isSignInPage && <UserMenu isAuthorized={isAuthorizedUser} />}
     </header>

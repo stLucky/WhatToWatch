@@ -3,7 +3,7 @@ export type User = {
   name: string
 }
 
-export type Review = {
+export type ReviewType = {
   id: number,
   user: User
   rating: number,
@@ -11,4 +11,4 @@ export type Review = {
   date: string
 }
 
-export type Reviews = Review[]
+export type ReviewsType = ReviewType[]

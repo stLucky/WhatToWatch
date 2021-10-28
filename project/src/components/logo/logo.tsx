@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import {AppRoute} from '../../const';
+import { AppRoute } from '../../const';
 
 type LogoProps = {
   className?: string;
-  onMain: boolean
+  onMain: boolean;
 };
 
 function Logo({ className, onMain }: LogoProps): JSX.Element {
@@ -18,9 +18,7 @@ function Logo({ className, onMain }: LogoProps): JSX.Element {
   const getLogo = () => {
     if (onMain) {
       return (
-        <span className={`logo__link ${className}`}>
-          {getInnerContent()}
-        </span>
+        <span className={`logo__link ${className}`}>{getInnerContent()}</span>
       );
     }
 
@@ -31,11 +29,7 @@ function Logo({ className, onMain }: LogoProps): JSX.Element {
     );
   };
 
-  return (
-    <div className="logo">
-      {getLogo()}
-    </div>
-  );
+  return <div className="logo">{getLogo()}</div>;
 }
 
 export default Logo;

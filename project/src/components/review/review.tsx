@@ -1,17 +1,15 @@
-import {Review} from '../../types/reviews';
+import { ReviewType } from '../../types/reviews';
 import { getFormattedDate } from '../../utils';
 
 type ReviewProps = {
-  review: Review
-}
+  review: ReviewType;
+};
 
-function FilmReview({review}: ReviewProps): JSX.Element {
+function Review({ review }: ReviewProps): JSX.Element {
   return (
     <div className="review">
       <blockquote className="review__quote">
-        <p className="review__text">
-          {review.comment}
-        </p>
+        <p className="review__text">{review.comment}</p>
 
         <footer className="review__details">
           <cite className="review__author">{review.user.name}</cite>
@@ -26,4 +24,4 @@ function FilmReview({review}: ReviewProps): JSX.Element {
   );
 }
 
-export default FilmReview;
+export default Review;

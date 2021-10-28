@@ -1,6 +1,6 @@
-import { Films } from '../types/films';
+import { FilmsType } from '../types/films';
 
-export const films: Films = [
+export const films: FilmsType = [
   {
     id: 1,
     name: 'Shutter-island',

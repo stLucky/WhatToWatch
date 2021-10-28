@@ -1,16 +1,18 @@
-import { Films, Film } from '../types/films';
+import { FilmsType, FilmType } from '../types/films';
 import { useParams } from 'react-router-dom';
 import { getTimeFromMins } from '../utils';
 import Screen404 from './screen-404/screen-404';
 
 type PlayerScreenProps = {
-  films: Films
+  films: FilmsType;
 };
 
 function PlayerScreen({ films }: PlayerScreenProps): JSX.Element {
-  const { id }: {id: string}= useParams();
+  const { id }: { id: string } = useParams();
 
-  const currentFilm: Film | undefined = films.find((film) => film.id === +id);
+  const currentFilm: FilmType | undefined = films.find(
+    (film) => film.id === +id,
+  );
 
   if (currentFilm) {
     return (
@@ -39,7 +41,9 @@ function PlayerScreen({ films }: PlayerScreenProps): JSX.Element {
                 Toggler
               </div>
             </div>
-            <div className="player__time-value">{getTimeFromMins(currentFilm.runTime, 'player')}</div>
+            <div className="player__time-value">
+              {getTimeFromMins(currentFilm.runTime, 'player')}
+            </div>
           </div>
 
           <div className="player__controls-row">

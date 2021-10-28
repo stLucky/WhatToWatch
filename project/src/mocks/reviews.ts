@@ -1,6 +1,6 @@
-import { Reviews } from '../types/reviews';
+import { ReviewsType } from '../types/reviews';
 
-export const reviews: Reviews = [
+export const reviews: ReviewsType = [
   {
     id: 1,
     user: {

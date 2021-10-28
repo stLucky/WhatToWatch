@@ -1,11 +1,11 @@
-import { Reviews } from '../../types/reviews';
-import FilmReview from '../film-review/film-review';
+import { ReviewsType } from '../../types/reviews';
+import Review from '../review/review';
 
 type ReviewsProps = {
-  currentReviews: Reviews;
+  currentReviews: ReviewsType;
 };
 
-function FilmReviews({ currentReviews }: ReviewsProps): JSX.Element {
+function Reviews({ currentReviews }: ReviewsProps): JSX.Element {
   const middleCurrentReviews = Math.round(currentReviews.length / 2) - 1;
 
   return (
@@ -14,7 +14,7 @@ function FilmReviews({ currentReviews }: ReviewsProps): JSX.Element {
         {currentReviews.map(
           (review, i) =>
             i <= middleCurrentReviews && (
-              <FilmReview key={review.id} review={review} />
+              <Review key={review.id} review={review} />
             ),
         )}
       </div>
@@ -22,7 +22,7 @@ function FilmReviews({ currentReviews }: ReviewsProps): JSX.Element {
         {currentReviews.map(
           (review, i) =>
             i > middleCurrentReviews && (
-              <FilmReview key={review.id} review={review} />
+              <Review key={review.id} review={review} />
             ),
         )}
       </div>
@@ -30,4 +30,4 @@ function FilmReviews({ currentReviews }: ReviewsProps): JSX.Element {
   );
 }
 
-export default FilmReviews;
+export default Reviews;

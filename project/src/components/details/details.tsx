@@ -1,12 +1,12 @@
 import { Fragment } from 'react';
 import { getTimeFromMins } from '../../utils';
-import { Film } from '../../types/films';
+import { FilmType } from '../../types/films';
 
-type FilmDetailsProps = {
-  currentFilm: Film;
+type DetailsProps = {
+  currentFilm: FilmType;
 };
 
-function FilmDetails({ currentFilm}: FilmDetailsProps): JSX.Element {
+function Details({ currentFilm }: DetailsProps): JSX.Element {
   return (
     <div className="film-card__text film-card__row">
       <div className="film-card__text-col">
@@ -43,9 +43,7 @@ function FilmDetails({ currentFilm}: FilmDetailsProps): JSX.Element {
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Genre</strong>
-          <span className="film-card__details-value">
-            {currentFilm.genre}
-          </span>
+          <span className="film-card__details-value">{currentFilm.genre}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Released</strong>
@@ -58,4 +56,4 @@ function FilmDetails({ currentFilm}: FilmDetailsProps): JSX.Element {
   );
 }
 
-export default FilmDetails;
+export default Details;

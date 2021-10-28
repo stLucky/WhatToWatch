@@ -3,13 +3,18 @@ import Rating from '../rating/rating';
 
 const MAX_NUMBER_RATING = 10;
 
-const ratings = Array.from({ length: MAX_NUMBER_RATING }, (_, i) => i + 1).reverse();
+const ratings = Array.from(
+  { length: MAX_NUMBER_RATING },
+  (_, i) => i + 1,
+).reverse();
 
 function CommentForm(): JSX.Element {
   const [comment, setComment] = useState<string>('');
   const [rating, setRating] = useState<number | null>(null);
 
-  const handleCommentChange = ({ target }: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleCommentChange = ({
+    target,
+  }: ChangeEvent<HTMLTextAreaElement>) => {
     const value = target.value;
     setComment(value);
   };
@@ -24,7 +29,9 @@ function CommentForm(): JSX.Element {
       <form action="#" className="add-review__form">
         <div className="rating">
           <div className="rating__stars">
-            {ratings.map((item) => <Rating key={item} rating={item} onChange={handleRatingChange} />)}
+            {ratings.map((item) => (
+              <Rating key={item} rating={item} onChange={handleRatingChange} />
+            ))}
           </div>
         </div>
 
@@ -39,12 +46,14 @@ function CommentForm(): JSX.Element {
             {comment}
           </textarea>
           <div className="add-review__submit">
-            <button className="add-review__btn" type="submit" onSubmit={(evt) => {
-
-              evt.preventDefault();
-              // eslint-disable-next-line no-console
-              console.log(evt.target);
-            }}
+            <button
+              className="add-review__btn"
+              type="submit"
+              onSubmit={(evt) => {
+                evt.preventDefault();
+                // eslint-disable-next-line no-console
+                console.log(evt.target);
+              }}
             >
               Post
             </button>

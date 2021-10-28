@@ -6,7 +6,7 @@ type RatingProps = {
 };
 
 function Rating({ rating, onChange }: RatingProps): JSX.Element {
-  const handleChange = ({target}: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     const value = +target.value;
     onChange(value);
   };

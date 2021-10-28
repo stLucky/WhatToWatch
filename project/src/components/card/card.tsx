@@ -1,17 +1,17 @@
 import { Link } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
-import { Film } from '../../types/films';
+import { FilmType } from '../../types/films';
 import VideoPlayer from '../video-player/video-player';
-import styles from './film-card.module.scss';
+import styles from './card.module.scss';
 
-type FilmCardProps = {
-  film: Film;
+type CardProps = {
+  film: FilmType;
   hasPlayer: boolean;
 };
 
 const TIME_VIDEO_DELAY = 1000;
 
-function FilmCard({ film, hasPlayer }: FilmCardProps): JSX.Element {
+function Card({ film, hasPlayer }: CardProps): JSX.Element {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -73,4 +73,4 @@ function FilmCard({ film, hasPlayer }: FilmCardProps): JSX.Element {
   );
 }
 
-export default FilmCard;
+export default Card;

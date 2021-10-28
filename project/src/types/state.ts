@@ -1,7 +1,7 @@
-import { Films } from './films';
+import { FilmsType } from './films';
 
 export type State = {
-  genre: string,
-  films: Films,
-  counter: number
+  activeGenre: string,
+  films: FilmsType,
+  limit: number
 };

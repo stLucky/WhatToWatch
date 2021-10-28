@@ -3,26 +3,25 @@ import Screen404 from './screen-404/screen-404';
 import Header from '../components/header/header';
 import CommentForm from '../components/comment-form/comment-form';
 import { useParams } from 'react-router-dom';
-import { Films, Film } from '../types/films';
+import { FilmsType, FilmType } from '../types/films';
 
 type AddReviewScreenProps = {
-  films: Films
+  films: FilmsType;
 };
 
 function AddReviewScreen({ films }: AddReviewScreenProps): JSX.Element {
-  const { id }: {id: string} = useParams();
+  const { id }: { id: string } = useParams();
 
-  const currentFilm: Film | undefined = films.find((film) => film.id === +id);
+  const currentFilm: FilmType | undefined = films.find(
+    (film) => film.id === +id,
+  );
 
   if (currentFilm) {
     return (
       <section className="film-card film-card--full">
         <div className="film-card__header">
           <div className="film-card__bg">
-            <img
-              src={currentFilm.backgroundImage}
-              alt={currentFilm.name}
-            />
+            <img src={currentFilm.backgroundImage} alt={currentFilm.name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>

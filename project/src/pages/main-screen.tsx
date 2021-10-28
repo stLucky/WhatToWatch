@@ -1,16 +1,18 @@
 import { useEffect } from 'react';
 import { Dispatch } from 'redux';
 import { connect, ConnectedProps } from 'react-redux';
-import FilmsList from '../components/films-list/films-list';
+import Films from '../components/films/films';
 import Footer from '../components/footer/footer';
-import FilmsGenres from '../components/films-genres/films-genres';
+import Genres from '../components/genres/genres';
 import Header from '../components/header/header';
 import ShowMore from '../components/show-more/show-more';
 import { State } from '../types/state';
-import { getGenres } from '../films';
 import { SHOWN_COUNT_FILMS } from '../const';
-import { resetCounter } from '../store/action';
+import { films } from '../mocks/films';
+import { FilmsType } from '../types/films';
+import { DEFAULT_GENRE, MAX_NUMBER_GENRES } from '../const';
 import { Actions } from '../types/action';
+import { resetLimit } from '../store/action';
 
 type MainScreenProps = {
   promoFilmInfo: {
@@ -20,14 +22,29 @@ type MainScreenProps = {
   };
 };
 
-const mapStateToProps = ({ films, counter }: State) => ({
-  films,
-  counter,
+const getGenres = (): string[] => {
+  const genres = [DEFAULT_GENRE, ...new Set(films.map((film) => film.genre))];
+
+  if (genres.length > MAX_NUMBER_GENRES) {
+    genres.length = MAX_NUMBER_GENRES;
+  }
+
+  return genres;
+};
+
+const getFilteredFilms = (genre: string): FilmsType =>
+  genre === DEFAULT_GENRE
+    ? films
+    : films.filter((film) => film.genre === genre);
+
+const mapStateToProps = ({ activeGenre, limit }: State) => ({
+  activeGenre,
+  limit,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
-  onResetCounter() {
-    dispatch(resetCounter());
+  onResetLimit() {
+    dispatch(resetLimit());
   },
 });
 
@@ -38,18 +55,20 @@ type ConnectedComponentProps = PropsFromRedux & MainScreenProps;
 
 function MainScreen({
   promoFilmInfo: { title, genre, releaseDate },
-  films,
-  counter,
-  onResetCounter,
+  activeGenre,
+  limit,
+  onResetLimit,
 }: ConnectedComponentProps): JSX.Element {
+  const filteredFilms = getFilteredFilms(activeGenre);
 
-  const renderedFilms = films.slice(0, counter);
-  const isRenderedShowMore =
-    films.length > SHOWN_COUNT_FILMS && films.length !== renderedFilms.length;
+  const renderedFilms = filteredFilms.slice(0, limit);
+  const isShowMoreVisible =
+    filteredFilms.length > SHOWN_COUNT_FILMS &&
+    filteredFilms.length !== renderedFilms.length;
 
   useEffect(() => {
-    onResetCounter();
-  }, [onResetCounter]);
+    onResetLimit();
+  }, [onResetLimit]);
 
   return (
     <>
@@ -108,9 +127,9 @@ function MainScreen({
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <FilmsGenres genres={getGenres()} />
-          <FilmsList films={renderedFilms} hasPlayer />
-          {isRenderedShowMore && <ShowMore />}
+          <Genres genres={getGenres()} />
+          <Films films={renderedFilms} hasPlayer />
+          {isShowMoreVisible && <ShowMore />}
         </section>
         <Footer onMain />
       </div>
