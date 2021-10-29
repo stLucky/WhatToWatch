@@ -1,11 +1,11 @@
 import { getFormattedRating } from '../../utils';
-import { Film } from '../../types/films';
+import { FilmType } from '../../types/films';
 
-type FilmOverviewProps = {
-  currentFilm: Film;
+type OverviewProps = {
+  currentFilm: FilmType;
 };
 
-function FilmOverview({ currentFilm}: FilmOverviewProps): JSX.Element {
+function Overview({ currentFilm }: OverviewProps): JSX.Element {
   return (
     <>
       <div className="film-rating">
@@ -35,4 +35,4 @@ function FilmOverview({ currentFilm}: FilmOverviewProps): JSX.Element {
   );
 }
 
-export default FilmOverview;
+export default Overview;

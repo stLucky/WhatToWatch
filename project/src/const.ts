@@ -1,3 +1,7 @@
+export const DEFAULT_GENRE = 'All genres';
+export const SHOWN_COUNT_FILMS = 8;
+export const MAX_NUMBER_GENRES = 10;
+
 export enum AppRoute {
   Login = '/login',
   MyList = '/mylist',

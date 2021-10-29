@@ -9,7 +9,7 @@ import AddReviewScreen from '../../pages/add-review-screen';
 import PlayerScreen from '../../pages/player-screen';
 import Screen404 from '../../pages/screen-404/screen-404';
 import PrivateRoute from '../private-route/private-route';
-import { Films } from '../../types/films';
+import { FilmsType } from '../../types/films';
 import { reviews } from '../../mocks/reviews';
 
 type AppScreenProps = {
@@ -19,16 +19,16 @@ type AppScreenProps = {
     releaseDate: number;
   };
 
-  films: Films;
+  films: FilmsType;
 };
 
 function App({ promoFilmInfo, films }: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
-      <ScrollToTop/>
+      <ScrollToTop />
       <Switch>
         <Route path="/" exact>
-          <MainScreen promoFilmInfo={promoFilmInfo} films={films} />
+          <MainScreen promoFilmInfo={promoFilmInfo} />
         </Route>
         <Route path={AppRoute.Login} exact>
           <SignInScreen />

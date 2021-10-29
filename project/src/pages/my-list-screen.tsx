@@ -1,10 +1,10 @@
-import FilmsList from '../components/films-list/films-list';
+import Films from '../components/films/films';
 import Footer from '../components/footer/footer';
 import Header from '../components/header/header';
-import { Films } from '../types/films';
+import { FilmsType } from '../types/films';
 
 type MyListProps = {
-  films: Films
+  films: FilmsType;
 };
 
 function MyListScreen({ films }: MyListProps): JSX.Element {
@@ -17,7 +17,7 @@ function MyListScreen({ films }: MyListProps): JSX.Element {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <FilmsList films={films} hasPlayer/>
+        <Films films={films} hasPlayer />
       </section>
 
       <Footer />

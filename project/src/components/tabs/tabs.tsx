@@ -1,17 +1,17 @@
 import { useState } from 'react';
-import { Film } from '../../types/films';
-import { Reviews } from '../../types/reviews';
-import FilmOverview from '../film-overview/film-overview';
-import FilmReviews from '../film-reviews/film-reviews';
-import FilmDetails from '../film-details/film-details';
-import styles from './film-tabs.module.scss';
+import { FilmType } from '../../types/films';
+import { ReviewsType } from '../../types/reviews';
+import Overview from '../overview/overview';
+import Reviews from '../reviews/reviews';
+import Details from '../details/details';
+import styles from './tabs.module.scss';
 
-type FilmTabsProps = {
-  currentFilm: Film;
-  currentReviews: Reviews;
+type TabsProps = {
+  currentFilm: FilmType;
+  currentReviews: ReviewsType;
 };
 
-function FilmTabs({ currentFilm, currentReviews }: FilmTabsProps): JSX.Element {
+function Tabs({ currentFilm, currentReviews }: TabsProps): JSX.Element {
   const tabs = ['Overview', 'Details', 'Reviews'];
 
   const [active, setActive] = useState(tabs[0]);
@@ -39,13 +39,13 @@ function FilmTabs({ currentFilm, currentReviews }: FilmTabsProps): JSX.Element {
         </ul>
       </nav>
 
-      {active === tabs[0] && <FilmOverview currentFilm={currentFilm} />}
+      {active === tabs[0] && <Overview currentFilm={currentFilm} />}
 
-      {active === tabs[1] && <FilmDetails currentFilm={currentFilm} />}
+      {active === tabs[1] && <Details currentFilm={currentFilm} />}
 
-      {active === tabs[2] && <FilmReviews currentReviews={currentReviews} />}
+      {active === tabs[2] && <Reviews currentReviews={currentReviews} />}
     </>
   );
 }
 
-export default FilmTabs;
+export default Tabs;

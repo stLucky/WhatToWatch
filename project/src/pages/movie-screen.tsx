@@ -1,25 +1,31 @@
 import Footer from '../components/footer/footer';
 import Header from '../components/header/header';
-import FilmsList from '../components/films-list/films-list';
-import FilmTabs from '../components/film-tabs/film-tabs';
+import Films from '../components/films/films';
+import Tabs from '../components/tabs/tabs';
 import Screen404 from './screen-404/screen-404';
 import { useParams } from 'react-router-dom';
-import { Films, Film } from '../types/films';
-import { Reviews } from '../types/reviews';
+import { FilmsType, FilmType } from '../types/films';
+import { ReviewsType } from '../types/reviews';
 
-const MAX_VISIBLE_MORE_FILMS = 4;
+const MAX_VISIBLE_SIMILAR_FILMS = 4;
 
 type MovieScreenProps = {
-  films: Films;
-  reviews: Reviews;
+  films: FilmsType;
+  reviews: ReviewsType;
 };
 
 function MovieScreen({ films, reviews }: MovieScreenProps): JSX.Element {
   const { id }: { id: string } = useParams();
 
-  const currentFilm: Film | undefined = films.find((film) => film.id === +id);
-  const currentReviews: Reviews = reviews.filter((review) => review.id === +id);
-  const similarGenreFilms: Films = films.filter(
+  const currentFilm: FilmType | undefined = films.find(
+    (film) => film.id === +id,
+  );
+
+  const currentReviews: ReviewsType = reviews.filter(
+    (review) => review.id === +id,
+  );
+
+  const similarGenreFilms: FilmsType = films.filter(
     (film) => film.genre === currentFilm?.genre,
   );
 
@@ -89,7 +95,7 @@ function MovieScreen({ films, reviews }: MovieScreenProps): JSX.Element {
               </div>
 
               <div className="film-card__desc">
-                <FilmTabs
+                <Tabs
                   currentFilm={currentFilm}
                   currentReviews={currentReviews}
                 />
@@ -101,8 +107,8 @@ function MovieScreen({ films, reviews }: MovieScreenProps): JSX.Element {
         <div className="page-content">
           <section className="catalog catalog--like-this">
             <h2 className="catalog__title">More like this</h2>
-            <FilmsList
-              films={similarGenreFilms.slice(MAX_VISIBLE_MORE_FILMS)}
+            <Films
+              films={similarGenreFilms.slice(0, MAX_VISIBLE_SIMILAR_FILMS)}
               hasPlayer={false}
             />
           </section>

@@ -1,9 +1,9 @@
 type BreadcrumbsProps = {
-  filmName: string
-  id: number
-}
+  filmName: string;
+  id: number;
+};
 
-function Breadcrumbs({filmName, id}: BreadcrumbsProps): JSX.Element {
+function Breadcrumbs({ filmName, id }: BreadcrumbsProps): JSX.Element {
   return (
     <nav className="breadcrumbs">
       <ul className="breadcrumbs__list">
