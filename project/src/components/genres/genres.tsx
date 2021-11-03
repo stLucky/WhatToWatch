@@ -2,9 +2,9 @@ import { Dispatch } from 'redux';
 import { connect, ConnectedProps } from 'react-redux';
 import { MouseEvent } from 'react';
 import cn from 'classnames';
-import { Actions } from '../../types/action';
+import { Actions } from '../../types/actions';
 import { State } from '../../types/state';
-import { changeActiveGenre, resetLimit } from '../../store/action';
+import { changeActiveGenre, resetLimit } from '../../store/actions';
 
 type GenresProps = {
   genres: string[];

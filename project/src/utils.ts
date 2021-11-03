@@ -1,4 +1,4 @@
-export const getFormattedRating= (rating: number ): string => {
+export const getFormattedRating = (rating: number): string => {
   if (rating > 0 && rating < 3) {
     return 'Bad';
   }
@@ -15,18 +15,21 @@ export const getFormattedRating= (rating: number ): string => {
     return 'Good';
   }
 
-  if (rating === 10 ) {
+  if (rating === 10) {
     return 'Awesome';
   }
 
   return 'Incorrect';
 };
 
-export const getTimeFromMins = (mins: number, type: 'player' | 'info'): string => {
+export const getTimeFromMins = (
+  mins: number,
+  type: 'player' | 'info',
+): string => {
   const hours = Math.trunc(mins / 60);
   const minutes = mins % 60;
 
-  return (type === 'player') ? `${hours}:${minutes}` : `${hours}h ${minutes}m`;
+  return type === 'player' ? `${hours}:${minutes}` : `${hours}h ${minutes}m`;
 };
 
 export const getFormattedDate = (date: string): string => {

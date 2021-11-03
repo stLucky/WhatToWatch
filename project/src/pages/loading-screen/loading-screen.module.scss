@@ -1,0 +1,27 @@
+.wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-image: linear-gradient(-180deg, #180202 0, #000 100%);
+}
+
+.loader {
+  animation: rotate 1000ms linear infinite;
+  color: #eee5b5;
+
+  circle {
+    opacity: 0.25;
+  }
+
+  path {
+    opacity: 0.75;
+  }
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}

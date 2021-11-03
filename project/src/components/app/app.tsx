@@ -1,3 +1,4 @@
+import { connect, ConnectedProps } from 'react-redux';
 import MainScreen from '../../pages/main-screen';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
@@ -9,8 +10,9 @@ import AddReviewScreen from '../../pages/add-review-screen';
 import PlayerScreen from '../../pages/player-screen';
 import Screen404 from '../../pages/screen-404/screen-404';
 import PrivateRoute from '../private-route/private-route';
-import { FilmsType } from '../../types/films';
 import { reviews } from '../../mocks/reviews';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
+import { State } from '../../types/state';
 
 type AppScreenProps = {
   promoFilmInfo: {
@@ -18,11 +20,32 @@ type AppScreenProps = {
     genre: string;
     releaseDate: number;
   };
-
-  films: FilmsType;
 };
 
-function App({ promoFilmInfo, films }: AppScreenProps): JSX.Element {
+export const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean =>
+  authorizationStatus === AuthorizationStatus.Unknown;
+
+const mapStateToProps = ({ authorizationStatus, isDataLoaded, films }: State) => ({
+  authorizationStatus,
+  isDataLoaded,
+  films,
+});
+
+const connector = connect(mapStateToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = PropsFromRedux & AppScreenProps;
+
+function App({
+  promoFilmInfo,
+  films,
+  authorizationStatus,
+  isDataLoaded,
+}: ConnectedComponentProps): JSX.Element {
+  if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
+    return <LoadingScreen />;
+  }
+
   return (
     <BrowserRouter>
       <ScrollToTop />
@@ -59,4 +82,5 @@ function App({ promoFilmInfo, films }: AppScreenProps): JSX.Element {
   );
 }
 
-export default App;
+export { App };
+export default connector(App);

@@ -8,11 +8,10 @@ import Header from '../components/header/header';
 import ShowMore from '../components/show-more/show-more';
 import { State } from '../types/state';
 import { SHOWN_COUNT_FILMS } from '../const';
-import { films } from '../mocks/films';
-import { FilmsType } from '../types/films';
 import { DEFAULT_GENRE, MAX_NUMBER_GENRES } from '../const';
-import { Actions } from '../types/action';
-import { resetLimit } from '../store/action';
+import { Actions } from '../types/actions';
+import { resetLimit } from '../store/actions';
+import { FilmsType } from '../types/films';
 
 type MainScreenProps = {
   promoFilmInfo: {
@@ -22,7 +21,7 @@ type MainScreenProps = {
   };
 };
 
-const getGenres = (): string[] => {
+const getGenres = (films: FilmsType): string[] => {
   const genres = [DEFAULT_GENRE, ...new Set(films.map((film) => film.genre))];
 
   if (genres.length > MAX_NUMBER_GENRES) {
@@ -32,14 +31,15 @@ const getGenres = (): string[] => {
   return genres;
 };
 
-const getFilteredFilms = (genre: string): FilmsType =>
+const getFilteredFilms = (genre: string, films: FilmsType): FilmsType =>
   genre === DEFAULT_GENRE
     ? films
     : films.filter((film) => film.genre === genre);
 
-const mapStateToProps = ({ activeGenre, limit }: State) => ({
+const mapStateToProps = ({ activeGenre, limit, films }: State) => ({
   activeGenre,
   limit,
+  films,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
@@ -57,9 +57,10 @@ function MainScreen({
   promoFilmInfo: { title, genre, releaseDate },
   activeGenre,
   limit,
+  films,
   onResetLimit,
 }: ConnectedComponentProps): JSX.Element {
-  const filteredFilms = getFilteredFilms(activeGenre);
+  const filteredFilms = getFilteredFilms(activeGenre, films);
 
   const renderedFilms = filteredFilms.slice(0, limit);
   const isShowMoreVisible =
@@ -127,7 +128,7 @@ function MainScreen({
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <Genres genres={getGenres()} />
+          <Genres genres={getGenres(films)} />
           <Films films={renderedFilms} hasPlayer />
           {isShowMoreVisible && <ShowMore />}
         </section>
