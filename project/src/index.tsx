@@ -11,7 +11,7 @@ import { checkAuthAction, fetchFilmsAction } from './store/api-actions';
 import { requireAuthorization } from './store/actions';
 import { AuthorizationStatus } from './const';
 import { ThunkAppDispatch } from './types/actions';
-
+import { redirect } from './store/middlewares/redirect';
 
 const Setting = {
   PromoFilmInfo: {
@@ -21,14 +21,15 @@ const Setting = {
   },
 };
 
-const api = createAPI(
-  () => store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth)),
+const api = createAPI(() =>
+  store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth)),
 );
 
 const store = createStore(
   reducer,
   composeWithDevTools(
     applyMiddleware(thunk.withExtraArgument(api)),
+    applyMiddleware(redirect),
   ),
 );
 

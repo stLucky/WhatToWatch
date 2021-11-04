@@ -80,7 +80,7 @@ function MainScreen({
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <Header className="film-card__head" isAuthorizedUser onMain />
+        <Header className="film-card__head" onMain />
 
         <div className="film-card__wrap">
           <div className="film-card__info">

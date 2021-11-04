@@ -8,7 +8,8 @@ import {
   incrementLimit,
   resetLimit,
   requireAuthorization,
-  requireLogout
+  requireLogout,
+  redirectToRoute
 } from '../store/actions';
 
 export enum ActionTypes {
@@ -18,6 +19,7 @@ export enum ActionTypes {
   LoadFilms = 'data/loadFilms',
   RequireAuthorization = 'user/requireAuthorization',
   RequireLogout = 'user/requireLogout',
+  RedirectToRoute = 'route/redirectToRoute'
 }
 
 export type Actions =
@@ -26,7 +28,8 @@ export type Actions =
   | ReturnType<typeof incrementLimit>
   | ReturnType<typeof resetLimit>
   | ReturnType<typeof requireAuthorization>
-  | ReturnType<typeof requireLogout>;
+  | ReturnType<typeof requireLogout>
+  | ReturnType<typeof redirectToRoute>;
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
 

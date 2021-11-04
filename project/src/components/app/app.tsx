@@ -1,8 +1,8 @@
 import { connect, ConnectedProps } from 'react-redux';
 import MainScreen from '../../pages/main-screen';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Router as BrowserRouter, Route, Switch } from 'react-router-dom';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 import SignInScreen from '../../pages/sign-in-screen';
 import MyListScreen from '../../pages/my-list-screen';
 import MovieScreen from '../../pages/movie-screen';
@@ -13,6 +13,7 @@ import PrivateRoute from '../private-route/private-route';
 import { reviews } from '../../mocks/reviews';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import { State } from '../../types/state';
+import browserHistory from '../../browser-history';
 
 type AppScreenProps = {
   promoFilmInfo: {
@@ -22,11 +23,10 @@ type AppScreenProps = {
   };
 };
 
-export const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean =>
-  authorizationStatus === AuthorizationStatus.Unknown;
+// export const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean =>
+//   authorizationStatus === AuthorizationStatus.Unknown;
 
-const mapStateToProps = ({ authorizationStatus, isDataLoaded, films }: State) => ({
-  authorizationStatus,
+const mapStateToProps = ({ isDataLoaded, films }: State) => ({
   isDataLoaded,
   films,
 });
@@ -39,15 +39,14 @@ type ConnectedComponentProps = PropsFromRedux & AppScreenProps;
 function App({
   promoFilmInfo,
   films,
-  authorizationStatus,
   isDataLoaded,
 }: ConnectedComponentProps): JSX.Element {
-  if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
+  if (!isDataLoaded) {
     return <LoadingScreen />;
   }
 
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <ScrollToTop />
       <Switch>
         <Route path="/" exact>
@@ -60,7 +59,6 @@ function App({
           exact
           path={AppRoute.MyList}
           render={() => <MyListScreen films={films} />}
-          authorizationStatus={AuthorizationStatus.NoAuth}
         />
         <Route path={AppRoute.Film} exact>
           <MovieScreen films={films} reviews={reviews} />
@@ -69,7 +67,6 @@ function App({
           exact
           path={AppRoute.AddReview}
           render={() => <AddReviewScreen films={films} />}
-          authorizationStatus={AuthorizationStatus.NoAuth}
         />
         <Route path={AppRoute.Player} exact>
           <PlayerScreen films={films} />

@@ -1,7 +1,7 @@
 import { ThunkActionResult } from '../types/actions';
-import { loadFilms, requireAuthorization, requireLogout } from './actions';
+import { loadFilms, requireAuthorization, requireLogout, redirectToRoute } from './actions';
 import { saveToken, dropToken, Token } from '../services/token';
-import { APIRoute, AuthorizationStatus } from '../const';
+import { APIRoute, AuthorizationStatus, AppRoute } from '../const';
 import { FilmsType } from '../types/films';
 import { AuthData } from '../types/auth-data';
 import camelcaseKeys from 'camelcase-keys';
@@ -31,6 +31,7 @@ export const loginAction =
       } = await api.post<{ token: Token }>(APIRoute.Login, { email, password });
       saveToken(token);
       dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      dispatch(redirectToRoute(AppRoute.Root));
     };
 
 export const logoutAction =
