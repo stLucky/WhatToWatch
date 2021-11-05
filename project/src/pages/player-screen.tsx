@@ -1,7 +1,7 @@
 import { FilmsType, FilmType } from '../types/films';
 import { useParams } from 'react-router-dom';
 import { getTimeFromMins } from '../utils';
-import Screen404 from './screen-404/screen-404';
+import ErrorScreen from './error-screen/error-screen';
 
 type PlayerScreenProps = {
   films: FilmsType;
@@ -67,7 +67,7 @@ function PlayerScreen({ films }: PlayerScreenProps): JSX.Element {
     );
   }
 
-  return <Screen404 />;
+  return <ErrorScreen />;
 }
 
 export default PlayerScreen;

@@ -12,6 +12,8 @@ import { requireAuthorization } from './store/actions';
 import { AuthorizationStatus } from './const';
 import { ThunkAppDispatch } from './types/actions';
 import { redirect } from './store/middlewares/redirect';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Setting = {
   PromoFilmInfo: {
@@ -32,13 +34,13 @@ const store = createStore(
     applyMiddleware(redirect),
   ),
 );
-
 (store.dispatch as ThunkAppDispatch)(checkAuthAction());
 (store.dispatch as ThunkAppDispatch)(fetchFilmsAction());
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
+      <ToastContainer />
       <App promoFilmInfo={Setting.PromoFilmInfo} />
     </Provider>
   </React.StrictMode>,

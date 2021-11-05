@@ -2,10 +2,10 @@ import Footer from '../components/footer/footer';
 import Header from '../components/header/header';
 import Films from '../components/films/films';
 import Tabs from '../components/tabs/tabs';
-import Screen404 from './screen-404/screen-404';
 import { useParams } from 'react-router-dom';
 import { FilmsType, FilmType } from '../types/films';
 import { ReviewsType } from '../types/reviews';
+import ErrorScreen from './error-screen/error-screen';
 
 const MAX_VISIBLE_SIMILAR_FILMS = 4;
 
@@ -118,7 +118,7 @@ function MovieScreen({ films, reviews }: MovieScreenProps): JSX.Element {
     );
   }
 
-  return <Screen404 />;
+  return <ErrorScreen />;
 }
 
 export default MovieScreen;

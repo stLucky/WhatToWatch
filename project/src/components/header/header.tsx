@@ -6,14 +6,14 @@ import UserMenu from '../user-menu/user-menu';
 type HeaderProps = PropsWithChildren<{
   className?: string;
   isAuthorizedUser?: boolean;
-  isSignInPage?: boolean;
+  isVisibleUserMenu?: boolean;
   onMain?: boolean;
 }>;
 
 function Header({
   className = '',
   children,
-  isSignInPage = false,
+  isVisibleUserMenu = true,
   onMain = false,
 }: HeaderProps): JSX.Element {
   const headerClasses = cn('page-header', `${className}`);
@@ -22,7 +22,7 @@ function Header({
     <header className={headerClasses}>
       <Logo onMain={onMain} />
       {children}
-      {!isSignInPage && <UserMenu />}
+      {isVisibleUserMenu && <UserMenu />}
     </header>
   );
 }

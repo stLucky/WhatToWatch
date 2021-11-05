@@ -11,15 +11,21 @@ const initialState = {
   films: [],
   limit: SHOWN_COUNT_FILMS,
   authorizationStatus: AuthorizationStatus.Unknown,
-  isDataLoaded: false,
+  isFilmsLoading: false,
+  isFilmsError: false,
+  isAuthLoading: false,
 };
 
 const reducer = (state: State = initialState, action: Actions): State => {
   switch (action.type) {
     case ActionTypes.ChangeActiveGenre:
       return { ...state, activeGenre: action.payload };
-    case ActionTypes.LoadFilms:
-      return { ...state, films: action.payload, isDataLoaded: true };
+    case ActionTypes.LoadFilmsRequest:
+      return { ...state, isFilmsLoading: action.payload };
+    case ActionTypes.LoadFilmsSuccess:
+      return { ...state, films: action.payload };
+    case ActionTypes.LoadFilmsError:
+      return { ...state, isFilmsError: true };
     case ActionTypes.IncrementLimit:
       return { ...state, limit: state.limit + action.payload };
     case ActionTypes.ResetLimit:
@@ -31,6 +37,8 @@ const reducer = (state: State = initialState, action: Actions): State => {
       };
     case ActionTypes.RequireLogout:
       return { ...state, authorizationStatus: AuthorizationStatus.NoAuth };
+    case ActionTypes.AuthorizationRequest:
+      return { ...state, isAuthLoading: action.payload };
     default:
       return state;
   }

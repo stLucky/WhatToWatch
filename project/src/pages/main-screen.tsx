@@ -12,6 +12,8 @@ import { DEFAULT_GENRE, MAX_NUMBER_GENRES } from '../const';
 import { Actions } from '../types/actions';
 import { resetLimit } from '../store/actions';
 import { FilmsType } from '../types/films';
+import LoadingScreen from './loading-screen/loading-screen';
+import ErrorScreen from './error-screen/error-screen';
 
 type MainScreenProps = {
   promoFilmInfo: {
@@ -36,10 +38,18 @@ const getFilteredFilms = (genre: string, films: FilmsType): FilmsType =>
     ? films
     : films.filter((film) => film.genre === genre);
 
-const mapStateToProps = ({ activeGenre, limit, films }: State) => ({
+const mapStateToProps = ({
   activeGenre,
   limit,
   films,
+  isFilmsLoading,
+  isFilmsError,
+}: State) => ({
+  activeGenre,
+  limit,
+  films,
+  isFilmsLoading,
+  isFilmsError,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
@@ -58,6 +68,8 @@ function MainScreen({
   activeGenre,
   limit,
   films,
+  isFilmsLoading,
+  isFilmsError,
   onResetLimit,
 }: ConnectedComponentProps): JSX.Element {
   const filteredFilms = getFilteredFilms(activeGenre, films);
@@ -70,6 +82,14 @@ function MainScreen({
   useEffect(() => {
     onResetLimit();
   }, [onResetLimit]);
+
+  if (isFilmsLoading) {
+    return <LoadingScreen />;
+  }
+
+  if (isFilmsError) {
+    return <ErrorScreen />;
+  }
 
   return (
     <>

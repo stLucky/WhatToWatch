@@ -7,9 +7,18 @@ export const changeActiveGenre = (genre: string) => ({
   payload: genre,
 } as const);
 
-export const loadFilms = (films: FilmsType) => ({
-  type: ActionTypes.LoadFilms,
+export const loadFilmsRequest = (hasRequest: boolean) => ({
+  type: ActionTypes.LoadFilmsRequest,
+  payload: hasRequest,
+} as const);
+
+export const loadFilmsSuccess = (films: FilmsType) => ({
+  type: ActionTypes.LoadFilmsSuccess,
   payload: films,
+} as const);
+
+export const loadFilmsError = () => ({
+  type: ActionTypes.LoadFilmsError,
 } as const);
 
 export const incrementLimit = (offset: number) => ({
@@ -24,6 +33,11 @@ export const resetLimit = () => ({
 export const requireAuthorization = (authStatus: AuthorizationStatus) => ({
   type: ActionTypes.RequireAuthorization,
   payload: authStatus,
+} as const);
+
+export const authorizationRequest = (hasRequest: boolean) => ({
+  type: ActionTypes.AuthorizationRequest,
+  payload: hasRequest,
 } as const);
 
 export const requireLogout = () => ({

@@ -8,12 +8,11 @@ import MyListScreen from '../../pages/my-list-screen';
 import MovieScreen from '../../pages/movie-screen';
 import AddReviewScreen from '../../pages/add-review-screen';
 import PlayerScreen from '../../pages/player-screen';
-import Screen404 from '../../pages/screen-404/screen-404';
 import PrivateRoute from '../private-route/private-route';
 import { reviews } from '../../mocks/reviews';
-import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import { State } from '../../types/state';
 import browserHistory from '../../browser-history';
+import ErrorScreen from '../../pages/error-screen/error-screen';
 
 type AppScreenProps = {
   promoFilmInfo: {
@@ -23,11 +22,7 @@ type AppScreenProps = {
   };
 };
 
-// export const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean =>
-//   authorizationStatus === AuthorizationStatus.Unknown;
-
-const mapStateToProps = ({ isDataLoaded, films }: State) => ({
-  isDataLoaded,
+const mapStateToProps = ({ films }: State) => ({
   films,
 });
 
@@ -36,15 +31,7 @@ const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type ConnectedComponentProps = PropsFromRedux & AppScreenProps;
 
-function App({
-  promoFilmInfo,
-  films,
-  isDataLoaded,
-}: ConnectedComponentProps): JSX.Element {
-  if (!isDataLoaded) {
-    return <LoadingScreen />;
-  }
-
+function App({ promoFilmInfo, films }: ConnectedComponentProps): JSX.Element {
   return (
     <BrowserRouter history={browserHistory}>
       <ScrollToTop />
@@ -72,7 +59,7 @@ function App({
           <PlayerScreen films={films} />
         </Route>
         <Route>
-          <Screen404 />
+          <ErrorScreen type="404" />
         </Route>
       </Switch>
     </BrowserRouter>

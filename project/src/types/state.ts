@@ -6,5 +6,7 @@ export type State = {
   films: FilmsType,
   limit: number,
   authorizationStatus: AuthorizationStatus,
-  isDataLoaded: boolean,
+  isFilmsLoading: boolean,
+  isFilmsError: boolean,
+  isAuthLoading: boolean
 };
