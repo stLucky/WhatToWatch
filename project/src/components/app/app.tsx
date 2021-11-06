@@ -1,16 +1,18 @@
+import { connect, ConnectedProps } from 'react-redux';
 import MainScreen from '../../pages/main-screen';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Router as BrowserRouter, Route, Switch } from 'react-router-dom';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 import SignInScreen from '../../pages/sign-in-screen';
 import MyListScreen from '../../pages/my-list-screen';
 import MovieScreen from '../../pages/movie-screen';
 import AddReviewScreen from '../../pages/add-review-screen';
 import PlayerScreen from '../../pages/player-screen';
-import Screen404 from '../../pages/screen-404/screen-404';
 import PrivateRoute from '../private-route/private-route';
-import { FilmsType } from '../../types/films';
 import { reviews } from '../../mocks/reviews';
+import { State } from '../../types/state';
+import browserHistory from '../../browser-history';
+import ErrorScreen from '../../pages/error-screen/error-screen';
 
 type AppScreenProps = {
   promoFilmInfo: {
@@ -18,13 +20,20 @@ type AppScreenProps = {
     genre: string;
     releaseDate: number;
   };
-
-  films: FilmsType;
 };
 
-function App({ promoFilmInfo, films }: AppScreenProps): JSX.Element {
+const mapStateToProps = ({ films }: State) => ({
+  films,
+});
+
+const connector = connect(mapStateToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = PropsFromRedux & AppScreenProps;
+
+function App({ promoFilmInfo, films }: ConnectedComponentProps): JSX.Element {
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <ScrollToTop />
       <Switch>
         <Route path="/" exact>
@@ -37,7 +46,6 @@ function App({ promoFilmInfo, films }: AppScreenProps): JSX.Element {
           exact
           path={AppRoute.MyList}
           render={() => <MyListScreen films={films} />}
-          authorizationStatus={AuthorizationStatus.NoAuth}
         />
         <Route path={AppRoute.Film} exact>
           <MovieScreen films={films} reviews={reviews} />
@@ -46,17 +54,17 @@ function App({ promoFilmInfo, films }: AppScreenProps): JSX.Element {
           exact
           path={AppRoute.AddReview}
           render={() => <AddReviewScreen films={films} />}
-          authorizationStatus={AuthorizationStatus.NoAuth}
         />
         <Route path={AppRoute.Player} exact>
           <PlayerScreen films={films} />
         </Route>
         <Route>
-          <Screen404 />
+          <ErrorScreen type="404" />
         </Route>
       </Switch>
     </BrowserRouter>
   );
 }
 
-export default App;
+export { App };
+export default connector(App);

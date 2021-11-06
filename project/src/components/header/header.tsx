@@ -1,26 +1,28 @@
 import { PropsWithChildren } from 'react';
+import cn from 'classnames';
 import Logo from '../logo/logo';
 import UserMenu from '../user-menu/user-menu';
 
 type HeaderProps = PropsWithChildren<{
   className?: string;
   isAuthorizedUser?: boolean;
-  isSignInPage?: boolean;
+  isVisibleUserMenu?: boolean;
   onMain?: boolean;
 }>;
 
 function Header({
   className = '',
   children,
-  isAuthorizedUser = false,
-  isSignInPage = false,
+  isVisibleUserMenu = true,
   onMain = false,
 }: HeaderProps): JSX.Element {
+  const headerClasses = cn('page-header', `${className}`);
+
   return (
-    <header className={`page-header ${className}`}>
+    <header className={headerClasses}>
       <Logo onMain={onMain} />
       {children}
-      {!isSignInPage && <UserMenu isAuthorized={isAuthorizedUser} />}
+      {isVisibleUserMenu && <UserMenu />}
     </header>
   );
 }

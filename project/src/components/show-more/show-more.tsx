@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import { connect, ConnectedProps } from 'react-redux';
-import { Actions } from '../../types/action';
-import { incrementLimit } from '../../store/action';
+import { Actions } from '../../types/actions';
+import { incrementLimit } from '../../store/actions';
 import { SHOWN_COUNT_FILMS } from '../../const';
 
 const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({

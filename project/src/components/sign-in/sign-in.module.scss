@@ -1,0 +1,10 @@
+.btn {
+  &--disabled {
+    border-color: rgba(#efebd0, 0.1);
+
+    &:hover {
+      border-color: rgba(#efebd0, 0.1);
+      cursor: default;
+    }
+  }
+}

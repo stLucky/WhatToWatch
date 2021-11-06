@@ -1,9 +1,26 @@
-type UserMenuProps = {
-  isAuthorized: boolean;
-};
+import { connect, ConnectedProps } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { State } from '../../types/state';
+import { AuthorizationStatus, AppRoute } from '../../const';
+import {ThunkAppDispatch} from '../../types/actions';
+import {logoutAction} from '../../store/api-actions';
 
-function UserMenu({ isAuthorized }: UserMenuProps): JSX.Element {
-  if (isAuthorized) {
+const mapStateToProps = ({ authorizationStatus }: State) => ({
+  authorizationStatus,
+});
+
+const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
+  logout() {
+    dispatch(logoutAction());
+  },
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+function UserMenu({ authorizationStatus, logout }: PropsFromRedux): JSX.Element {
+  if (authorizationStatus === AuthorizationStatus.Auth) {
     return (
       <ul className="user-block">
         <li className="user-block__item">
@@ -17,7 +34,17 @@ function UserMenu({ isAuthorized }: UserMenuProps): JSX.Element {
           </div>
         </li>
         <li className="user-block__item">
-          <a className="user-block__link">Sign out</a>
+          <Link
+            to="/"
+            onClick={(evt) => {
+              evt.preventDefault();
+
+              logout();
+            }}
+            className="user-block__link"
+          >
+            Sign out
+          </Link>
         </li>
       </ul>
     );
@@ -25,11 +52,12 @@ function UserMenu({ isAuthorized }: UserMenuProps): JSX.Element {
 
   return (
     <div className="user-block">
-      <a href="sign-in.html" className="user-block__link">
+      <Link to={AppRoute.Login} className="user-block__link">
         Sign in
-      </a>
+      </Link>
     </div>
   );
 }
 
-export default UserMenu;
+export { UserMenu };
+export default connector(UserMenu);

@@ -1,11 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
+import { createAPI } from './services/api';
 import App from './components/app/app';
-import { films } from './mocks/films';
 import { reducer } from './store/reducer';
+import { checkAuthAction, fetchFilmsAction } from './store/api-actions';
+import { requireAuthorization } from './store/actions';
+import { AuthorizationStatus } from './const';
+import { ThunkAppDispatch } from './types/actions';
+import { redirect } from './store/middlewares/redirect';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Setting = {
   PromoFilmInfo: {
@@ -15,12 +23,25 @@ const Setting = {
   },
 };
 
-const store = createStore(reducer, composeWithDevTools());
+const api = createAPI(() =>
+  store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth)),
+);
+
+const store = createStore(
+  reducer,
+  composeWithDevTools(
+    applyMiddleware(thunk.withExtraArgument(api)),
+    applyMiddleware(redirect),
+  ),
+);
+(store.dispatch as ThunkAppDispatch)(checkAuthAction());
+(store.dispatch as ThunkAppDispatch)(fetchFilmsAction());
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App promoFilmInfo={Setting.PromoFilmInfo} films={films} />
+      <ToastContainer />
+      <App promoFilmInfo={Setting.PromoFilmInfo} />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'),

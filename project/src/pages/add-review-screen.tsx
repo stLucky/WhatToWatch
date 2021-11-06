@@ -1,9 +1,9 @@
 import Breadcrumbs from '../components/breadcrumbs/breadcrumbs';
-import Screen404 from './screen-404/screen-404';
 import Header from '../components/header/header';
 import CommentForm from '../components/comment-form/comment-form';
 import { useParams } from 'react-router-dom';
 import { FilmsType, FilmType } from '../types/films';
+import ErrorScreen from './error-screen/error-screen';
 
 type AddReviewScreenProps = {
   films: FilmsType;
@@ -45,7 +45,7 @@ function AddReviewScreen({ films }: AddReviewScreenProps): JSX.Element {
     );
   }
 
-  return <Screen404 />;
+  return <ErrorScreen />;
 }
 
 export default AddReviewScreen;

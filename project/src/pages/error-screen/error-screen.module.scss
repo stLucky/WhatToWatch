@@ -20,4 +20,8 @@
 .link {
   font-size: 30px;
   line-height: 40px;
+
+  &:hover {
+    text-decoration: none;
+  }
 }
