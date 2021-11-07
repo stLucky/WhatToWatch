@@ -1,5 +1,14 @@
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, FormEvent } from 'react';
 import Rating from '../rating/rating';
+import { connect, ConnectedProps } from 'react-redux';
+import { fetchSendReviewAction } from '../../store/api-actions';
+import { ThunkAppDispatch } from '../../types/actions';
+import { useParams } from 'react-router-dom';
+import { State } from '../../types/state';
+import Loader from 'react-loader-spinner';
+import { ReviewSend } from '../../types/reviews';
+import cn from 'classnames';
+import styles from './comment-form.module.scss';
 
 const MAX_NUMBER_RATING = 10;
 
@@ -8,29 +17,76 @@ const ratings = Array.from(
   (_, i) => i + 1,
 ).reverse();
 
-function CommentForm(): JSX.Element {
+const mapStateToProps = ({ isSendReviewLoading }: State) => ({
+  isSendReviewLoading,
+});
+
+const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
+  onSendReview(review: ReviewSend, id: number) {
+    dispatch(fetchSendReviewAction(review, id));
+  },
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+function CommentForm({
+  isSendReviewLoading,
+  onSendReview,
+}: PropsFromRedux): JSX.Element {
+  const { id }: { id: string } = useParams();
+
   const [comment, setComment] = useState<string>('');
   const [rating, setRating] = useState<number | null>(null);
+
+  const isDisabledForm =
+    comment === '' ||
+    comment.length < 50 ||
+    comment.length > 400 ||
+    !rating ||
+    isSendReviewLoading;
 
   const handleCommentChange = ({
     target,
   }: ChangeEvent<HTMLTextAreaElement>) => {
-    const value = target.value;
-    setComment(value);
+    setComment(target.value);
   };
+
   const handleRatingChange = (ratingQuantity: number) => {
     setRating(ratingQuantity);
   };
-  // eslint-disable-next-line no-console
-  console.log(comment, rating);
+
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    if (!isDisabledForm) {
+      onSendReview({ rating, comment }, +id);
+    }
+  };
+
+  const formClasses = cn('add-review', styles.wrap);
+
+  if (isSendReviewLoading) {
+    return (
+      <div className={formClasses}>
+        <Loader type="Oval" color="#180202" height={50} width={50} />
+      </div>
+    );
+  }
 
   return (
     <div className="add-review">
-      <form action="#" className="add-review__form">
+      <form action="#" className="add-review__form" onSubmit={handleSubmit}>
         <div className="rating">
           <div className="rating__stars">
             {ratings.map((item) => (
-              <Rating key={item} rating={item} onChange={handleRatingChange} />
+              <Rating
+                key={item}
+                rating={item}
+                checked={rating}
+                onChange={handleRatingChange}
+              />
             ))}
           </div>
         </div>
@@ -42,18 +98,13 @@ function CommentForm(): JSX.Element {
             id="review-text"
             placeholder="Review text"
             onChange={handleCommentChange}
-          >
-            {comment}
-          </textarea>
+            value={comment}
+          />
           <div className="add-review__submit">
             <button
               className="add-review__btn"
               type="submit"
-              onSubmit={(evt) => {
-                evt.preventDefault();
-                // eslint-disable-next-line no-console
-                console.log(evt.target);
-              }}
+              disabled={isDisabledForm}
             >
               Post
             </button>
@@ -64,4 +115,6 @@ function CommentForm(): JSX.Element {
   );
 }
 
-export default CommentForm;
+export { CommentForm };
+
+export default connector(CommentForm);

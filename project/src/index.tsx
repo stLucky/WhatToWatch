@@ -14,6 +14,7 @@ import { ThunkAppDispatch } from './types/actions';
 import { redirect } from './store/middlewares/redirect';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
 const Setting = {
   PromoFilmInfo: {

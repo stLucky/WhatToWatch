@@ -11,4 +11,6 @@ export type ReviewType = {
   date: string
 }
 
+export type ReviewSend = Omit<ReviewType, 'id' | 'user' | 'date'>;
+
 export type ReviewsType = ReviewType[]

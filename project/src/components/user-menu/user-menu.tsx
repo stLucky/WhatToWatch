@@ -2,11 +2,12 @@ import { connect, ConnectedProps } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { State } from '../../types/state';
 import { AuthorizationStatus, AppRoute } from '../../const';
-import {ThunkAppDispatch} from '../../types/actions';
-import {logoutAction} from '../../store/api-actions';
+import { ThunkAppDispatch } from '../../types/actions';
+import { logoutAction } from '../../store/api-actions';
 
-const mapStateToProps = ({ authorizationStatus }: State) => ({
+const mapStateToProps = ({ authorizationStatus, avatar }: State) => ({
   authorizationStatus,
+  avatar,
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
@@ -19,18 +20,17 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-function UserMenu({ authorizationStatus, logout }: PropsFromRedux): JSX.Element {
+function UserMenu({
+  authorizationStatus,
+  avatar,
+  logout,
+}: PropsFromRedux): JSX.Element {
   if (authorizationStatus === AuthorizationStatus.Auth) {
     return (
       <ul className="user-block">
         <li className="user-block__item">
           <div className="user-block__avatar">
-            <img
-              src="img/avatar.jpg"
-              alt="User avatar"
-              width="63"
-              height="63"
-            />
+            <img src={avatar} alt="User avatar" width="63" height="63" />
           </div>
         </li>
         <li className="user-block__item">
@@ -60,4 +60,5 @@ function UserMenu({ authorizationStatus, logout }: PropsFromRedux): JSX.Element 
 }
 
 export { UserMenu };
+
 export default connector(UserMenu);
