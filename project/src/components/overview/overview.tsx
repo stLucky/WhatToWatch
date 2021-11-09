@@ -28,7 +28,7 @@ function Overview({ currentFilm }: OverviewProps): JSX.Element {
         </p>
 
         <p className="film-card__starring">
-          <strong>Starring: {currentFilm.starring.join(', ')}</strong>
+          <strong>Starring: {currentFilm.starring?.join(', ')}</strong>
         </p>
       </div>
     </>

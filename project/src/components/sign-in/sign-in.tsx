@@ -13,7 +13,7 @@ const mapStateToProps = ({ isAuthLoading }: State) => ({
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  onSubmit(authData: AuthData) {
+  onLogin(authData: AuthData) {
     dispatch(loginAction(authData));
   },
 });
@@ -38,7 +38,7 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-function SignIn({ isAuthLoading, onSubmit }: PropsFromRedux): JSX.Element {
+function SignIn({ isAuthLoading, onLogin }: PropsFromRedux): JSX.Element {
   const [formState, setFormState] = useState<FormStateProps>({
     email: {
       value: '',
@@ -65,7 +65,7 @@ function SignIn({ isAuthLoading, onSubmit }: PropsFromRedux): JSX.Element {
   const isDisabledSend = hasError || isEmptyField || isAuthLoading;
 
   const btnClasses = cn('sign-in__btn', {
-    [styles['btn--disabled']]: isDisabledSend,
+    [styles.btnDisabled]: isDisabledSend,
   });
 
   const handleChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
@@ -73,32 +73,21 @@ function SignIn({ isAuthLoading, onSubmit }: PropsFromRedux): JSX.Element {
     const rule = formState[name].regex;
     const isValidField = rule.test(value);
 
-    if (!isValidField) {
-      setFormState({
-        ...formState,
-        [name]: {
-          ...formState[name],
-          error: true,
-          value,
-        },
-      });
-    } else {
-      setFormState({
-        ...formState,
-        [name]: {
-          ...formState[name],
-          error: false,
-          value,
-        },
-      });
-    }
+    setFormState({
+      ...formState,
+      [name]: {
+        ...formState[name],
+        error: !isValidField,
+        value,
+      },
+    });
   };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
     if (!isDisabledSend) {
-      onSubmit({
+      onLogin({
         login: formState.email.value,
         password: formState.password.value,
       });
@@ -165,4 +154,5 @@ function SignIn({ isAuthLoading, onSubmit }: PropsFromRedux): JSX.Element {
 }
 
 export { SignIn };
+
 export default connector(SignIn);

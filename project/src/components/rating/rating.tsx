@@ -2,10 +2,11 @@ import { ChangeEvent } from 'react';
 
 type RatingProps = {
   rating: number;
+  checked: number | null;
   onChange: (ratingQuantity: number) => void;
 };
 
-function Rating({ rating, onChange }: RatingProps): JSX.Element {
+function Rating({ rating, checked, onChange }: RatingProps): JSX.Element {
   const handleChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     const value = +target.value;
     onChange(value);
@@ -19,6 +20,7 @@ function Rating({ rating, onChange }: RatingProps): JSX.Element {
         type="radio"
         name="rating"
         value={rating}
+        checked={rating === checked}
         onChange={handleChange}
       />
       <label className="rating__label" htmlFor={`star-${rating}`}>
