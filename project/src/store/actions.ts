@@ -2,6 +2,7 @@ import { ActionTypes } from '../types/actions';
 import { FilmsType, FilmType } from '../types/films';
 import { AuthorizationStatus} from '../const';
 import { ReviewsType } from '../types/reviews';
+import { AuthUser } from '../types/auth-data';
 
 export const changeActiveGenre = (genre: string) => ({
   type: ActionTypes.ChangeActiveGenre,
@@ -62,8 +63,9 @@ export const loadReviewsSuccess = (reviews: ReviewsType) => ({
   payload: reviews,
 } as const);
 
-export const loadReviewsError = () => ({
+export const loadReviewsError = (hasError: boolean) => ({
   type: ActionTypes.LoadReviewsError,
+  payload: hasError,
 } as const);
 
 export const sendReviewRequest = (hasRequest: boolean) => ({
@@ -104,7 +106,7 @@ export const set404Error = (hasError: boolean) => ({
   payload: hasError,
 } as const);
 
-export const loadAvatar = (avatar: string) => ({
-  type: ActionTypes.LoadAvatar,
-  payload: avatar,
+export const loadUser = (user: AuthUser) => ({
+  type: ActionTypes.LoadUser,
+  payload: user,
 } as const);

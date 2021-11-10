@@ -20,7 +20,7 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  onFetchReviews(id: number) {
+  onFetchReviews(id: string) {
     dispatch(fetchReviewsAction(id));
   },
 });
@@ -43,7 +43,7 @@ function Reviews({
       return;
     }
 
-    onFetchReviews(+id);
+    onFetchReviews(id);
   }, [onFetchReviews, id]);
 
   if (isReviewsLoading) {

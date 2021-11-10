@@ -6,6 +6,7 @@ export const OTHER_ERRORS = 'OTHER';
 export const ANOTHER_TIME_ERROR =
   'Oops... Something went wrong. Try another time';
 export const TRY_AGAIN_ERROR = 'Oops... Something went wrong. Try again';
+export const AUTH_ERROR = 'Hello friend! Don\'t forget log in to the system!';
 
 export enum AppRoute {
   Login = '/login',

@@ -6,6 +6,7 @@ import {
   AuthorizationStatus
 } from '../const';
 import { FilmType } from '../types/films';
+import { AuthUser } from '../types/auth-data';
 
 const initialState = {
   activeGenre: DEFAULT_GENRE,
@@ -15,7 +16,7 @@ const initialState = {
   reviews: [],
   limit: SHOWN_COUNT_FILMS,
   authorizationStatus: AuthorizationStatus.Unknown,
-  avatar: '',
+  user:{} as AuthUser,
   isFilmsLoading: false,
   isFilmsError: false,
   isFilmLoading: false,
@@ -55,15 +56,15 @@ const reducer = (state: State = initialState, action: Actions): State => {
     case ActionTypes.LoadReviewsSuccess:
       return { ...state, reviews: action.payload };
     case ActionTypes.LoadReviewsError:
-      return { ...state, isReviewsError: true };
+      return { ...state, isReviewsError: action.payload };
     case ActionTypes.SendReviewRequest:
       return { ...state, isSendReviewLoading: action.payload };
     case ActionTypes.IncrementLimit:
       return { ...state, limit: state.limit + action.payload };
     case ActionTypes.ResetLimit:
       return { ...state, limit: initialState.limit };
-    case ActionTypes.LoadAvatar:
-      return { ...state, avatar: action.payload };
+    case ActionTypes.LoadUser:
+      return { ...state, user: action.payload };
     case ActionTypes.RequireAuthorization:
       return {
         ...state,

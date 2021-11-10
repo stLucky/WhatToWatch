@@ -5,9 +5,9 @@ import { AuthorizationStatus, AppRoute } from '../../const';
 import { ThunkAppDispatch } from '../../types/actions';
 import { logoutAction } from '../../store/api-actions';
 
-const mapStateToProps = ({ authorizationStatus, avatar }: State) => ({
+const mapStateToProps = ({ authorizationStatus, user }: State) => ({
   authorizationStatus,
-  avatar,
+  user,
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
@@ -22,7 +22,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function UserMenu({
   authorizationStatus,
-  avatar,
+  user,
   logout,
 }: PropsFromRedux): JSX.Element {
   if (authorizationStatus === AuthorizationStatus.Auth) {
@@ -30,7 +30,7 @@ function UserMenu({
       <ul className="user-block">
         <li className="user-block__item">
           <div className="user-block__avatar">
-            <img src={avatar} alt="User avatar" width="63" height="63" />
+            <img src={user.avatarUrl} alt="User avatar" width="63" height="63" />
           </div>
         </li>
         <li className="user-block__item">

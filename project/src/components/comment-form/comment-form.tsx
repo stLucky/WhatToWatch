@@ -11,6 +11,8 @@ import cn from 'classnames';
 import styles from './comment-form.module.scss';
 
 const MAX_NUMBER_RATING = 10;
+const MIN_LENGTH_COMMENT = 50;
+const MAX_LENTGH_COMMENT = 400;
 
 const ratings = Array.from(
   { length: MAX_NUMBER_RATING },
@@ -22,7 +24,7 @@ const mapStateToProps = ({ isSendReviewLoading }: State) => ({
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  onSendReview(review: ReviewSend, id: number) {
+  onSendReview(review: ReviewSend, id: string) {
     dispatch(fetchSendReviewAction(review, id));
   },
 });
@@ -42,8 +44,8 @@ function CommentForm({
 
   const isDisabledForm =
     comment === '' ||
-    comment.length < 50 ||
-    comment.length > 400 ||
+    comment.length < MIN_LENGTH_COMMENT ||
+    comment.length > MAX_LENTGH_COMMENT ||
     !rating ||
     isSendReviewLoading;
 
@@ -61,7 +63,7 @@ function CommentForm({
     evt.preventDefault();
 
     if (!isDisabledForm) {
-      onSendReview({ rating, comment }, +id);
+      onSendReview({ rating, comment }, id);
     }
   };
 

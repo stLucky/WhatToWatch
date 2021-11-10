@@ -17,16 +17,17 @@ import {
   loadReviewsSuccess,
   loadReviewsError,
   sendReviewRequest,
-  loadAvatar
+  loadUser
 } from './actions';
-import { saveToken, dropToken, Token } from '../services/token';
+import { saveToken, dropToken } from '../services/token';
 import {
   APIRoute,
   AuthorizationStatus,
   AppRoute,
   ERROR_404,
   TRY_AGAIN_ERROR,
-  OTHER_ERRORS
+  OTHER_ERRORS,
+  AUTH_ERROR
 } from '../const';
 import { FilmsType, FilmType } from '../types/films';
 import { AuthData } from '../types/auth-data';
@@ -53,19 +54,21 @@ export const fetchFilmsAction = (): ThunkActionResult => async (
   }
 };
 
-export const fetchFilmAction = (id: number): ThunkActionResult => async (
+export const fetchFilmAction = (id: string): ThunkActionResult => async (
   dispatch,
-  _,
+  getState,
   api,
 ) => {
   dispatch(loadFilmRequest(true));
 
   try {
+    getState().filmError && dispatch(loadFilmError(''));
+
     const { data } = await api.get<FilmType>(`${APIRoute.Films}/${id}`);
     const normalizedData = camelcaseKeys(data);
 
     dispatch(loadFilmSuccess(normalizedData));
-    dispatch(loadFilmError(''));
+
   } catch (e) {
     e === ERROR_404
       ? dispatch(loadFilmError(ERROR_404.toString()))
@@ -75,18 +78,19 @@ export const fetchFilmAction = (id: number): ThunkActionResult => async (
   }
 };
 
-export const fetchSimilarAction = (id: number): ThunkActionResult => async (
+export const fetchSimilarAction = (id: string): ThunkActionResult => async (
   dispatch,
-  _,
+  getState,
   api,
 ) => {
   dispatch(loadSimilarRequest(true));
 
   try {
+    getState().isSimilarError && dispatch(loadSimilarError(false));
+
     const { data } = await api.get<FilmsType>(`${APIRoute.Films}/${id}/similar`);
     const normalizedData = camelcaseKeys(data);
 
-    dispatch(loadSimilarError(false));
     dispatch(loadSimilarSuccess(normalizedData));
   } catch (e) {
     dispatch(loadSimilarError(true));
@@ -95,20 +99,19 @@ export const fetchSimilarAction = (id: number): ThunkActionResult => async (
   }
 };
 
-export const fetchReviewsAction = (id: number): ThunkActionResult => async (
+export const fetchReviewsAction = (id: string): ThunkActionResult => async (
   dispatch,
   _,
   api,
 ) => {
   dispatch(loadReviewsRequest(true));
-
   try {
     const { data } = await api.get<ReviewsType>(`${APIRoute.Reviews}/${id}`);
     const normalizedData = camelcaseKeys(data);
 
     dispatch(loadReviewsSuccess(normalizedData));
   } catch (e) {
-    dispatch(loadReviewsError());
+    dispatch(loadReviewsError(true));
   } finally {
     dispatch(loadReviewsRequest(false));
   }
@@ -116,12 +119,12 @@ export const fetchReviewsAction = (id: number): ThunkActionResult => async (
 
 export const fetchSendReviewAction = (
   review: ReviewSend,
-  id: number,
+  id: string,
 ): ThunkActionResult => async (dispatch, _, api) => {
   dispatch(sendReviewRequest(true));
 
   try {
-    await api.post<ReviewSend>(`${APIRoute.Reviews}/${id}fghhjhgj`, review);
+    await api.post<ReviewSend>(`${APIRoute.Reviews}/${id}`, review);
     dispatch(redirectToRoute(`/films/${id}`));
   } catch (e) {
     toast.error(TRY_AGAIN_ERROR);
@@ -135,9 +138,15 @@ export const checkAuthAction = (): ThunkActionResult => async (
   _,
   api,
 ) => {
-  await api.get(APIRoute.Login).then(() => {
+  try {
+    const { data } = await api.get(APIRoute.Login);
+    const normalizedUser = camelcaseKeys(data);
+
+    dispatch(loadUser(normalizedUser));
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
-  });
+  } catch (e) {
+    toast.info(AUTH_ERROR, {position: 'bottom-right', theme: 'dark'});
+  }
 };
 
 export const loginAction = ({
@@ -147,14 +156,15 @@ export const loginAction = ({
   dispatch(authorizationRequest(true));
 
   try {
-    const {
-      data: { 'avatar_url': avatar, token },
-    } = await api.post<{ 'avatar_url': string; token: Token }>(APIRoute.Login, {
+    const { data: {token, ...rest} } = await api.post(APIRoute.Login, {
       email,
       password,
     });
+
+    const normalizedUser = camelcaseKeys(rest);
+
     saveToken(token);
-    dispatch(loadAvatar(avatar));
+    dispatch(loadUser(normalizedUser));
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
     dispatch(redirectToRoute(AppRoute.Root));
   } catch (e) {

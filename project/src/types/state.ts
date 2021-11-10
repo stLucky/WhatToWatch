@@ -1,6 +1,7 @@
 import { FilmsType, FilmType } from './films';
 import { ReviewsType } from './reviews';
 import {AuthorizationStatus} from '../const';
+import { AuthUser } from './auth-data';
 
 export type State = {
   activeGenre: string,
@@ -10,7 +11,7 @@ export type State = {
   reviews: ReviewsType,
   limit: number,
   authorizationStatus: AuthorizationStatus,
-  avatar: string,
+  user: AuthUser,
   isFilmsLoading: boolean,
   isFilmsError: boolean,
   isAuthLoading: boolean,

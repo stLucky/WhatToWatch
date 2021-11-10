@@ -40,10 +40,10 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  onFetchFilm(id: number) {
+  onFetchFilm(id: string) {
     dispatch(fetchFilmAction(id));
   },
-  onFetchSimilar(id: number) {
+  onFetchSimilar(id: string) {
     dispatch(fetchSimilarAction(id));
   },
 });
@@ -70,8 +70,8 @@ function MovieScreen({
       return;
     }
 
-    onFetchFilm(+id);
-    onFetchSimilar(+id);
+    onFetchFilm(id);
+    onFetchSimilar(id);
   }, [onFetchFilm, onFetchSimilar, id]);
 
   const getSimilarContent = () => {

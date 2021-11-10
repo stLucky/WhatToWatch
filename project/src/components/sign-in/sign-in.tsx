@@ -50,7 +50,7 @@ function SignIn({ isAuthLoading, onLogin }: PropsFromRedux): JSX.Element {
       value: '',
       error: false,
       regex: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/,
-      errorText: 'Please enter a valid password address',
+      errorText: 'Please enter a valid password (at least one large, one small letter and a number)',
     },
   });
 

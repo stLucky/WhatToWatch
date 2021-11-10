@@ -1,9 +1,8 @@
 import { connect, ConnectedProps } from 'react-redux';
-import { Redirect } from 'react-router';
 import MainScreen from '../../pages/main-screen';
 import { Router as BrowserRouter, Route, Switch } from 'react-router-dom';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 import SignInScreen from '../../pages/sign-in-screen';
 import MyListScreen from '../../pages/my-list-screen';
 import MovieScreen from '../../pages/movie-screen/movie-screen';
@@ -22,9 +21,8 @@ type AppScreenProps = {
   };
 };
 
-const mapStateToProps = ({ films, authorizationStatus }: State) => ({
+const mapStateToProps = ({ films }: State) => ({
   films,
-  authorizationStatus,
 });
 
 const connector = connect(mapStateToProps);
@@ -35,7 +33,6 @@ type ConnectedComponentProps = PropsFromRedux & AppScreenProps;
 function App({
   promoFilmInfo,
   films,
-  authorizationStatus,
 }: ConnectedComponentProps): JSX.Element {
   return (
     <BrowserRouter history={browserHistory}>
@@ -45,11 +42,7 @@ function App({
           <MainScreen promoFilmInfo={promoFilmInfo} />
         </Route>
         <Route path={AppRoute.Login} exact>
-          {authorizationStatus === AuthorizationStatus.Auth ? (
-            <Redirect to={AppRoute.Root} />
-          ) : (
-            <SignInScreen />
-          )}
+          <SignInScreen />
         </Route>
         <PrivateRoute
           exact
