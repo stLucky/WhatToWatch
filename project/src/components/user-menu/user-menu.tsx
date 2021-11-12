@@ -1,30 +1,14 @@
-import { connect, ConnectedProps } from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import { Link } from 'react-router-dom';
-import { State } from '../../types/state';
 import { AuthorizationStatus, AppRoute } from '../../const';
-import { ThunkAppDispatch } from '../../types/actions';
 import { logoutAction } from '../../store/api-actions';
+import { getAuthorizationStatus, getUser } from '../../store/user-process/selectors';
 
-const mapStateToProps = ({ authorizationStatus, user }: State) => ({
-  authorizationStatus,
-  user,
-});
+function UserMenu(): JSX.Element {
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const user = useSelector(getUser);
+  const dispatch = useDispatch();
 
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  logout() {
-    dispatch(logoutAction());
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function UserMenu({
-  authorizationStatus,
-  user,
-  logout,
-}: PropsFromRedux): JSX.Element {
   if (authorizationStatus === AuthorizationStatus.Auth) {
     return (
       <ul className="user-block">
@@ -39,7 +23,7 @@ function UserMenu({
             onClick={(evt) => {
               evt.preventDefault();
 
-              logout();
+              dispatch(logoutAction());
             }}
             className="user-block__link"
           >
@@ -59,6 +43,4 @@ function UserMenu({
   );
 }
 
-export { UserMenu };
-
-export default connector(UserMenu);
+export default UserMenu;

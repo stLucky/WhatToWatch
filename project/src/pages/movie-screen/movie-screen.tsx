@@ -1,14 +1,12 @@
 import { Link, useParams } from 'react-router-dom';
-import { connect, ConnectedProps } from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import { useEffect } from 'react';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import Films from '../../components/films/films';
 import Tabs from '../../components/tabs/tabs';
-import { ThunkAppDispatch } from '../../types/actions';
 import ErrorScreen from '../error-screen/error-screen';
 import { fetchFilmAction, fetchSimilarAction } from '../../store/api-actions';
-import { State } from '../../types/state';
 import LoadingScreen from '../loading-screen/loading-screen';
 import Loader from 'react-loader-spinner';
 import styles from './movie-screen.module.scss';
@@ -18,51 +16,21 @@ import {
   ERROR_404,
   OTHER_ERRORS
 } from '../../const';
+import { getErrorFilmStatus, getErrorSimilarStatus, getFilm, getLoadingFilmStatus, getLoadingSimilarStatus, getSimilar } from '../../store/films-data/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 const MAX_VISIBLE_SIMILAR_FILMS = 4;
 
-const mapStateToProps = ({
-  film,
-  isFilmLoading,
-  filmError,
-  similar,
-  isSimilarLoading,
-  isSimilarError,
-  authorizationStatus,
-}: State) => ({
-  film,
-  isFilmLoading,
-  filmError,
-  similar,
-  isSimilarLoading,
-  isSimilarError,
-  authorizationStatus,
-});
+function MovieScreen(): JSX.Element {
+  const film = useSelector(getFilm);
+  const isFilmLoading = useSelector(getLoadingFilmStatus);
+  const filmError = useSelector(getErrorFilmStatus);
+  const similar = useSelector(getSimilar);
+  const isSimilarLoading = useSelector(getLoadingSimilarStatus);
+  const isSimilarError = useSelector(getErrorSimilarStatus);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const dispatch = useDispatch();
 
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  onFetchFilm(id: string) {
-    dispatch(fetchFilmAction(id));
-  },
-  onFetchSimilar(id: string) {
-    dispatch(fetchSimilarAction(id));
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function MovieScreen({
-  film,
-  isFilmLoading,
-  filmError,
-  similar,
-  isSimilarLoading,
-  isSimilarError,
-  authorizationStatus,
-  onFetchFilm,
-  onFetchSimilar,
-}: PropsFromRedux): JSX.Element {
   const { id }: { id: string } = useParams();
 
   useEffect(() => {
@@ -70,9 +38,9 @@ function MovieScreen({
       return;
     }
 
-    onFetchFilm(id);
-    onFetchSimilar(id);
-  }, [onFetchFilm, onFetchSimilar, id]);
+    dispatch(fetchFilmAction(id));
+    dispatch(fetchSimilarAction(id));
+  }, [dispatch, id]);
 
   const getSimilarContent = () => {
     if (isSimilarLoading) {
@@ -195,6 +163,4 @@ function MovieScreen({
   );
 }
 
-export { MovieScreen };
-
-export default connector(MovieScreen);
+export default MovieScreen;

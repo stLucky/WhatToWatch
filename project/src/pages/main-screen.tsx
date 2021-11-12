@@ -1,19 +1,16 @@
 import { useEffect } from 'react';
-import { Dispatch } from 'redux';
-import { connect, ConnectedProps } from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import Films from '../components/films/films';
 import Footer from '../components/footer/footer';
 import Genres from '../components/genres/genres';
 import Header from '../components/header/header';
 import ShowMore from '../components/show-more/show-more';
-import { State } from '../types/state';
 import { SHOWN_COUNT_FILMS } from '../const';
-import { DEFAULT_GENRE, MAX_NUMBER_GENRES } from '../const';
-import { Actions } from '../types/actions';
 import { resetLimit } from '../store/actions';
-import { FilmsType } from '../types/films';
 import LoadingScreen from './loading-screen/loading-screen';
 import ErrorScreen from './error-screen/error-screen';
+import { getFilteredFilms, getGenres, getRenderedFilms } from '../store/films-process/selectors';
+import { getErrorFilmsStatus, getLoadingFilmsStatus } from '../store/films-data/selectors';
 
 type MainScreenProps = {
   promoFilmInfo: {
@@ -23,65 +20,23 @@ type MainScreenProps = {
   };
 };
 
-const getGenres = (films: FilmsType): string[] => {
-  const genres = [DEFAULT_GENRE, ...new Set(films.map((film) => film.genre))];
-
-  if (genres.length > MAX_NUMBER_GENRES) {
-    genres.length = MAX_NUMBER_GENRES;
-  }
-
-  return genres;
-};
-
-const getFilteredFilms = (genre: string, films: FilmsType): FilmsType =>
-  genre === DEFAULT_GENRE
-    ? films
-    : films.filter((film) => film.genre === genre);
-
-const mapStateToProps = ({
-  activeGenre,
-  limit,
-  films,
-  isFilmsLoading,
-  isFilmsError,
-}: State) => ({
-  activeGenre,
-  limit,
-  films,
-  isFilmsLoading,
-  isFilmsError,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
-  onResetLimit() {
-    dispatch(resetLimit());
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = PropsFromRedux & MainScreenProps;
-
 function MainScreen({
   promoFilmInfo: { title, genre, releaseDate },
-  activeGenre,
-  limit,
-  films,
-  isFilmsLoading,
-  isFilmsError,
-  onResetLimit,
-}: ConnectedComponentProps): JSX.Element {
-  const filteredFilms = getFilteredFilms(activeGenre, films);
+}: MainScreenProps): JSX.Element {
+  const genres = useSelector(getGenres);
+  const filteredFilms = useSelector(getFilteredFilms);
+  const renderedFilms = useSelector(getRenderedFilms);
+  const isFilmsLoading = useSelector(getLoadingFilmsStatus);
+  const isFilmsError = useSelector(getErrorFilmsStatus);
+  const dispatch = useDispatch();
 
-  const renderedFilms = filteredFilms.slice(0, limit);
   const isShowMoreVisible =
     filteredFilms.length > SHOWN_COUNT_FILMS &&
     filteredFilms.length !== renderedFilms.length;
 
   useEffect(() => {
-    onResetLimit();
-  }, [onResetLimit]);
+    dispatch(resetLimit());
+  }, [dispatch]);
 
   if (isFilmsLoading) {
     return <LoadingScreen />;
@@ -148,7 +103,7 @@ function MainScreen({
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <Genres genres={getGenres(films)} />
+          <Genres genres={genres} />
           <Films films={renderedFilms} hasPlayer />
           {isShowMoreVisible && <ShowMore />}
         </section>
@@ -158,6 +113,4 @@ function MainScreen({
   );
 }
 
-export { MainScreen };
-
-export default connector(MainScreen);
+export default MainScreen;

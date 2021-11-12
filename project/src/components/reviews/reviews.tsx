@@ -1,40 +1,19 @@
 import { useParams } from 'react-router-dom';
-import { connect, ConnectedProps } from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import { useEffect } from 'react';
-import { ThunkAppDispatch } from '../../types/actions';
 import { fetchReviewsAction } from '../../store/api-actions';
-import { State } from '../../types/state';
 import Review from '../review/review';
 import Loader from 'react-loader-spinner';
 import styles from './reviews.module.scss';
 import { ANOTHER_TIME_ERROR } from '../../const';
+import { getErrorReviewsStatus, getLoadingReviewsStatus, getReviews } from '../../store/reviews-data/selectors';
 
-const mapStateToProps = ({
-  reviews,
-  isReviewsLoading,
-  isReviewsError,
-}: State) => ({
-  reviews,
-  isReviewsLoading,
-  isReviewsError,
-});
+function Reviews(): JSX.Element {
+  const reviews = useSelector(getReviews);
+  const isReviewsLoading = useSelector(getLoadingReviewsStatus);
+  const isReviewsError = useSelector(getErrorReviewsStatus);
+  const dispatch = useDispatch();
 
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  onFetchReviews(id: string) {
-    dispatch(fetchReviewsAction(id));
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function Reviews({
-  reviews,
-  isReviewsLoading,
-  isReviewsError,
-  onFetchReviews,
-}: PropsFromRedux): JSX.Element {
   const { id }: { id: string } = useParams();
   const middleReviews = Math.round(reviews.length / 2) - 1;
 
@@ -43,8 +22,8 @@ function Reviews({
       return;
     }
 
-    onFetchReviews(id);
-  }, [onFetchReviews, id]);
+    dispatch(fetchReviewsAction(id));
+  }, [id, dispatch]);
 
   if (isReviewsLoading) {
     return (
@@ -88,6 +67,4 @@ function Reviews({
   );
 }
 
-export { Reviews };
-
-export default connector(Reviews);
+export default Reviews;

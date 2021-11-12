@@ -1,30 +1,7 @@
+import { Action } from 'redux';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { AxiosInstance } from 'axios';
-import {State} from '../types/state';
-
-import {
-  changeActiveGenre,
-  loadFilmsRequest,
-  loadFilmsSuccess,
-  loadFilmsError,
-  loadFilmRequest,
-  loadFilmSuccess,
-  loadFilmError,
-  sendReviewRequest,
-  loadSimilarRequest,
-  loadSimilarSuccess,
-  loadSimilarError,
-  loadReviewsRequest,
-  loadReviewsSuccess,
-  loadReviewsError,
-  incrementLimit,
-  resetLimit,
-  requireAuthorization,
-  requireLogout,
-  authorizationRequest,
-  redirectToRoute,
-  loadUser
-} from '../store/actions';
+import { State } from '../types/state';
 
 export enum ActionTypes {
   ChangeActiveGenre = 'films/changeGenre',
@@ -47,32 +24,14 @@ export enum ActionTypes {
   RequireLogout = 'user/requireLogout',
   AuthorizationRequest = 'data/authorizationRequest',
   RedirectToRoute = 'route/redirectToRoute',
-  LoadUser = 'data/loadUser'
+  LoadUser = 'data/loadUser',
 }
 
-export type Actions =
-  | ReturnType<typeof changeActiveGenre>
-  | ReturnType<typeof loadFilmsRequest>
-  | ReturnType<typeof loadFilmsSuccess>
-  | ReturnType<typeof loadFilmsError>
-  | ReturnType<typeof loadFilmRequest>
-  | ReturnType<typeof loadFilmSuccess>
-  | ReturnType<typeof loadFilmError>
-  | ReturnType<typeof loadSimilarRequest>
-  | ReturnType<typeof loadSimilarSuccess>
-  | ReturnType<typeof loadSimilarError>
-  | ReturnType<typeof loadReviewsRequest>
-  | ReturnType<typeof loadReviewsSuccess>
-  | ReturnType<typeof loadReviewsError>
-  | ReturnType<typeof sendReviewRequest>
-  | ReturnType<typeof incrementLimit>
-  | ReturnType<typeof resetLimit>
-  | ReturnType<typeof requireAuthorization>
-  | ReturnType<typeof requireLogout>
-  | ReturnType<typeof authorizationRequest>
-  | ReturnType<typeof loadUser>
-  | ReturnType<typeof redirectToRoute>;
+export type ThunkActionResult<R = Promise<void>> = ThunkAction<
+  R,
+  State,
+  AxiosInstance,
+  Action
+>;
 
-export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
-
-export type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Actions>;
+export type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Action>;

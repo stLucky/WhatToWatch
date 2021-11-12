@@ -1,6 +1,6 @@
-import { connect, ConnectedProps } from 'react-redux';
 import MainScreen from '../../pages/main-screen';
 import { Router as BrowserRouter, Route, Switch } from 'react-router-dom';
+import {useSelector} from 'react-redux';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
 import { AppRoute } from '../../const';
 import SignInScreen from '../../pages/sign-in-screen';
@@ -9,9 +9,9 @@ import MovieScreen from '../../pages/movie-screen/movie-screen';
 import AddReviewScreen from '../../pages/add-review-screen';
 import PlayerScreen from '../../pages/player-screen';
 import PrivateRoute from '../private-route/private-route';
-import { State } from '../../types/state';
 import browserHistory from '../../browser-history';
 import ErrorScreen from '../../pages/error-screen/error-screen';
+import { getFilms } from '../../store/films-data/selectors';
 
 type AppScreenProps = {
   promoFilmInfo: {
@@ -21,19 +21,11 @@ type AppScreenProps = {
   };
 };
 
-const mapStateToProps = ({ films }: State) => ({
-  films,
-});
-
-const connector = connect(mapStateToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = PropsFromRedux & AppScreenProps;
-
 function App({
   promoFilmInfo,
-  films,
-}: ConnectedComponentProps): JSX.Element {
+}: AppScreenProps): JSX.Element {
+  const films = useSelector(getFilms);
+
   return (
     <BrowserRouter history={browserHistory}>
       <ScrollToTop />
@@ -68,5 +60,4 @@ function App({
   );
 }
 
-export { App };
-export default connector(App);
+export default App;

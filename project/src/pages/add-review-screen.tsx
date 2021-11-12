@@ -1,19 +1,13 @@
+import {useSelector} from 'react-redux';
 import Breadcrumbs from '../components/breadcrumbs/breadcrumbs';
 import Header from '../components/header/header';
 import CommentForm from '../components/comment-form/comment-form';
 import ErrorScreen from './error-screen/error-screen';
-import { State } from '../types/state';
-import { connect, ConnectedProps } from 'react-redux';
+import { getFilm } from '../store/films-data/selectors';
 
-const mapStateToProps = ({ film }: State) => ({
-  film,
-});
+function AddReviewScreen(): JSX.Element {
+  const film = useSelector(getFilm);
 
-const connector = connect(mapStateToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function AddReviewScreen({ film }: PropsFromRedux): JSX.Element {
   if (film) {
     return (
       <section className="film-card film-card--full">
@@ -46,6 +40,4 @@ function AddReviewScreen({ film }: PropsFromRedux): JSX.Element {
   return <ErrorScreen />;
 }
 
-export { AddReviewScreen };
-
-export default connector(AddReviewScreen);
+export default AddReviewScreen;

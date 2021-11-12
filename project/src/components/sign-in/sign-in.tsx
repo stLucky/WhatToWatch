@@ -1,22 +1,10 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
-import { connect, ConnectedProps } from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import { loginAction } from '../../store/api-actions';
-import { ThunkAppDispatch } from '../../types/actions';
-import { AuthData } from '../../types/auth-data';
-import { State } from '../../types/state';
 import cn from 'classnames';
 import styles from './sign-in.module.scss';
 import Loader from 'react-loader-spinner';
-
-const mapStateToProps = ({ isAuthLoading }: State) => ({
-  isAuthLoading,
-});
-
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  onLogin(authData: AuthData) {
-    dispatch(loginAction(authData));
-  },
-});
+import { getLoadinAuthStatus } from '../../store/user-process/selectors';
 
 const formFields = {
   email: 'Email address',
@@ -34,11 +22,10 @@ type FormStateProps = {
   [key: string]: formFieldProps;
 };
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
+function SignIn(): JSX.Element {
+  const isAuthLoading = useSelector(getLoadinAuthStatus);
+  const dispatch = useDispatch();
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function SignIn({ isAuthLoading, onLogin }: PropsFromRedux): JSX.Element {
   const [formState, setFormState] = useState<FormStateProps>({
     email: {
       value: '',
@@ -87,10 +74,10 @@ function SignIn({ isAuthLoading, onLogin }: PropsFromRedux): JSX.Element {
     evt.preventDefault();
 
     if (!isDisabledSend) {
-      onLogin({
+      dispatch(loginAction({
         login: formState.email.value,
         password: formState.password.value,
-      });
+      }));
     }
   };
 
@@ -153,6 +140,4 @@ function SignIn({ isAuthLoading, onLogin }: PropsFromRedux): JSX.Element {
   );
 }
 
-export { SignIn };
-
-export default connector(SignIn);
+export default SignIn;

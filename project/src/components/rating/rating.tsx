@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, memo } from 'react';
 
 type RatingProps = {
   rating: number;
@@ -30,4 +30,4 @@ function Rating({ rating, checked, onChange }: RatingProps): JSX.Element {
   );
 }
 
-export default Rating;
+export default memo(Rating);

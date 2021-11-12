@@ -1,21 +1,16 @@
-import { connect, ConnectedProps } from 'react-redux';
 import { Redirect } from 'react-router';
+import {useSelector} from 'react-redux';
 import Footer from '../components/footer/footer';
 import Header from '../components/header/header';
 import SignIn from '../components/sign-in/sign-in';
 import { AppRoute, AuthorizationStatus } from '../const';
-import { State } from '../types/state';
+import { getAuthorizationStatus } from '../store/user-process/selectors';
 import LoadingScreen from './loading-screen/loading-screen';
 
-const mapStateToProps = ({ authorizationStatus }: State) => ({
-  authorizationStatus,
-});
 
-const connector = connect(mapStateToProps);
+function SignInScreen(): JSX.Element {
+  const authorizationStatus = useSelector(getAuthorizationStatus);
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function SignInScreen({ authorizationStatus }: PropsFromRedux): JSX.Element {
   if (authorizationStatus === AuthorizationStatus.Unknown) {
     return <LoadingScreen />;
   }
@@ -35,6 +30,4 @@ function SignInScreen({ authorizationStatus }: PropsFromRedux): JSX.Element {
   );
 }
 
-export { SignInScreen };
-
-export default connector(SignInScreen);
+export default SignInScreen;
