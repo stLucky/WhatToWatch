@@ -1,7 +1,6 @@
-import {useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { incrementLimit } from '../../store/actions';
 import { SHOWN_COUNT_FILMS } from '../../const';
-
 
 function ShowMore(): JSX.Element {
   const dispatch = useDispatch();

@@ -1,5 +1,5 @@
-import { Link, useParams } from 'react-router-dom';
-import {useSelector, useDispatch} from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
@@ -10,14 +10,16 @@ import { fetchFilmAction, fetchSimilarAction } from '../../store/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';
 import Loader from 'react-loader-spinner';
 import styles from './movie-screen.module.scss';
+import { ANOTHER_TIME_ERROR, ERROR_404, OTHER_ERRORS } from '../../const';
 import {
-  ANOTHER_TIME_ERROR,
-  AuthorizationStatus,
-  ERROR_404,
-  OTHER_ERRORS
-} from '../../const';
-import { getErrorFilmStatus, getErrorSimilarStatus, getFilm, getLoadingFilmStatus, getLoadingSimilarStatus, getSimilar } from '../../store/films-data/selectors';
-import { getAuthorizationStatus } from '../../store/user-process/selectors';
+  getErrorFilmStatus,
+  getErrorSimilarStatus,
+  getFilm,
+  getLoadingFilmStatus,
+  getLoadingSimilarStatus,
+  getSimilar
+} from '../../store/films-data/selectors';
+import Controls from '../../components/controls/controls';
 
 const MAX_VISIBLE_SIMILAR_FILMS = 4;
 
@@ -28,7 +30,7 @@ function MovieScreen(): JSX.Element {
   const similar = useSelector(getSimilar);
   const isSimilarLoading = useSelector(getLoadingSimilarStatus);
   const isSimilarError = useSelector(getErrorSimilarStatus);
-  const authorizationStatus = useSelector(getAuthorizationStatus);
+
   const dispatch = useDispatch();
 
   const { id }: { id: string } = useParams();
@@ -102,34 +104,7 @@ function MovieScreen(): JSX.Element {
                 <span className="film-card__year">{film.rating}</span>
               </p>
 
-              <div className="film-card__buttons">
-                <button
-                  className="btn btn--play film-card__button"
-                  type="button"
-                >
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <button
-                  className="btn btn--list film-card__button"
-                  type="button"
-                >
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
-                {authorizationStatus === AuthorizationStatus.Auth && (
-                  <Link
-                    to={`/films/${film.id}/review`}
-                    className="btn film-card__button"
-                  >
-                    Add review
-                  </Link>
-                )}
-              </div>
+              <Controls hasReviewControl />
             </div>
           </div>
         </div>

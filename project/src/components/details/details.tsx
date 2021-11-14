@@ -38,7 +38,7 @@ function Details({ currentFilm }: DetailsProps): JSX.Element {
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Run Time</strong>
           <span className="film-card__details-value">
-            {getTimeFromMins(currentFilm.runTime, 'info')}
+            {getTimeFromMins(currentFilm.runTime)}
           </span>
         </p>
         <p className="film-card__details-item">

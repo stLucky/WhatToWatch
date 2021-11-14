@@ -4,8 +4,8 @@ export type AuthData = {
 };
 
 export type AuthUser = {
-  id: number,
-  email: string,
-  name: string,
-  avatarUrl: string
-}
+  id: number;
+  email: string;
+  name: string;
+  avatarUrl: string;
+};

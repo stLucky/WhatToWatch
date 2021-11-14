@@ -4,7 +4,6 @@ import { State } from '../../types/state';
 import { DEFAULT_GENRE, MAX_NUMBER_GENRES } from '../../const';
 import { getFilms } from '../films-data/selectors';
 
-
 export const getActiveGenre = (state: State): string =>
   state[NameSpace.process].activeGenre;
 
@@ -24,11 +23,12 @@ export const getGenres = createSelector(getFilms, (films) => {
 export const getFilteredFilms = createSelector(
   [getActiveGenre, getFilms],
   (activeGenre, films) =>
-    activeGenre === DEFAULT_GENRE ? films : films.filter((film) => film.genre === activeGenre),
+    activeGenre === DEFAULT_GENRE
+      ? films
+      : films.filter((film) => film.genre === activeGenre),
 );
 
 export const getRenderedFilms = createSelector(
   [getFilteredFilms, getLimit],
   (filteredFilms, limit) => filteredFilms.slice(0, limit),
 );
-

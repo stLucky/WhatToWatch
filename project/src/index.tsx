@@ -13,14 +13,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
-const Setting = {
-  PromoFilmInfo: {
-    title: 'The Grand Budapest Hotel',
-    genre: 'Drama',
-    releaseDate: 2014,
-  },
-};
-
 const api = createAPI(() =>
   store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth)),
 );
@@ -42,7 +34,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <ToastContainer />
-      <App promoFilmInfo={Setting.PromoFilmInfo} />
+      <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'),

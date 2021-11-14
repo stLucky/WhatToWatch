@@ -24,10 +24,7 @@ export const usePlayingVideo = (
     }
 
     if (isPlaying) {
-      timer.current = setTimeout(
-        () => video.current?.play(),
-        TIME_VIDEO_DELAY,
-      );
+      timer.current = setTimeout(() => video.current?.play(), TIME_VIDEO_DELAY);
     } else {
       video.current.load();
     }

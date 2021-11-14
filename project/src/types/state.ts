@@ -6,14 +6,20 @@ import { AuthUser } from './auth-data';
 
 export type FilmsData = {
   films: FilmsType,
+  myList: FilmsType,
+  promo: FilmType,
   film: FilmType,
   similar: FilmsType,
   isFilmsLoading: boolean,
   isFilmsError: boolean,
+  isPromoLoading: boolean,
+  isPromoError: boolean,
   isFilmLoading: boolean,
   filmError: string,
   isSimilarLoading: boolean,
   isSimilarError: boolean,
+  isMyListLoading: boolean,
+  isMyListError: boolean
 }
 
 export type FilmsProcess = {

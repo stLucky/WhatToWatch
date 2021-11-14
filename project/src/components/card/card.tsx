@@ -44,5 +44,4 @@ function Card({ film, hasPlayer }: CardProps): JSX.Element {
   );
 }
 
-
 export default memo(Card);

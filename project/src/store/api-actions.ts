@@ -6,6 +6,7 @@ import {
   loadFilmsSuccess,
   loadFilmsRequest,
   loadFilmsError,
+  loadPromoSuccess,
   authorizationRequest,
   loadFilmRequest,
   loadFilmSuccess,
@@ -17,7 +18,13 @@ import {
   loadReviewsSuccess,
   loadReviewsError,
   sendReviewRequest,
-  loadUser
+  loadUser,
+  loadPromoError,
+  loadPromoRequest,
+  changeFavoriteStatus,
+  loadMyListRequest,
+  loadMyListError,
+  loadMyListSuccess
 } from './actions';
 import { saveToken, dropToken } from '../services/token';
 import {
@@ -27,6 +34,10 @@ import {
   ERROR_404,
   TRY_AGAIN_ERROR,
   OTHER_ERRORS,
+  AUTH_INFO,
+  PROMO_ERROR,
+  FavoriteStatus,
+  ERROR_401,
   AUTH_ERROR
 } from '../const';
 import { FilmsType, FilmType } from '../types/films';
@@ -68,13 +79,32 @@ export const fetchFilmAction = (id: string): ThunkActionResult => async (
     const normalizedData = camelcaseKeys(data);
 
     dispatch(loadFilmSuccess(normalizedData));
-
   } catch (e) {
     e === ERROR_404
       ? dispatch(loadFilmError(ERROR_404.toString()))
       : dispatch(loadFilmError(OTHER_ERRORS));
   } finally {
     dispatch(loadFilmRequest(false));
+  }
+};
+
+export const fetchPromoAction = (): ThunkActionResult => async (
+  dispatch,
+  _,
+  api,
+) => {
+  dispatch(loadPromoRequest(true));
+
+  try {
+    const { data } = await api.get<FilmType>(`${APIRoute.Promo}`);
+    const normalizedData = camelcaseKeys(data);
+
+    dispatch(loadPromoSuccess(normalizedData));
+  } catch (e) {
+    dispatch(loadPromoError(true));
+    toast.error(PROMO_ERROR);
+  } finally {
+    dispatch(loadPromoRequest(false));
   }
 };
 
@@ -145,7 +175,7 @@ export const checkAuthAction = (): ThunkActionResult => async (
     dispatch(loadUser(normalizedUser));
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
   } catch (e) {
-    toast.info(AUTH_ERROR, {position: 'bottom-right', theme: 'dark'});
+    toast.info(AUTH_INFO, { position: 'bottom-right', theme: 'dark' });
   }
 };
 
@@ -156,7 +186,9 @@ export const loginAction = ({
   dispatch(authorizationRequest(true));
 
   try {
-    const { data: {token, ...rest} } = await api.post(APIRoute.Login, {
+    const {
+      data: { token, ...rest },
+    } = await api.post(APIRoute.Login, {
       email,
       password,
     });
@@ -185,5 +217,39 @@ export const logoutAction = (): ThunkActionResult => async (
     dispatch(requireLogout());
   } catch (e) {
     toast.error(TRY_AGAIN_ERROR);
+  }
+};
+
+export const fetchFavoriteStatusAction = (
+  id: string,
+  status: FavoriteStatus,
+): ThunkActionResult => async (dispatch, _, api) => {
+  try {
+    const { data } = await api.post<FilmType>(
+      `${APIRoute.Favorite}/${id}/${status}`,
+    );
+    const normalizedFilm = camelcaseKeys(data);
+
+    dispatch(changeFavoriteStatus(normalizedFilm));
+  } catch (e) {
+    e === ERROR_401 ? toast.error(AUTH_ERROR) : toast.error(TRY_AGAIN_ERROR);
+  }
+};
+
+export const fetchMyListAction = (): ThunkActionResult => async (
+  dispatch,
+  _,
+  api,
+) => {
+  dispatch(loadMyListRequest(true));
+
+  try {
+    const { data } = await api.get<FilmsType>(`${APIRoute.Favorite}`);
+    const normalizedFilms = camelcaseKeys(data);
+    dispatch(loadMyListSuccess(normalizedFilms));
+  } catch (e) {
+    dispatch(loadMyListError(true));
+  } finally {
+    dispatch(loadMyListRequest(false));
   }
 };

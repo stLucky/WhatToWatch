@@ -13,5 +13,3 @@ export const getErrorReviewsStatus = (state: State): boolean =>
 
 export const getLoadingSendReviewStatus = (state: State): boolean =>
   state[NameSpace.dataReviews].isSendReviewLoading;
-
-

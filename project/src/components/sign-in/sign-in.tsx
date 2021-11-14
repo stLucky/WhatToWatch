@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
-import {useSelector, useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { loginAction } from '../../store/api-actions';
 import cn from 'classnames';
 import styles from './sign-in.module.scss';
@@ -37,7 +37,8 @@ function SignIn(): JSX.Element {
       value: '',
       error: false,
       regex: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/,
-      errorText: 'Please enter a valid password (at least one large, one small letter and a number)',
+      errorText:
+        'Please enter a valid password (at least one large, one small letter and a number)',
     },
   });
 
@@ -74,10 +75,12 @@ function SignIn(): JSX.Element {
     evt.preventDefault();
 
     if (!isDisabledSend) {
-      dispatch(loginAction({
-        login: formState.email.value,
-        password: formState.password.value,
-      }));
+      dispatch(
+        loginAction({
+          login: formState.email.value,
+          password: formState.password.value,
+        }),
+      );
     }
   };
 

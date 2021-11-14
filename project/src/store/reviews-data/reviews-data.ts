@@ -1,6 +1,11 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { ReviewsData } from '../../types/state';
-import { loadReviewsError, loadReviewsRequest, loadReviewsSuccess, sendReviewRequest } from '../actions';
+import {
+  loadReviewsError,
+  loadReviewsRequest,
+  loadReviewsSuccess,
+  sendReviewRequest
+} from '../actions';
 
 const initialState: ReviewsData = {
   reviews: [],

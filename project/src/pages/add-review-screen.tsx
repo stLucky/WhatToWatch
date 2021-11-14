@@ -1,4 +1,4 @@
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import Breadcrumbs from '../components/breadcrumbs/breadcrumbs';
 import Header from '../components/header/header';
 import CommentForm from '../components/comment-form/comment-form';

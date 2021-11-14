@@ -1,12 +1,11 @@
 import { Redirect } from 'react-router';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import Footer from '../components/footer/footer';
 import Header from '../components/header/header';
 import SignIn from '../components/sign-in/sign-in';
 import { AppRoute, AuthorizationStatus } from '../const';
 import { getAuthorizationStatus } from '../store/user-process/selectors';
 import LoadingScreen from './loading-screen/loading-screen';
-
 
 function SignInScreen(): JSX.Element {
   const authorizationStatus = useSelector(getAuthorizationStatus);

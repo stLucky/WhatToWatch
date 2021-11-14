@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import { FilmsData, FilmsProcess, ReviewsData, UserProcess } from '../types/state';
 import { filmsData } from './films-data/films-data';
 import { filmsProcess } from './films-process/films-process';
 import { reviewsData } from './reviews-data/reviews-data';
@@ -12,13 +11,6 @@ export enum NameSpace {
   user = 'USER',
 }
 
-export type RootState = {
-  [NameSpace.dataFilms]: FilmsData,
-  [NameSpace.dataReviews]: ReviewsData,
-  [NameSpace.process]: FilmsProcess,
-  [NameSpace.user]: UserProcess,
-}
-
 export const rootReducer = combineReducers({
   [NameSpace.dataFilms]: filmsData,
   [NameSpace.dataReviews]: reviewsData,
@@ -26,5 +18,4 @@ export const rootReducer = combineReducers({
   [NameSpace.user]: userProcess,
 });
 
-// export type RootState = ReturnType<typeof rootReducer>;
-
+export type RootState = ReturnType<typeof rootReducer>;

@@ -13,6 +13,9 @@ export enum ActionTypes {
   LoadFilmRequest = 'data/loadFilmRequest',
   LoadFilmSuccess = 'data/loadFilmSuccess',
   LoadFilmError = 'data/loadFilmError',
+  LoadPromoRequest = 'data/loadPromoRequest',
+  LoadPromoSuccess = 'data/loadPromoSuccess',
+  LoadPromoError = 'data/loadPromoError',
   LoadSimilarRequest = 'data/loadSimilarRequest',
   LoadSimilarSuccess = 'data/loadSimilarSuccess',
   LoadSimilarError = 'data/loadSimilarError',
@@ -25,6 +28,10 @@ export enum ActionTypes {
   AuthorizationRequest = 'data/authorizationRequest',
   RedirectToRoute = 'route/redirectToRoute',
   LoadUser = 'data/loadUser',
+  ChangeFavoriteStatus = 'data/changeFavoriteStatus',
+  LoadMyListRequest = 'data/loadMyListRequest',
+  LoadMyListSuccess = 'data/loadMyListSuccess',
+  LoadMyListError = 'data/loadMyListError',
 }
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<

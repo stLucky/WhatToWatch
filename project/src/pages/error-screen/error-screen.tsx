@@ -8,10 +8,10 @@ import Header from '../../components/header/header';
 import styles from './error-screen.module.scss';
 
 type ErrorScreenProps = {
-  type?: string
-}
+  type?: string;
+};
 
-function ErrorScreen ({ type = '' }: ErrorScreenProps): JSX.Element {
+function ErrorScreen({ type = '' }: ErrorScreenProps): JSX.Element {
   const headerClasses = cn('user-page__head', styles.header);
 
   const refreshPage = (evt: MouseEvent) => {
@@ -20,7 +20,7 @@ function ErrorScreen ({ type = '' }: ErrorScreenProps): JSX.Element {
   };
 
   return (
-    <div className='user-page'>
+    <div className="user-page">
       <Header className={headerClasses} isVisibleUserMenu={false}></Header>
       <div className={styles['main-layout']}>
         {type === '404' ? (
