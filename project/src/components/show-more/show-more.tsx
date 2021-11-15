@@ -1,22 +1,12 @@
-import { Dispatch } from 'redux';
-import { connect, ConnectedProps } from 'react-redux';
-import { Actions } from '../../types/actions';
+import { useDispatch } from 'react-redux';
 import { incrementLimit } from '../../store/actions';
 import { SHOWN_COUNT_FILMS } from '../../const';
 
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
-  onIncrementLimit(offset: number) {
-    dispatch(incrementLimit(offset));
-  },
-});
+function ShowMore(): JSX.Element {
+  const dispatch = useDispatch();
 
-const connector = connect(null, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function ShowMore({ onIncrementLimit }: PropsFromRedux): JSX.Element {
   const handleShowMoreClick = () => {
-    onIncrementLimit(SHOWN_COUNT_FILMS);
+    dispatch(incrementLimit(SHOWN_COUNT_FILMS));
   };
 
   return (
@@ -32,6 +22,4 @@ function ShowMore({ onIncrementLimit }: PropsFromRedux): JSX.Element {
   );
 }
 
-export { ShowMore };
-
-export default connector(ShowMore);
+export default ShowMore;

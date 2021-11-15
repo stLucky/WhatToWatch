@@ -1,68 +1,38 @@
-import { Link, useParams } from 'react-router-dom';
-import { connect, ConnectedProps } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import Films from '../../components/films/films';
 import Tabs from '../../components/tabs/tabs';
-import { ThunkAppDispatch } from '../../types/actions';
 import ErrorScreen from '../error-screen/error-screen';
 import { fetchFilmAction, fetchSimilarAction } from '../../store/api-actions';
-import { State } from '../../types/state';
 import LoadingScreen from '../loading-screen/loading-screen';
 import Loader from 'react-loader-spinner';
 import styles from './movie-screen.module.scss';
+import { ANOTHER_TIME_ERROR, ERROR_404, OTHER_ERRORS } from '../../const';
 import {
-  ANOTHER_TIME_ERROR,
-  AuthorizationStatus,
-  ERROR_404,
-  OTHER_ERRORS
-} from '../../const';
+  getErrorFilmStatus,
+  getErrorSimilarStatus,
+  getFilm,
+  getLoadingFilmStatus,
+  getLoadingSimilarStatus,
+  getSimilar
+} from '../../store/films-data/selectors';
+import Controls from '../../components/controls/controls';
 
 const MAX_VISIBLE_SIMILAR_FILMS = 4;
 
-const mapStateToProps = ({
-  film,
-  isFilmLoading,
-  filmError,
-  similar,
-  isSimilarLoading,
-  isSimilarError,
-  authorizationStatus,
-}: State) => ({
-  film,
-  isFilmLoading,
-  filmError,
-  similar,
-  isSimilarLoading,
-  isSimilarError,
-  authorizationStatus,
-});
+function MovieScreen(): JSX.Element {
+  const film = useSelector(getFilm);
+  const isFilmLoading = useSelector(getLoadingFilmStatus);
+  const filmError = useSelector(getErrorFilmStatus);
+  const similar = useSelector(getSimilar);
+  const isSimilarLoading = useSelector(getLoadingSimilarStatus);
+  const isSimilarError = useSelector(getErrorSimilarStatus);
 
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  onFetchFilm(id: number) {
-    dispatch(fetchFilmAction(id));
-  },
-  onFetchSimilar(id: number) {
-    dispatch(fetchSimilarAction(id));
-  },
-});
+  const dispatch = useDispatch();
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function MovieScreen({
-  film,
-  isFilmLoading,
-  filmError,
-  similar,
-  isSimilarLoading,
-  isSimilarError,
-  authorizationStatus,
-  onFetchFilm,
-  onFetchSimilar,
-}: PropsFromRedux): JSX.Element {
   const { id }: { id: string } = useParams();
 
   useEffect(() => {
@@ -70,9 +40,9 @@ function MovieScreen({
       return;
     }
 
-    onFetchFilm(+id);
-    onFetchSimilar(+id);
-  }, [onFetchFilm, onFetchSimilar, id]);
+    dispatch(fetchFilmAction(id));
+    dispatch(fetchSimilarAction(id));
+  }, [dispatch, id]);
 
   const getSimilarContent = () => {
     if (isSimilarLoading) {
@@ -134,34 +104,7 @@ function MovieScreen({
                 <span className="film-card__year">{film.rating}</span>
               </p>
 
-              <div className="film-card__buttons">
-                <button
-                  className="btn btn--play film-card__button"
-                  type="button"
-                >
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <button
-                  className="btn btn--list film-card__button"
-                  type="button"
-                >
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
-                {authorizationStatus === AuthorizationStatus.Auth && (
-                  <Link
-                    to={`/films/${film.id}/review`}
-                    className="btn film-card__button"
-                  >
-                    Add review
-                  </Link>
-                )}
-              </div>
+              <Controls hasReviewControl />
             </div>
           </div>
         </div>
@@ -195,6 +138,4 @@ function MovieScreen({
   );
 }
 
-export { MovieScreen };
-
-export default connector(MovieScreen);
+export default MovieScreen;

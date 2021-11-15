@@ -1,46 +1,42 @@
-import { connect, ConnectedProps } from 'react-redux';
+import { MouseEvent } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { State } from '../../types/state';
 import { AuthorizationStatus, AppRoute } from '../../const';
-import { ThunkAppDispatch } from '../../types/actions';
 import { logoutAction } from '../../store/api-actions';
+import {
+  getAuthorizationStatus,
+  getUser
+} from '../../store/user-process/selectors';
 
-const mapStateToProps = ({ authorizationStatus, avatar }: State) => ({
-  authorizationStatus,
-  avatar,
-});
+function UserMenu(): JSX.Element {
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const user = useSelector(getUser);
+  const dispatch = useDispatch();
 
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  logout() {
+  const handleLogoutClick = (evt: MouseEvent) => {
+    evt.preventDefault();
     dispatch(logoutAction());
-  },
-});
+  };
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function UserMenu({
-  authorizationStatus,
-  avatar,
-  logout,
-}: PropsFromRedux): JSX.Element {
   if (authorizationStatus === AuthorizationStatus.Auth) {
     return (
       <ul className="user-block">
         <li className="user-block__item">
           <div className="user-block__avatar">
-            <img src={avatar} alt="User avatar" width="63" height="63" />
+            <Link to={AppRoute.MyList}>
+              <img
+                src={user.avatarUrl}
+                alt="User avatar"
+                width="63"
+                height="63"
+              />
+            </Link>
           </div>
         </li>
         <li className="user-block__item">
           <Link
-            to="/"
-            onClick={(evt) => {
-              evt.preventDefault();
-
-              logout();
-            }}
+            to={AppRoute.Root}
+            onClick={handleLogoutClick}
             className="user-block__link"
           >
             Sign out
@@ -59,6 +55,4 @@ function UserMenu({
   );
 }
 
-export { UserMenu };
-
-export default connector(UserMenu);
+export default UserMenu;

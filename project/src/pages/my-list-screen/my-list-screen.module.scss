@@ -1,0 +1,11 @@
+.title {
+  pointer-events: none;
+}
+
+.noContentWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  min-height: 70px;
+}

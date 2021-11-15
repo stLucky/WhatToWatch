@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import Logo from '../logo/logo';
 
 type FooterProps = {
@@ -15,4 +16,5 @@ function Footer({ onMain = false }: FooterProps): JSX.Element {
   );
 }
 
-export default Footer;
+
+export default memo(Footer);

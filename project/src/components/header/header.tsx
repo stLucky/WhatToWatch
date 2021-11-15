@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react';
+import { memo, PropsWithChildren } from 'react';
 import cn from 'classnames';
 import Logo from '../logo/logo';
 import UserMenu from '../user-menu/user-menu';
@@ -27,4 +27,4 @@ function Header({
   );
 }
 
-export default Header;
+export default memo(Header);

@@ -1,30 +1,7 @@
+import { Action } from 'redux';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { AxiosInstance } from 'axios';
-import {State} from '../types/state';
-
-import {
-  changeActiveGenre,
-  loadFilmsRequest,
-  loadFilmsSuccess,
-  loadFilmsError,
-  loadFilmRequest,
-  loadFilmSuccess,
-  loadFilmError,
-  sendReviewRequest,
-  loadSimilarRequest,
-  loadSimilarSuccess,
-  loadSimilarError,
-  loadReviewsRequest,
-  loadReviewsSuccess,
-  loadReviewsError,
-  incrementLimit,
-  resetLimit,
-  requireAuthorization,
-  requireLogout,
-  authorizationRequest,
-  redirectToRoute,
-  loadAvatar
-} from '../store/actions';
+import { State } from '../types/state';
 
 export enum ActionTypes {
   ChangeActiveGenre = 'films/changeGenre',
@@ -36,6 +13,9 @@ export enum ActionTypes {
   LoadFilmRequest = 'data/loadFilmRequest',
   LoadFilmSuccess = 'data/loadFilmSuccess',
   LoadFilmError = 'data/loadFilmError',
+  LoadPromoRequest = 'data/loadPromoRequest',
+  LoadPromoSuccess = 'data/loadPromoSuccess',
+  LoadPromoError = 'data/loadPromoError',
   LoadSimilarRequest = 'data/loadSimilarRequest',
   LoadSimilarSuccess = 'data/loadSimilarSuccess',
   LoadSimilarError = 'data/loadSimilarError',
@@ -47,32 +27,18 @@ export enum ActionTypes {
   RequireLogout = 'user/requireLogout',
   AuthorizationRequest = 'data/authorizationRequest',
   RedirectToRoute = 'route/redirectToRoute',
-  LoadAvatar = 'data/loadAvatar'
+  LoadUser = 'data/loadUser',
+  ChangeFavoriteStatus = 'data/changeFavoriteStatus',
+  LoadMyListRequest = 'data/loadMyListRequest',
+  LoadMyListSuccess = 'data/loadMyListSuccess',
+  LoadMyListError = 'data/loadMyListError',
 }
 
-export type Actions =
-  | ReturnType<typeof changeActiveGenre>
-  | ReturnType<typeof loadFilmsRequest>
-  | ReturnType<typeof loadFilmsSuccess>
-  | ReturnType<typeof loadFilmsError>
-  | ReturnType<typeof loadFilmRequest>
-  | ReturnType<typeof loadFilmSuccess>
-  | ReturnType<typeof loadFilmError>
-  | ReturnType<typeof loadSimilarRequest>
-  | ReturnType<typeof loadSimilarSuccess>
-  | ReturnType<typeof loadSimilarError>
-  | ReturnType<typeof loadReviewsRequest>
-  | ReturnType<typeof loadReviewsSuccess>
-  | ReturnType<typeof loadReviewsError>
-  | ReturnType<typeof sendReviewRequest>
-  | ReturnType<typeof incrementLimit>
-  | ReturnType<typeof resetLimit>
-  | ReturnType<typeof requireAuthorization>
-  | ReturnType<typeof requireLogout>
-  | ReturnType<typeof authorizationRequest>
-  | ReturnType<typeof loadAvatar>
-  | ReturnType<typeof redirectToRoute>;
+export type ThunkActionResult<R = Promise<void>> = ThunkAction<
+  R,
+  State,
+  AxiosInstance,
+  Action
+>;
 
-export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
-
-export type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Actions>;
+export type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Action>;

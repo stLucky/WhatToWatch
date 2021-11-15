@@ -4,14 +4,14 @@ import axios, {
   AxiosResponse,
   AxiosError
 } from 'axios';
-import { ERROR_404 } from '../const';
+import { ERROR_401, ERROR_404 } from '../const';
 import { getToken } from './token';
 
 const BACKEND_URL = 'https://8.react.pages.academy/wtw';
 const REQUEST_TIMEOUT = 5000;
 
 enum HttpCode {
-  Unauthorized = 401,
+  Unauthorized = ERROR_401,
   NotFound = ERROR_404,
 }
 
@@ -33,6 +33,7 @@ export const createAPI = (
 
       if (response?.status === HttpCode.Unauthorized) {
         onUnauthorized();
+        return Promise.reject(HttpCode.Unauthorized);
       }
 
       if (response?.status === HttpCode.NotFound) {

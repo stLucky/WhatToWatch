@@ -1,40 +1,26 @@
-import { useState, ChangeEvent, FormEvent } from 'react';
+import { useState, ChangeEvent, FormEvent, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Rating from '../rating/rating';
-import { connect, ConnectedProps } from 'react-redux';
 import { fetchSendReviewAction } from '../../store/api-actions';
-import { ThunkAppDispatch } from '../../types/actions';
 import { useParams } from 'react-router-dom';
-import { State } from '../../types/state';
 import Loader from 'react-loader-spinner';
-import { ReviewSend } from '../../types/reviews';
 import cn from 'classnames';
 import styles from './comment-form.module.scss';
+import { getLoadingSendReviewStatus } from '../../store/reviews-data/selectors';
 
 const MAX_NUMBER_RATING = 10;
+const MIN_LENGTH_COMMENT = 50;
+const MAX_LENTGH_COMMENT = 400;
 
 const ratings = Array.from(
   { length: MAX_NUMBER_RATING },
   (_, i) => i + 1,
 ).reverse();
 
-const mapStateToProps = ({ isSendReviewLoading }: State) => ({
-  isSendReviewLoading,
-});
+function CommentForm(): JSX.Element {
+  const isSendReviewLoading = useSelector(getLoadingSendReviewStatus);
+  const dispatch = useDispatch();
 
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  onSendReview(review: ReviewSend, id: number) {
-    dispatch(fetchSendReviewAction(review, id));
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function CommentForm({
-  isSendReviewLoading,
-  onSendReview,
-}: PropsFromRedux): JSX.Element {
   const { id }: { id: string } = useParams();
 
   const [comment, setComment] = useState<string>('');
@@ -42,8 +28,8 @@ function CommentForm({
 
   const isDisabledForm =
     comment === '' ||
-    comment.length < 50 ||
-    comment.length > 400 ||
+    comment.length < MIN_LENGTH_COMMENT ||
+    comment.length > MAX_LENTGH_COMMENT ||
     !rating ||
     isSendReviewLoading;
 
@@ -53,15 +39,16 @@ function CommentForm({
     setComment(target.value);
   };
 
-  const handleRatingChange = (ratingQuantity: number) => {
-    setRating(ratingQuantity);
-  };
+  const handleRatingChange = useCallback(
+    (ratingQuantity: number) => setRating(ratingQuantity),
+    [],
+  );
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
     if (!isDisabledForm) {
-      onSendReview({ rating, comment }, +id);
+      dispatch(fetchSendReviewAction({ rating, comment }, id));
     }
   };
 
@@ -115,6 +102,4 @@ function CommentForm({
   );
 }
 
-export { CommentForm };
-
-export default connector(CommentForm);
+export default CommentForm;

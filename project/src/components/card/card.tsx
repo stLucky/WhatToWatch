@@ -1,23 +1,21 @@
 import { Link } from 'react-router-dom';
-import { useState, useRef, useEffect } from 'react';
+import { memo, useRef } from 'react';
 import cn from 'classnames';
 import { FilmType } from '../../types/films';
 import VideoPlayer from '../video-player/video-player';
 import styles from './card.module.scss';
+import { usePlayingVideo } from '../../hooks/use-playing-video';
 
 type CardProps = {
   film: FilmType;
   hasPlayer: boolean;
 };
 
-const TIME_VIDEO_DELAY = 1000;
-
 function Card({ film, hasPlayer }: CardProps): JSX.Element {
-  const [isPlaying, setIsPlaying] = useState(false);
-
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const timeRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  const [handlePlayVideo, handleStopVideo] = usePlayingVideo(videoRef, timeRef);
   const linkClasses = cn('small-film-card catalog__films-card', styles.link);
 
   const getPreviewElement = () => {
@@ -34,33 +32,6 @@ function Card({ film, hasPlayer }: CardProps): JSX.Element {
     return <img src={film.previewImage} alt={film.name} />;
   };
 
-  const handlePlayVideo = () => {
-    setIsPlaying(true);
-  };
-
-  const handleStopVideo = () => {
-    setIsPlaying(false);
-  };
-
-  useEffect(() => {
-    if (videoRef.current === null) {
-      return;
-    }
-
-    if (isPlaying) {
-      timeRef.current = setTimeout(
-        () => videoRef.current?.play(),
-        TIME_VIDEO_DELAY,
-      );
-    } else {
-      videoRef.current.load();
-    }
-
-    return () => {
-      timeRef.current && clearTimeout(timeRef.current);
-    };
-  }, [isPlaying]);
-
   return (
     <Link className={linkClasses} to={`/films/${film.id}`}>
       <article onMouseEnter={handlePlayVideo} onMouseLeave={handleStopVideo}>
@@ -73,4 +44,4 @@ function Card({ film, hasPlayer }: CardProps): JSX.Element {
   );
 }
 
-export default Card;
+export default memo(Card);
