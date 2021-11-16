@@ -2,7 +2,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import { MouseEvent } from 'react';
 import cn from 'classnames';
 import { changeActiveGenre, resetLimit } from '../../store/actions';
-import { getActiveGenre } from '../../store/films-process/selectors';
+import { getActiveGenre } from '../../store/up-state/selectors';
 
 type GenresProps = {
   genres: string[];

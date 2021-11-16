@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import { AuthorizationStatus, FavoriteStatus } from '../../const';
 import { fetchFavoriteStatusAction } from '../../store/api-actions';
-import { getFilm, getPromo } from '../../store/films-data/selectors';
-import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { getFilm, getPromo } from '../../store/films/selectors';
+import { getAuthorizationStatus } from '../../store/user/selectors';
 
 type ControlsProps = {
   hasReviewControl?: boolean;

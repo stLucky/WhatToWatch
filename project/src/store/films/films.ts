@@ -38,7 +38,7 @@ const initialState: FilmsData = {
   isMyListError: false,
 };
 
-const filmsData = createReducer(initialState, (builder) => {
+const films = createReducer(initialState, (builder) => {
   builder
     .addCase(loadFilmsRequest, (state, action) => {
       state.isFilmsLoading = action.payload;
@@ -96,4 +96,4 @@ const filmsData = createReducer(initialState, (builder) => {
     });
 });
 
-export { filmsData };
+export { films };

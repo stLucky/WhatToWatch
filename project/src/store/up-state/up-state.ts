@@ -8,7 +8,7 @@ const initialState: FilmsProcess = {
   limit: SHOWN_COUNT_FILMS,
 };
 
-const filmsProcess = createReducer(initialState, (builder) => {
+const upState = createReducer(initialState, (builder) => {
   builder
     .addCase(changeActiveGenre, (state, action) => {
       state.activeGenre = action.payload;
@@ -21,4 +21,4 @@ const filmsProcess = createReducer(initialState, (builder) => {
     });
 });
 
-export { filmsProcess };
+export { upState };

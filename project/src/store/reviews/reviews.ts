@@ -14,7 +14,7 @@ const initialState: ReviewsData = {
   isSendReviewLoading: false,
 };
 
-const reviewsData = createReducer(initialState, (builder) => {
+const reviews = createReducer(initialState, (builder) => {
   builder
     .addCase(loadReviewsRequest, (state, action) => {
       state.isReviewsLoading = action.payload;
@@ -30,4 +30,4 @@ const reviewsData = createReducer(initialState, (builder) => {
     });
 });
 
-export { reviewsData };
+export { reviews };

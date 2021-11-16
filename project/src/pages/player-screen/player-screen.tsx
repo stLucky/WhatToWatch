@@ -1,37 +1,35 @@
-import { FilmType } from '../../types/films';
 import { useHistory, useParams } from 'react-router-dom';
-// import {SyntheticEvent} from 'react';
-// import { getTimeFromMins } from '../../utils';
 import ErrorScreen from '../error-screen/error-screen';
 import { useSelector } from 'react-redux';
-import { getFilms } from '../../store/films-data/selectors';
-import { useEffect, useRef, useState, MouseEvent } from 'react';
+import { getCurrentFilm, getFilms } from '../../store/films/selectors';
+import { useEffect, useRef, useState, MouseEvent, useCallback } from 'react';
 import Loader from 'react-loader-spinner';
 import styles from './player-screen.module.scss';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { getTimeFromSecs } from '../../utils';
 import Progress from '../../components/progress/progress';
 import Reload from '../../components/reload/reload';
+import { MAX_VIDEO_PROGRESS } from '../../const';
+import { State } from '../../types/state';
 
 const INITIAL_PROGRESS = 0;
 
 function PlayerScreen(): JSX.Element {
-  const films = useSelector(getFilms);
   const { id }: { id: string } = useParams();
   const history = useHistory();
+
+  const films = useSelector(getFilms);
+  const currentFilm = useSelector(((state: State) => getCurrentFilm(state, id)));
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [isLoadedMetaData, setIsLoadedMetaData] = useState(false);
   const [isEnded, setIsEnded] = useState(false);
   const [time, setTime] = useState('');
   const [progress, setProgress] = useState(INITIAL_PROGRESS);
 
-  const film: FilmType | undefined = films.find(
-    (filmItem) => filmItem.id === +id,
-  );
 
   useEffect(() => {
     if (!videoRef.current) {
@@ -74,6 +72,11 @@ function PlayerScreen(): JSX.Element {
     }
   };
 
+  const handleLoadedData = () => {
+    setIsPlaying(true);
+    setIsLoading(false);
+  };
+
   const handleWaiting = () => {
     setIsLoading(true);
   };
@@ -82,13 +85,21 @@ function PlayerScreen(): JSX.Element {
     setIsLoading(false);
   };
 
+  const handlePlay = () => {
+    isPlaying === false && setIsPlaying(true);
+  };
+
+  const handlePause = () => {
+    isPlaying === true && setIsPlaying(false);
+  };
+
   const handleTimeUpdate = () => {
     if (videoRef.current !== null) {
       const currentTime = getTimeFromSecs(
         Math.round(videoRef.current.duration - videoRef.current.currentTime),
       );
       const currentProgress = Math.round(
-        (videoRef.current.currentTime / videoRef.current.duration) * 100,
+        (videoRef.current.currentTime / videoRef.current.duration) * MAX_VIDEO_PROGRESS,
       );
 
       setTime(currentTime);
@@ -96,13 +107,14 @@ function PlayerScreen(): JSX.Element {
     }
   };
 
-  const handleChangeProgress = (currentProgress: number) => {
+  const handleChangeProgress = useCallback((currentProgress: number) => {
     setProgress(currentProgress);
-  };
+  }, []);
 
-  const handleChangeTime = (currentTime: string) => {
+  const handleChangeTime = useCallback((currentTime: string) => {
     setTime(currentTime);
-  };
+  }, []);
+
 
   const handleEnded = () => {
     setIsPlaying(false);
@@ -124,7 +136,7 @@ function PlayerScreen(): JSX.Element {
     return <LoadingScreen />;
   }
 
-  if (!film) {
+  if (!currentFilm) {
     return <ErrorScreen />;
   }
 
@@ -138,7 +150,7 @@ function PlayerScreen(): JSX.Element {
           width={50}
           visible={isVisibleLoader}
         />
-        {isEnded && (
+        {isEnded && progress === MAX_VIDEO_PROGRESS && (
           <Reload
             className={styles.reload}
             height={60}
@@ -149,16 +161,19 @@ function PlayerScreen(): JSX.Element {
         )}
       </div>
       <video
-        src={film.videoLink}
+        src={currentFilm.videoLink}
         className="player__video"
-        poster={film.posterImage}
+        poster={currentFilm.posterImage}
         ref={videoRef}
         onWaiting={handleWaiting}
         onPlaying={handlePlaying}
         onCanPlay={handlePlaying}
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetadata}
+        onLoadedData={handleLoadedData}
         onEnded={handleEnded}
+        onPlay={handlePlay}
+        onPause={handlePause}
       />
 
       <button type="button" className="player__exit" onClick={handleExitClick}>
@@ -185,21 +200,21 @@ function PlayerScreen(): JSX.Element {
             {isPlaying ? (
               <>
                 <svg viewBox="0 0 14 21" width="14" height="21">
-                  <use xlinkHref="#pause"></use>
+                  <use xlinkHref="#pause" />
                 </svg>
                 <span>Pause</span>
               </>
             ) : (
               <>
                 <svg viewBox="0 0 19 19" width="19" height="19">
-                  <use xlinkHref="#play-s"></use>
+                  <use xlinkHref="#play-s" />
                 </svg>
                 <span>Play</span>
               </>
             )}
           </button>
-          <button type="button" className="player__play"></button>
-          <div className="player__name">{film.name}</div>
+          <button type="button" className="player__play" />
+          <div className="player__name">{currentFilm.name}</div>
 
           <button
             type="button"
@@ -207,7 +222,7 @@ function PlayerScreen(): JSX.Element {
             onClick={handleFullClick}
           >
             <svg viewBox="0 0 27 27" width="27" height="27">
-              <use xlinkHref="#full-screen"></use>
+              <use xlinkHref="#full-screen" />
             </svg>
             <span>Full screen</span>
           </button>

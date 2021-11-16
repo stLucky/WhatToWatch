@@ -15,7 +15,7 @@ const initialState: UserProcess = {
   isAuthLoading: false,
 };
 
-const userProcess = createReducer(initialState, (builder) => {
+const user = createReducer(initialState, (builder) => {
   builder
     .addCase(loadUser, (state, action) => {
       state.user = action.payload;
@@ -31,4 +31,4 @@ const userProcess = createReducer(initialState, (builder) => {
     });
 });
 
-export { userProcess };
+export { user };

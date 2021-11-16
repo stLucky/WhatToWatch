@@ -1,5 +1,6 @@
 import cn from 'classnames';
-import { MouseEvent, useRef } from 'react';
+import { memo, MouseEvent, useRef } from 'react';
+import { MAX_VIDEO_PROGRESS } from '../../const';
 import { getTimeFromSecs } from '../../utils';
 import styles from './progress.module.scss';
 
@@ -20,7 +21,7 @@ function Progress({
   video,
   isLoadedMetaData,
 }: ProgressProps): JSX.Element {
-  const togglerRef = useRef<HTMLDivElement | null>(null);
+  const toggleRef = useRef<HTMLDivElement | null>(null);
   const wrapRef = useRef<HTMLDivElement | null>(null);
 
   const progressClasses = cn('player__progress', styles.progress);
@@ -30,7 +31,7 @@ function Progress({
       return;
     }
 
-    const currentTime = (video.duration * currentProgress) / 100;
+    const currentTime = (video.duration * currentProgress) / MAX_VIDEO_PROGRESS;
     const reverseTime = Math.round(video.duration - currentTime);
 
     const formattedTime = getTimeFromSecs(reverseTime);
@@ -39,28 +40,28 @@ function Progress({
     video.currentTime = currentTime;
   };
 
-  const handleProgressClick = (evt: MouseEvent) => {
-    const target = evt.target as HTMLProgressElement;
+  const handleProgressClick = (evt: MouseEvent<HTMLProgressElement>) => {
+    const target = evt.currentTarget;
     const leftOffset = target.getBoundingClientRect().left;
     const fullWidth = target.offsetWidth;
 
     const currentProgress = Math.round(
-      ((evt.clientX - leftOffset) * 100) / fullWidth,
+      ((evt.clientX - leftOffset) * MAX_VIDEO_PROGRESS) / fullWidth,
     );
 
     onChangeProgress(currentProgress);
     setTime(currentProgress);
   };
 
-  const handleTogglerMouseDown = (evt: MouseEvent) => {
+  const handletoggleMouseDown = (evt: MouseEvent<HTMLDivElement>) => {
     evt.preventDefault();
 
-    const target = evt.target as HTMLDivElement;
+    const target = evt.currentTarget;
     const leftOffset = target.getBoundingClientRect().left;
     const shiftX = evt.clientX - leftOffset;
 
     const onMouseMove = (e: { clientX: number }) => {
-      if (!shiftX || !wrapRef.current || !togglerRef.current) {
+      if (!shiftX || !wrapRef.current || !toggleRef.current) {
         return;
       }
 
@@ -77,13 +78,13 @@ function Progress({
         newLeft = rightEdge;
       }
 
-      const currentPosition = (newLeft * 100) / wrapRef.current.offsetWidth;
+      const currentPosition = (newLeft * MAX_VIDEO_PROGRESS) / wrapRef.current.offsetWidth;
 
-      togglerRef.current.style.left = `${currentPosition}%`;
+      toggleRef.current.style.left = `${currentPosition}%`;
 
-      onChangeProgress((newLeft * 100) / wrapRef.current.offsetWidth);
+      onChangeProgress((newLeft * MAX_VIDEO_PROGRESS) / wrapRef.current.offsetWidth);
       if (video) {
-        const currentTime = (video.duration * currentPosition) / 100;
+        const currentTime = (video.duration * currentPosition) / MAX_VIDEO_PROGRESS;
         video.currentTime = currentTime;
 
         onChangeTime(getTimeFromSecs(Math.round(video.duration - currentTime)));
@@ -111,10 +112,10 @@ function Progress({
         <div
           className="player__toggler"
           style={{ left: `${progress}%` }}
-          onMouseDown={handleTogglerMouseDown}
-          ref={togglerRef}
+          onMouseDown={handletoggleMouseDown}
+          ref={toggleRef}
         >
-          Toggler
+          Toggle
         </div>
       </div>
       <div className="player__time-value">
@@ -124,4 +125,4 @@ function Progress({
   );
 }
 
-export default Progress;
+export default memo(Progress);

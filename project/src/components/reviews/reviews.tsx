@@ -6,7 +6,7 @@ import Review from '../review/review';
 import Loader from 'react-loader-spinner';
 import styles from './reviews.module.scss';
 import { ANOTHER_TIME_ERROR } from '../../const';
-import { getErrorReviewsStatus, getLoadingReviewsStatus, getReviews } from '../../store/reviews-data/selectors';
+import { getErrorReviewsStatus, getLoadingReviewsStatus, getReviews } from '../../store/reviews/selectors';
 
 function Reviews(): JSX.Element {
   const reviews = useSelector(getReviews);

@@ -9,7 +9,7 @@ import {
   getErrorMyListStatus,
   getLoadingMyListStatus,
   getMyList
-} from '../../store/films-data/selectors';
+} from '../../store/films/selectors';
 import ErrorScreen from '../error-screen/error-screen';
 import LoadingScreen from '../loading-screen/loading-screen';
 import styles from './my-list-screen.module.scss';
