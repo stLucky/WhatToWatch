@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import {
   getErrorPromoStatus,
   getPromo
-} from '../../store/films-data/selectors';
+} from '../../store/films/selectors';
 import Controls from '../controls/controls';
 
 type PromoFilm = {

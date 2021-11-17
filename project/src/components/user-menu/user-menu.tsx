@@ -6,7 +6,7 @@ import { logoutAction } from '../../store/api-actions';
 import {
   getAuthorizationStatus,
   getUser
-} from '../../store/user-process/selectors';
+} from '../../store/user/selectors';
 
 function UserMenu(): JSX.Element {
   const authorizationStatus = useSelector(getAuthorizationStatus);

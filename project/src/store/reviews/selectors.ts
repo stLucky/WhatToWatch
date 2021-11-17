@@ -3,13 +3,13 @@ import { State } from '../../types/state';
 import { ReviewsType } from '../../types/reviews';
 
 export const getReviews = (state: State): ReviewsType =>
-  state[NameSpace.dataReviews].reviews;
+  state[NameSpace.Reviews].reviews;
 
 export const getLoadingReviewsStatus = (state: State): boolean =>
-  state[NameSpace.dataReviews].isReviewsLoading;
+  state[NameSpace.Reviews].isReviewsLoading;
 
 export const getErrorReviewsStatus = (state: State): boolean =>
-  state[NameSpace.dataReviews].isReviewsError;
+  state[NameSpace.Reviews].isReviewsError;
 
 export const getLoadingSendReviewStatus = (state: State): boolean =>
-  state[NameSpace.dataReviews].isSendReviewLoading;
+  state[NameSpace.Reviews].isSendReviewLoading;

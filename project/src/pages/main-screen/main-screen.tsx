@@ -1,27 +1,27 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Promo from '../components/promo/promo';
-import Films from '../components/films/films';
-import Footer from '../components/footer/footer';
-import Genres from '../components/genres/genres';
-import Header from '../components/header/header';
-import ShowMore from '../components/show-more/show-more';
-import { SHOWN_COUNT_FILMS } from '../const';
-import { resetLimit } from '../store/actions';
-import LoadingScreen from './loading-screen/loading-screen';
-import ErrorScreen from './error-screen/error-screen';
+import Promo from '../../components/promo/promo';
+import Films from '../../components/films/films';
+import Footer from '../../components/footer/footer';
+import Genres from '../../components/genres/genres';
+import Header from '../../components/header/header';
+import ShowMore from '../../components/show-more/show-more';
+import { SHOWN_COUNT_FILMS } from '../../const';
+import { resetLimit } from '../../store/actions';
+import LoadingScreen from '../loading-screen/loading-screen';
+import ErrorScreen from '../error-screen/error-screen';
 import {
   getFilteredFilms,
   getGenres,
   getRenderedFilms
-} from '../store/films-process/selectors';
+} from '../../store/films/selectors';
 import {
   getErrorFilmsStatus,
   getLoadingFilmsStatus,
   getLoadingPromoStatus
-} from '../store/films-data/selectors';
-import { fetchPromoAction } from '../store/api-actions';
-import { getAuthorizationStatus } from '../store/user-process/selectors';
+} from '../../store/films/selectors';
+import { fetchPromoAction } from '../../store/api-actions';
+import { getAuthorizationStatus } from '../../store/user/selectors';
 
 function MainScreen(): JSX.Element {
   const genres = useSelector(getGenres);

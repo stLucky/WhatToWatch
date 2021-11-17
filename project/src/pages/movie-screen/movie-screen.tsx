@@ -18,7 +18,7 @@ import {
   getLoadingFilmStatus,
   getLoadingSimilarStatus,
   getSimilar
-} from '../../store/films-data/selectors';
+} from '../../store/films/selectors';
 import Controls from '../../components/controls/controls';
 
 const MAX_VISIBLE_SIMILAR_FILMS = 4;

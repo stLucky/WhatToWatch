@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux';
-import Breadcrumbs from '../components/breadcrumbs/breadcrumbs';
-import Header from '../components/header/header';
-import CommentForm from '../components/comment-form/comment-form';
-import ErrorScreen from './error-screen/error-screen';
-import { getFilm } from '../store/films-data/selectors';
+import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
+import Header from '../../components/header/header';
+import CommentForm from '../../components/comment-form/comment-form';
+import ErrorScreen from '../error-screen/error-screen';
+import { getFilm } from '../../store/films/selectors';
 
 function AddReviewScreen(): JSX.Element {
   const film = useSelector(getFilm);

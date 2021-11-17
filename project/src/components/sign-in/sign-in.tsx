@@ -4,7 +4,7 @@ import { loginAction } from '../../store/api-actions';
 import cn from 'classnames';
 import styles from './sign-in.module.scss';
 import Loader from 'react-loader-spinner';
-import { getLoadinAuthStatus } from '../../store/user-process/selectors';
+import { getLoadinAuthStatus } from '../../store/user/selectors';
 
 const formFields = {
   email: 'Email address',

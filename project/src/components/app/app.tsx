@@ -1,11 +1,11 @@
-import MainScreen from '../../pages/main-screen';
+import MainScreen from '../../pages/main-screen/main-screen';
 import { Router as BrowserRouter, Route, Switch } from 'react-router-dom';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
 import { AppRoute } from '../../const';
-import SignInScreen from '../../pages/sign-in-screen';
+import SignInScreen from '../../pages/sign-in-screen/sign-in-screen';
 import MyListScreen from '../../pages/my-list-screen/my-list-screen';
 import MovieScreen from '../../pages/movie-screen/movie-screen';
-import AddReviewScreen from '../../pages/add-review-screen';
+import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
 import PlayerScreen from '../../pages/player-screen/player-screen';
 import PrivateRoute from '../private-route/private-route';
 import browserHistory from '../../browser-history';

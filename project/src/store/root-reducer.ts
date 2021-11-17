@@ -1,21 +1,21 @@
 import { combineReducers } from 'redux';
-import { filmsData } from './films-data/films-data';
-import { filmsProcess } from './films-process/films-process';
-import { reviewsData } from './reviews-data/reviews-data';
-import { userProcess } from './user-process/user-process';
+import { films } from './films/films';
+import { upState } from './up-state/up-state';
+import { reviews } from './reviews/reviews';
+import { user } from './user/user';
 
 export enum NameSpace {
-  dataFilms = 'FILMS_DATA',
-  dataReviews = 'REVIEWS_DATA',
-  process = 'FILMS_PROCESS',
-  user = 'USER',
+  Films = 'FILMS',
+  Reviews = 'REVIEWS',
+  UpState = 'UP_STATE',
+  User = 'USER',
 }
 
 export const rootReducer = combineReducers({
-  [NameSpace.dataFilms]: filmsData,
-  [NameSpace.dataReviews]: reviewsData,
-  [NameSpace.process]: filmsProcess,
-  [NameSpace.user]: userProcess,
+  [NameSpace.Films]: films,
+  [NameSpace.Reviews]: reviews,
+  [NameSpace.UpState]: upState,
+  [NameSpace.User]: user,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

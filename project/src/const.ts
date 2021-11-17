@@ -1,6 +1,7 @@
 export const DEFAULT_GENRE = 'All genres';
 export const SHOWN_COUNT_FILMS = 8;
 export const MAX_NUMBER_GENRES = 10;
+export const MAX_VIDEO_PROGRESS = 100;
 
 export const ERROR_404 = 404;
 export const ERROR_401 = 401;

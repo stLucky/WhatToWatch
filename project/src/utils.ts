@@ -29,22 +29,22 @@ export const getTimeFromMins = (mins: number): string => {
   return `${hours}h ${minutes}m`;
 };
 
-
 export const getTimeFromSecs = (secs: number): string => {
+  const TIME_LENGTH = 2;
   const hours = Math.floor(secs / 3600);
-  const hs =secs % 3600;
+  const hs = secs % 3600;
   const minutes = Math.floor(hs / 60);
   const seconds = hs % 60;
 
-  const displayedHours = hours < 10 ? `0${hours}` : hours;
-  const displayedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-  const displayedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+  const displayedHours = `${hours}`.padStart(TIME_LENGTH, '0');
+  const displayedMinutes = `${minutes}`.padStart(TIME_LENGTH, '0');
+  const displayedSeconds = `${seconds}`.padStart(TIME_LENGTH, '0');
 
   if (hours === 0) {
     return `${displayedMinutes} : ${displayedSeconds}`;
   }
 
-  return `${displayedHours}:${displayedMinutes} : ${displayedSeconds}`;
+  return `${displayedHours} : ${displayedMinutes} : ${displayedSeconds}`;
 };
 
 export const getFormattedDate = (date: string): string => {
