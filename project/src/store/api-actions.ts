@@ -74,7 +74,7 @@ export const fetchFilmAction = (id: string): ThunkActionResult => async (
   dispatch(loadFilmRequest(true));
 
   try {
-    getState().FILMS.filmError && dispatch(loadFilmError(''));
+    getState().FILM.filmError && dispatch(loadFilmError(''));
 
     const { data } = await api.get<FilmType>(`${APIRoute.Films}/${id}`);
     const normalizedData = camelcaseKeys(data);
@@ -117,7 +117,7 @@ export const fetchSimilarAction = (id: string): ThunkActionResult => async (
   dispatch(loadSimilarRequest(true));
 
   try {
-    getState().FILMS.isSimilarError && dispatch(loadSimilarError(false));
+    getState().SIMILARFILMS.isSimilarError && dispatch(loadSimilarError(false));
 
     const { data } = await api.get<FilmsType>(`${APIRoute.Films}/${id}/similar`);
     const normalizedData = camelcaseKeys(data);

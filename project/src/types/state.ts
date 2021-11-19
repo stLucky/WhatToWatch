@@ -6,23 +6,39 @@ import { AuthUser } from './auth-data';
 
 export type FilmsData = {
   films: FilmsType;
-  myList: FilmsType;
-  promo: FilmType;
-  film: FilmType;
-  similar: FilmsType;
+
+
   isFilmsLoading: boolean;
   isFilmsError: boolean;
-  isPromoLoading: boolean;
-  isPromoError: boolean;
-  isFilmLoading: boolean;
-  filmError: string;
-  isSimilarLoading: boolean;
-  isSimilarError: boolean;
-  isMyListLoading: boolean;
-  isMyListError: boolean;
+
+
 };
 
-export type FilmsProcess = {
+export type Favorites = {
+  myList: FilmsType;
+  isMyListLoading: boolean;
+  isMyListError: boolean;
+}
+
+export type FilmData = {
+  film: FilmType;
+  filmError: string;
+  isFilmLoading: boolean;
+}
+
+export type Promo = {
+  promo: FilmType;
+  isPromoLoading: boolean;
+  isPromoError: boolean;
+}
+
+export type SimilarFilms = {
+  similar: FilmsType;
+  isSimilarLoading: boolean;
+  isSimilarError: boolean;
+}
+
+export type AppProcess = {
   activeGenre: string;
   limit: number;
 };

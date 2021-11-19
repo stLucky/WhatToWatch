@@ -1,14 +1,14 @@
 import { DEFAULT_GENRE, SHOWN_COUNT_FILMS } from '../../const';
-import { FilmsProcess } from '../../types/state';
+import { AppProcess } from '../../types/state';
 import { createReducer } from '@reduxjs/toolkit';
 import { changeActiveGenre, incrementLimit, resetLimit } from '../actions';
 
-const initialState: FilmsProcess = {
+const initialState: AppProcess = {
   activeGenre: DEFAULT_GENRE,
   limit: SHOWN_COUNT_FILMS,
 };
 
-const upState = createReducer(initialState, (builder) => {
+const app = createReducer(initialState, (builder) => {
   builder
     .addCase(changeActiveGenre, (state, action) => {
       state.activeGenre = action.payload;
@@ -21,4 +21,4 @@ const upState = createReducer(initialState, (builder) => {
     });
 });
 
-export { upState };
+export { app };

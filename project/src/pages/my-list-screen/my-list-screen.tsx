@@ -5,11 +5,7 @@ import Films from '../../components/films/films';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import { fetchMyListAction } from '../../store/api-actions';
-import {
-  getErrorMyListStatus,
-  getLoadingMyListStatus,
-  getMyList
-} from '../../store/films/selectors';
+import { getErrorMyListStatus, getLoadingMyListStatus, getMyList } from '../../store/favorites/selectors';
 import ErrorScreen from '../error-screen/error-screen';
 import LoadingScreen from '../loading-screen/loading-screen';
 import styles from './my-list-screen.module.scss';

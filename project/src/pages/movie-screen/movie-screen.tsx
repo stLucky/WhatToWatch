@@ -11,15 +11,9 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import Loader from 'react-loader-spinner';
 import styles from './movie-screen.module.scss';
 import { ANOTHER_TIME_ERROR, ERROR_404, OTHER_ERRORS } from '../../const';
-import {
-  getErrorFilmStatus,
-  getErrorSimilarStatus,
-  getFilm,
-  getLoadingFilmStatus,
-  getLoadingSimilarStatus,
-  getSimilar
-} from '../../store/films/selectors';
 import Controls from '../../components/controls/controls';
+import { getErrorFilmStatus, getFilm, getLoadingFilmStatus } from '../../store/film/selectors';
+import { getErrorSimilarStatus, getLoadingSimilarStatus, getSimilar } from '../../store/similar-films/selectors';
 
 const MAX_VISIBLE_SIMILAR_FILMS = 4;
 

@@ -1,8 +1,5 @@
 import { useSelector } from 'react-redux';
-import {
-  getErrorPromoStatus,
-  getPromo
-} from '../../store/films/selectors';
+import { getErrorPromoStatus, getPromo } from '../../store/promo/selectors';
 import Controls from '../controls/controls';
 
 type PromoFilm = {
