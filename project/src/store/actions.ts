@@ -30,6 +30,9 @@ export const requireAuthorization = createAction<AuthorizationStatus>(
 export const authorizationRequest = createAction<boolean>(
   ActionTypes.AuthorizationRequest,
 );
+export const checkAuthRequest = createAction<boolean>(
+  ActionTypes.CheckAuthRequest,
+);
 export const requireLogout = createAction(ActionTypes.RequireLogout);
 export const redirectToRoute = createAction<string>(ActionTypes.RedirectToRoute);
 export const set404Error = createAction<boolean>(ActionTypes.RequireLogout);

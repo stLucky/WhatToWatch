@@ -34,7 +34,6 @@ function MyListScreen(): JSX.Element {
   if (isMyListError) {
     return <ErrorScreen />;
   }
-  // TODO на страницах с приватным маршрутом (my-list and add-review) если сделать перезагрузку страницы то выкидывает на главную через редирект logina
 
   return (
     <div className="user-page">

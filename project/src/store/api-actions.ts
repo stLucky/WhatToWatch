@@ -24,7 +24,8 @@ import {
   changeFavoriteStatus,
   loadMyListRequest,
   loadMyListError,
-  loadMyListSuccess
+  loadMyListSuccess,
+  checkAuthRequest
 } from './actions';
 import { saveToken, dropToken } from '../services/token';
 import {
@@ -168,6 +169,8 @@ export const checkAuthAction = (): ThunkActionResult => async (
   _,
   api,
 ) => {
+  dispatch(checkAuthRequest(true));
+
   try {
     const { data } = await api.get(APIRoute.Login);
     const normalizedUser = camelcaseKeys(data);
@@ -176,6 +179,8 @@ export const checkAuthAction = (): ThunkActionResult => async (
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
   } catch (e) {
     toast.info(AUTH_INFO, { position: 'bottom-right', theme: 'dark' });
+  } finally {
+    dispatch(checkAuthRequest(false));
   }
 };
 

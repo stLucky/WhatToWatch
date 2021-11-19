@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import {
   getErrorPromoStatus,
@@ -55,5 +54,4 @@ function Promo({ children }: PromoFilm): JSX.Element {
   );
 }
 
-export default memo(Promo);
-//TODO обертка мемо не убирает лишнюю перерисовку при смене жанра, не пойму почему
+export default Promo;

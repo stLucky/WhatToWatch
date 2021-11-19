@@ -38,6 +38,7 @@ export type UserProcess = {
   user: AuthUser;
   authorizationStatus: AuthorizationStatus;
   isAuthLoading: boolean;
+  isCheckAuthLoading: boolean;
 };
 
 export type State = RootState;

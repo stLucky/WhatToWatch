@@ -4,6 +4,7 @@ import { UserProcess } from '../../types/state';
 import { createReducer } from '@reduxjs/toolkit';
 import {
   authorizationRequest,
+  checkAuthRequest,
   loadUser,
   requireAuthorization,
   requireLogout
@@ -13,6 +14,7 @@ const initialState: UserProcess = {
   user: {} as AuthUser,
   authorizationStatus: AuthorizationStatus.Unknown,
   isAuthLoading: false,
+  isCheckAuthLoading: false,
 };
 
 const user = createReducer(initialState, (builder) => {
@@ -28,6 +30,9 @@ const user = createReducer(initialState, (builder) => {
     })
     .addCase(authorizationRequest, (state, action) => {
       state.isAuthLoading = action.payload;
+    })
+    .addCase(checkAuthRequest, (state, action) => {
+      state.isCheckAuthLoading = action.payload;
     });
 });
 
