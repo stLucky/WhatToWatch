@@ -25,7 +25,7 @@ export const sendReviewRequest = createAction<boolean>(ActionTypes.SendReviewReq
 export const incrementLimit = createAction<number>(ActionTypes.IncrementLimit);
 export const resetLimit = createAction(ActionTypes.ResetLimit);
 export const requireAuthorization = createAction<AuthorizationStatus>(
-  ActionTypes.RequireAuthorization,
+  ActionTypes.requireAuthorization,
 );
 export const authorizationRequest = createAction<boolean>(
   ActionTypes.AuthorizationRequest,
@@ -33,9 +33,9 @@ export const authorizationRequest = createAction<boolean>(
 export const checkAuthRequest = createAction<boolean>(
   ActionTypes.CheckAuthRequest,
 );
-export const requireLogout = createAction(ActionTypes.RequireLogout);
+export const requireLogout = createAction(ActionTypes.requireLogout);
 export const redirectToRoute = createAction<string>(ActionTypes.RedirectToRoute);
-export const set404Error = createAction<boolean>(ActionTypes.RequireLogout);
+export const set404Error = createAction<boolean>(ActionTypes.requireLogout);
 export const loadUser = createAction<AuthUser>(ActionTypes.LoadUser);
 export const changeFavoriteStatus = createAction<FilmType>(ActionTypes.ChangeFavoriteStatus);
 export const loadMyListRequest = createAction<boolean>(ActionTypes.LoadMyListRequest);

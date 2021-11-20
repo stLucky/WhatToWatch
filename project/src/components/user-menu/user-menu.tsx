@@ -2,7 +2,7 @@ import { MouseEvent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AuthorizationStatus, AppRoute } from '../../const';
-import { logoutAction } from '../../store/api-actions';
+import { logoutAction } from '../../store/user/api-actions';
 import {
   getAuthorizationStatus,
   getUser

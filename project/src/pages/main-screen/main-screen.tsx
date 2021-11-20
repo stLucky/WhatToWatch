@@ -19,9 +19,9 @@ import {
   getErrorFilmsStatus,
   getLoadingFilmsStatus
 } from '../../store/films/selectors';
-import { fetchPromoAction } from '../../store/api-actions';
 import { getAuthorizationStatus } from '../../store/user/selectors';
 import { getLoadingPromoStatus } from '../../store/promo/selectors';
+import { fetchPromoAction } from '../../store/promo/api-actions';
 
 function MainScreen(): JSX.Element {
   const genres = useSelector(getGenres);

@@ -13,6 +13,9 @@ export const AUTH_INFO = 'Hello friend! Don\'t forget log in to the system!';
 export const AUTH_ERROR = 'Login required!';
 export const PROMO_ERROR = 'Failed to upload promo movie. Try another time';
 
+export const SUCCESS_RESPONSE_CODE = 200;
+export const NO_CONTENT_RESPONSE_CODE = 204;
+
 export enum AppRoute {
   Login = '/login',
   MyList = '/mylist',

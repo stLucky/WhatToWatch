@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Films from '../../components/films/films';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import { fetchMyListAction } from '../../store/api-actions';
+import { fetchMyListAction } from '../../store/favorites/api-actions';
 import { getErrorMyListStatus, getLoadingMyListStatus, getMyList } from '../../store/favorites/selectors';
 import ErrorScreen from '../error-screen/error-screen';
 import LoadingScreen from '../loading-screen/loading-screen';

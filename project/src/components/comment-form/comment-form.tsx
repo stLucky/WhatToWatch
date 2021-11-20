@@ -1,12 +1,12 @@
 import { useState, ChangeEvent, FormEvent, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Rating from '../rating/rating';
-import { fetchSendReviewAction } from '../../store/api-actions';
 import { useParams } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 import cn from 'classnames';
 import styles from './comment-form.module.scss';
 import { getLoadingSendReviewStatus } from '../../store/reviews/selectors';
+import { fetchSendReviewAction } from '../../store/reviews/api-actions';
 
 const MAX_NUMBER_RATING = 10;
 const MIN_LENGTH_COMMENT = 50;

@@ -6,12 +6,8 @@ import { AuthUser } from './auth-data';
 
 export type FilmsData = {
   films: FilmsType;
-
-
   isFilmsLoading: boolean;
   isFilmsError: boolean;
-
-
 };
 
 export type Favorites = {
