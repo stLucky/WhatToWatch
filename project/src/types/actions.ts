@@ -3,6 +3,7 @@ import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { AxiosInstance } from 'axios';
 import { State } from '../types/state';
 
+
 export enum ActionTypes {
   ChangeActiveGenre = 'films/changeGenre',
   IncrementLimit = 'films/incrementLimit',
@@ -23,8 +24,8 @@ export enum ActionTypes {
   LoadReviewsSuccess = 'data/loadReviewsSuccess',
   LoadReviewsError = 'data/loadReviewsError',
   SendReviewRequest = 'data/sendReviewRequest',
-  RequireAuthorization = 'user/requireAuthorization',
-  RequireLogout = 'user/requireLogout',
+  requireAuthorization = 'user/requireAuthorization',
+  requireLogout = 'user/requireLogout',
   AuthorizationRequest = 'data/authorizationRequest',
   RedirectToRoute = 'route/redirectToRoute',
   LoadUser = 'data/loadUser',
@@ -32,6 +33,7 @@ export enum ActionTypes {
   LoadMyListRequest = 'data/loadMyListRequest',
   LoadMyListSuccess = 'data/loadMyListSuccess',
   LoadMyListError = 'data/loadMyListError',
+  CheckAuthRequest = 'data/checkAuthRequest'
 }
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<

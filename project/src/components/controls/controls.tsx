@@ -2,8 +2,9 @@ import { memo, MouseEvent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import { AuthorizationStatus, FavoriteStatus } from '../../const';
-import { fetchFavoriteStatusAction } from '../../store/api-actions';
-import { getFilm, getPromo } from '../../store/films/selectors';
+import { fetchFavoriteStatusAction } from '../../store/favorites/api-actions';
+import { getFilm } from '../../store/film/selectors';
+import { getPromo } from '../../store/promo/selectors';
 import { getAuthorizationStatus } from '../../store/user/selectors';
 
 type ControlsProps = {

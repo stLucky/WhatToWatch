@@ -4,12 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Films from '../../components/films/films';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import { fetchMyListAction } from '../../store/api-actions';
-import {
-  getErrorMyListStatus,
-  getLoadingMyListStatus,
-  getMyList
-} from '../../store/films/selectors';
+import { fetchMyListAction } from '../../store/favorites/api-actions';
+import { getErrorMyListStatus, getLoadingMyListStatus, getMyList } from '../../store/favorites/selectors';
 import ErrorScreen from '../error-screen/error-screen';
 import LoadingScreen from '../loading-screen/loading-screen';
 import styles from './my-list-screen.module.scss';
@@ -34,7 +30,6 @@ function MyListScreen(): JSX.Element {
   if (isMyListError) {
     return <ErrorScreen />;
   }
-  // TODO на страницах с приватным маршрутом (my-list and add-review) если сделать перезагрузку страницы то выкидывает на главную через редирект logina
 
   return (
     <div className="user-page">

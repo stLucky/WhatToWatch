@@ -10,3 +10,6 @@ export const getAuthorizationStatus = (state: State): AuthorizationStatus =>
 
 export const getLoadinAuthStatus = (state: State): boolean =>
   state[NameSpace.User].isAuthLoading;
+
+export const getCheckAuthStatus = (state: State): boolean =>
+  state[NameSpace.User].isCheckAuthLoading;

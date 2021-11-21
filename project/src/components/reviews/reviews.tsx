@@ -1,12 +1,12 @@
 import { useParams } from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import { useEffect } from 'react';
-import { fetchReviewsAction } from '../../store/api-actions';
 import Review from '../review/review';
 import Loader from 'react-loader-spinner';
 import styles from './reviews.module.scss';
 import { ANOTHER_TIME_ERROR } from '../../const';
 import { getErrorReviewsStatus, getLoadingReviewsStatus, getReviews } from '../../store/reviews/selectors';
+import { fetchReviewsAction } from '../../store/reviews/api-actions';
 
 function Reviews(): JSX.Element {
   const reviews = useSelector(getReviews);

@@ -1,10 +1,10 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { loginAction } from '../../store/api-actions';
 import cn from 'classnames';
 import styles from './sign-in.module.scss';
 import Loader from 'react-loader-spinner';
 import { getLoadinAuthStatus } from '../../store/user/selectors';
+import { loginAction } from '../../store/user/api-actions';
 
 const formFields = {
   email: 'Email address',

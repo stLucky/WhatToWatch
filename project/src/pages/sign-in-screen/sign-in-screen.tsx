@@ -5,14 +5,9 @@ import Header from '../../components/header/header';
 import SignIn from '../../components/sign-in/sign-in';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { getAuthorizationStatus } from '../../store/user/selectors';
-import LoadingScreen from '../loading-screen/loading-screen';
 
 function SignInScreen(): JSX.Element {
   const authorizationStatus = useSelector(getAuthorizationStatus);
-
-  if (authorizationStatus === AuthorizationStatus.Unknown) {
-    return <LoadingScreen />;
-  }
 
   if (authorizationStatus === AuthorizationStatus.Auth) {
     return <Redirect to={AppRoute.Root} />;
