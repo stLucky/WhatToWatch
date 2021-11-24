@@ -1,5 +1,10 @@
 import { makeFakeReviews } from '../../mocks/reviews';
-import { loadReviewsError, loadReviewsRequest, loadReviewsSuccess, sendReviewRequest } from '../actions';
+import {
+  loadReviewsError,
+  loadReviewsRequest,
+  loadReviewsSuccess,
+  sendReviewRequest
+} from '../actions';
 import { reviews } from './reviews';
 
 const state = {
@@ -38,8 +43,9 @@ describe('Reducer: reviews', () => {
   });
 
   it('should set value isSendReviewLoading by a true', () => {
-    expect(
-      reviews(state, sendReviewRequest(true)),
-    ).toEqual({ ...state, isSendReviewLoading: true });
+    expect(reviews(state, sendReviewRequest(true))).toEqual({
+      ...state,
+      isSendReviewLoading: true,
+    });
   });
 });

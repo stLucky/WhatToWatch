@@ -20,7 +20,7 @@ function ErrorScreen({ type = '' }: ErrorScreenProps): JSX.Element {
   };
 
   return (
-    <div className="user-page">
+    <div className="user-page" data-testid="error-page">
       <Header className={headerClasses} isVisibleUserMenu={false}></Header>
       <div className={styles['main-layout']}>
         {type === '404' ? (

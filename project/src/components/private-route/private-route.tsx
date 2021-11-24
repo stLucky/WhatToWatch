@@ -14,12 +14,9 @@ function PrivateRoute({ exact, path, render }: PrivateRouteProps): JSX.Element {
   const authorizationStatus = useSelector(getAuthorizationStatus);
   const isCheckAuthLoading = useSelector(getCheckAuthStatus);
 
-  if(isCheckAuthLoading) {
-    return <LoadingScreen/>;
+  if (isCheckAuthLoading) {
+    return <LoadingScreen />;
   }
-  // TODO СДЕЛАЛ ЗДЕСЬ ВАРИАНТ С РЕНДЕРИНГОМ ЛОАДЕРА, ЧТОБЫ НЕ БЫЛО ПРЕЖДЕВРЕМЕННОГО РЕДИРЕКТА ПОКА МЫ ЖДЕМ ОТВЕТ ОТ СЕРВЕРА ОБ АВТОРИЗАЦИИ ПОЛЬЗОВАТЕЛЯ
-  // TODO НО ЭТО ВЫЗЫВАЕТ ПРОБЛЕМЫ, НАПРИМЕР ПРИ РЕФРЕШЕ СТРАНИЦЫ НА СТРАНИЦЕ С ИЗБРАННЫМИ ФИЛЬМАМИ РЕНДЕРИТСЯ ДВОЙНОЙ ЛОАДЕР - ОТ КОМПОНЕНТА
-  // TODO PRIVATEROUTE И КОМПОНЕТА MYLISTSCREEN. КАКОЙ ЗДЕСЬ ВЫХОД? МОЖЕТ ЗАБИТЬ НА СЕРВЕР И ПРОВЕРКУ АВТОРИЗАЦИИ ОТ СЕРВЕРА, И ПРОВЕРЯТЬ АВТОРИЗАЦИЮ ПО КЛЮЧУ В LOCALESTORAGE?
 
   return (
     <Route

@@ -1,12 +1,12 @@
-import {configureMockStore} from '@jedmao/redux-mock-store';
-import {AnyAction} from 'redux';
-import {redirect} from './redirect';
-import {redirectToRoute} from '../actions';
-import {AppRoute} from '../../const';
-import {State} from '../../types/state';
+import { configureMockStore } from '@jedmao/redux-mock-store';
+import { AnyAction } from 'redux';
+import { redirect } from './redirect';
+import { redirectToRoute } from '../actions';
+import { AppRoute } from '../../const';
+import { State } from '../../types/state';
 
 const fakeHistory = {
-  location: {pathname: ''},
+  location: { pathname: '' },
   push(path: string) {
     this.location.pathname = path;
   },
@@ -26,13 +26,11 @@ describe('Middleware: redirect', () => {
   it('should be redirect to /login', () => {
     store.dispatch(redirectToRoute(AppRoute.Login));
     expect(fakeHistory.location.pathname).toBe(AppRoute.Login);
-    expect(store.getActions()).toEqual([
-      redirectToRoute(AppRoute.Login),
-    ]);
+    expect(store.getActions()).toEqual([redirectToRoute(AppRoute.Login)]);
   });
 
   it('should not to be redirect /mylist because bad action', () => {
-    store.dispatch({type: 'UNKNOWN_ACTION', payload: AppRoute.MyList});
+    store.dispatch({ type: 'UNKNOWN_ACTION', payload: AppRoute.MyList });
     expect(fakeHistory.location.pathname).not.toBe(AppRoute.MyList);
   });
 });

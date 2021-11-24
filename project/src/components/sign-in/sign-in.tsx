@@ -93,7 +93,7 @@ function SignIn(): JSX.Element {
         noValidate
       >
         {currentError && (
-          <div className="sign-in__message">
+          <div className="sign-in__message" data-testid="error">
             <p>{formState[currentError].errorText}</p>
           </div>
         )}
@@ -132,7 +132,13 @@ function SignIn(): JSX.Element {
             disabled={isDisabledSend}
           >
             {isAuthLoading ? (
-              <Loader type="Oval" color="#eee5b5" height={30} width={30} />
+              <Loader
+                type="Oval"
+                color="#eee5b5"
+                height={30}
+                width={30}
+                data-testid="loader"
+              />
             ) : (
               'Sign in'
             )}

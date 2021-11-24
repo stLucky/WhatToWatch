@@ -16,5 +16,4 @@ function Footer({ onMain = false }: FooterProps): JSX.Element {
   );
 }
 
-
 export default memo(Footer);

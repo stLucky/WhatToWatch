@@ -54,15 +54,14 @@ describe('Favorites async actions', () => {
 
     mockAPI
       .onPost(`${APIRoute.Favorite}/${id}/${FavoriteStatus.On}`)
-      .reply(SUCCESS_RESPONSE_CODE, {...film, isFavorite: true});
+      .reply(SUCCESS_RESPONSE_CODE, { ...film, isFavorite: true });
 
     await store.dispatch(fetchFavoriteStatusAction(id, FavoriteStatus.On));
 
     expect(store.getActions()).toEqual([
-      changeFavoriteStatus({...film, isFavorite: true}),
+      changeFavoriteStatus({ ...film, isFavorite: true }),
     ]);
   });
-
 
   it('should not to be dispatch when request POST /favorite/: film_id/: status will fail', async () => {
     const store = makeMockStore();

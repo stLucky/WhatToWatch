@@ -11,8 +11,16 @@ import Loader from 'react-loader-spinner';
 import styles from './movie-screen.module.scss';
 import { ANOTHER_TIME_ERROR, ERROR_404, OTHER_ERRORS } from '../../const';
 import Controls from '../../components/controls/controls';
-import { getErrorFilmStatus, getFilm, getLoadingFilmStatus } from '../../store/film/selectors';
-import { getErrorSimilarStatus, getLoadingSimilarStatus, getSimilar } from '../../store/similar-films/selectors';
+import {
+  getErrorFilmStatus,
+  getFilm,
+  getLoadingFilmStatus
+} from '../../store/film/selectors';
+import {
+  getErrorSimilarStatus,
+  getLoadingSimilarStatus,
+  getSimilar
+} from '../../store/similar-films/selectors';
 import { fetchFilmAction } from '../../store/film/api-actions';
 import { fetchSimilarAction } from '../../store/similar-films/api-actions';
 

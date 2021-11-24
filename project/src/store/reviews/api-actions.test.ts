@@ -1,11 +1,14 @@
-
 import { fetchReviewsAction } from './api-actions';
 import { APIRoute, ERROR_404, SUCCESS_RESPONSE_CODE } from '../../const';
 import { makeFakeFilm } from '../../mocks/films';
 import { mockAPI } from '../../mocks/api';
 import { makeMockStore } from '../../mocks/store';
 import { makeFakeReviews } from '../../mocks/reviews';
-import { loadReviewsError, loadReviewsRequest, loadReviewsSuccess } from '../actions';
+import {
+  loadReviewsError,
+  loadReviewsRequest,
+  loadReviewsSuccess
+} from '../actions';
 
 const film = makeFakeFilm();
 const id = film.id.toString();
@@ -15,7 +18,9 @@ describe('Reviews async actions', () => {
   it('should dispatch LoadReviewsRequest and LoadReviewsSuccess when request GET /comments/:film_id', async () => {
     const store = makeMockStore();
 
-    mockAPI.onGet(`${APIRoute.Reviews}/${id}`).reply(SUCCESS_RESPONSE_CODE, reviews);
+    mockAPI
+      .onGet(`${APIRoute.Reviews}/${id}`)
+      .reply(SUCCESS_RESPONSE_CODE, reviews);
 
     await store.dispatch(fetchReviewsAction(id));
 
