@@ -38,6 +38,7 @@ function Controls({ hasReviewControl = false }: ControlsProps): JSX.Element {
 
   const isVisibleReviewControl =
     hasReviewControl && authorizationStatus === AuthorizationStatus.Auth;
+
   return (
     <div className="film-card__buttons">
       <button
@@ -57,11 +58,11 @@ function Controls({ hasReviewControl = false }: ControlsProps): JSX.Element {
       >
         {currentFavoriteStatus ? (
           <svg viewBox="0 0 18 14" width="18" height="14">
-            <use xlinkHref="#in-list" />
+            <use xlinkHref="#in-list" data-testid="in-list" />
           </svg>
         ) : (
           <svg viewBox="0 0 19 20" width="19" height="20">
-            <use xlinkHref="#add" />
+            <use xlinkHref="#add" data-testid="add" />
           </svg>
         )}
         <span>My list</span>

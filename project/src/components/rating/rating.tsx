@@ -22,6 +22,7 @@ function Rating({ rating, checked, onChange }: RatingProps): JSX.Element {
         value={rating}
         checked={rating === checked}
         onChange={handleChange}
+        data-testid={`star-${rating}`}
       />
       <label className="rating__label" htmlFor={`star-${rating}`}>
         Rating {rating}

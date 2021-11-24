@@ -12,7 +12,7 @@ export enum NameSpace {
   Films = 'FILMS',
   Film = 'FILM',
   Promo = 'PROMO',
-  SimilarFilms = 'SIMILARFILMS',
+  SimilarFilms = 'SIMILAR_FILMS',
   Favorites = 'FAVORITES',
   Reviews = 'REVIEWS',
   App = 'APP',

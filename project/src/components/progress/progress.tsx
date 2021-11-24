@@ -53,7 +53,7 @@ function Progress({
     setTime(currentProgress);
   };
 
-  const handletoggleMouseDown = (evt: MouseEvent<HTMLDivElement>) => {
+  const handleToggleMouseDown = (evt: MouseEvent<HTMLDivElement>) => {
     evt.preventDefault();
 
     const target = evt.currentTarget;
@@ -78,13 +78,18 @@ function Progress({
         newLeft = rightEdge;
       }
 
-      const currentPosition = (newLeft * MAX_VIDEO_PROGRESS) / wrapRef.current.offsetWidth;
+      const currentPosition =
+        (newLeft * MAX_VIDEO_PROGRESS) / wrapRef.current.offsetWidth;
 
       toggleRef.current.style.left = `${currentPosition}%`;
 
-      onChangeProgress((newLeft * MAX_VIDEO_PROGRESS) / wrapRef.current.offsetWidth);
+      onChangeProgress(
+        (newLeft * MAX_VIDEO_PROGRESS) / wrapRef.current.offsetWidth,
+      );
+
       if (video) {
-        const currentTime = (video.duration * currentPosition) / MAX_VIDEO_PROGRESS;
+        const currentTime =
+          (video.duration * currentPosition) / MAX_VIDEO_PROGRESS;
         video.currentTime = currentTime;
 
         onChangeTime(getTimeFromSecs(Math.round(video.duration - currentTime)));
@@ -112,14 +117,15 @@ function Progress({
         <div
           className="player__toggler"
           style={{ left: `${progress}%` }}
-          onMouseDown={handletoggleMouseDown}
+          onMouseDown={handleToggleMouseDown}
           ref={toggleRef}
+          data-testid="video-toggle"
         >
           Toggle
         </div>
       </div>
-      <div className="player__time-value">
-        {isLoadedMetaData ? time : '00: 00'}
+      <div className="player__time-value" data-testid="video-time">
+        {isLoadedMetaData ? time : '00:00'}
       </div>
     </>
   );

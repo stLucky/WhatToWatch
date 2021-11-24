@@ -18,6 +18,7 @@ function Player(
       loop
       width="280"
       height="175"
+      data-testid="video-player"
     />
   );
 }

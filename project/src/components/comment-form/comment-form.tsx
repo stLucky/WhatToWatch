@@ -56,7 +56,7 @@ function CommentForm(): JSX.Element {
 
   if (isSendReviewLoading) {
     return (
-      <div className={formClasses}>
+      <div className={formClasses} data-testid="loader">
         <Loader type="Oval" color="#180202" height={50} width={50} />
       </div>
     );

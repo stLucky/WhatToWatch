@@ -1,4 +1,4 @@
-import {useSelector, useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { MouseEvent } from 'react';
 import cn from 'classnames';
 import { changeActiveGenre, resetLimit } from '../../store/actions';
@@ -8,7 +8,7 @@ type GenresProps = {
   genres: string[];
 };
 
-function Genres({genres}: GenresProps): JSX.Element {
+function Genres({ genres }: GenresProps): JSX.Element {
   const activeGenre = useSelector(getActiveGenre);
   const dispatch = useDispatch();
 
@@ -30,7 +30,11 @@ function Genres({genres}: GenresProps): JSX.Element {
   return (
     <ul className="catalog__genres-list">
       {genres.map((genre) => (
-        <li className={genreClasses(genre)} key={genre}>
+        <li
+          className={genreClasses(genre)}
+          key={genre}
+          data-testid={genre === activeGenre ? 'activeGenre' : 'genre'}
+        >
           <a
             href="/"
             className="catalog__genres-link"

@@ -19,7 +19,7 @@ function PlayerScreen(): JSX.Element {
   const history = useHistory();
 
   const films = useSelector(getFilms);
-  const currentFilm = useSelector(((state: State) => getCurrentFilm(state, id)));
+  const currentFilm = useSelector((state: State) => getCurrentFilm(state, id));
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
@@ -29,7 +29,6 @@ function PlayerScreen(): JSX.Element {
   const [isEnded, setIsEnded] = useState(false);
   const [time, setTime] = useState('');
   const [progress, setProgress] = useState(INITIAL_PROGRESS);
-
 
   useEffect(() => {
     if (!videoRef.current) {
@@ -99,7 +98,8 @@ function PlayerScreen(): JSX.Element {
         Math.round(videoRef.current.duration - videoRef.current.currentTime),
       );
       const currentProgress = Math.round(
-        (videoRef.current.currentTime / videoRef.current.duration) * MAX_VIDEO_PROGRESS,
+        (videoRef.current.currentTime / videoRef.current.duration) *
+          MAX_VIDEO_PROGRESS,
       );
 
       setTime(currentTime);
@@ -114,7 +114,6 @@ function PlayerScreen(): JSX.Element {
   const handleChangeTime = useCallback((currentTime: string) => {
     setTime(currentTime);
   }, []);
-
 
   const handleEnded = () => {
     setIsPlaying(false);

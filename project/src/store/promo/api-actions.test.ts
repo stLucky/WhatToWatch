@@ -1,4 +1,3 @@
-
 import { fetchPromoAction } from './api-actions';
 import { APIRoute, ERROR_404, SUCCESS_RESPONSE_CODE } from '../../const';
 import { makeFakeFilm } from '../../mocks/films';

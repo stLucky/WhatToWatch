@@ -18,7 +18,7 @@ export const fetchSimilarAction = (id: string): ThunkActionResult => async (
   dispatch(loadSimilarRequest(true));
 
   try {
-    getState().SIMILARFILMS.isSimilarError && dispatch(loadSimilarError(false));
+    getState().SIMILAR_FILMS.isSimilarError && dispatch(loadSimilarError(false));
 
     const { data } = await api.get<FilmsType>(`${APIRoute.Films}/${id}/similar`);
     const normalizedData = camelcaseKeys(data);

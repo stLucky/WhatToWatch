@@ -3,7 +3,7 @@ import styles from './loading-screen.module.scss';
 
 function LoadingScreen(): JSX.Element {
   return (
-    <div className={styles.wrap}>
+    <div className={styles.wrap} data-testid="loading">
       <Loader type="Oval" color="#eee5b5" height={60} width={60} />
     </div>
   );

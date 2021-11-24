@@ -1,11 +1,15 @@
 import { useParams } from 'react-router-dom';
-import {useSelector, useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import Review from '../review/review';
 import Loader from 'react-loader-spinner';
 import styles from './reviews.module.scss';
 import { ANOTHER_TIME_ERROR } from '../../const';
-import { getErrorReviewsStatus, getLoadingReviewsStatus, getReviews } from '../../store/reviews/selectors';
+import {
+  getErrorReviewsStatus,
+  getLoadingReviewsStatus,
+  getReviews
+} from '../../store/reviews/selectors';
 import { fetchReviewsAction } from '../../store/reviews/api-actions';
 
 function Reviews(): JSX.Element {
@@ -27,7 +31,7 @@ function Reviews(): JSX.Element {
 
   if (isReviewsLoading) {
     return (
-      <div className={styles.reviewsWrap}>
+      <div className={styles.reviewsWrap} data-testid="loader">
         <Loader type="Oval" color="#180202" height={40} width={40} />
       </div>
     );

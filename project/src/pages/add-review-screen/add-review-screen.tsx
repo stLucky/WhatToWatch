@@ -8,7 +8,9 @@ import { getFilm } from '../../store/film/selectors';
 function AddReviewScreen(): JSX.Element {
   const film = useSelector(getFilm);
 
-  if (film) {
+  const hasFilm = Object.keys(film).length !== 0;
+
+  if (hasFilm) {
     return (
       <section className="film-card film-card--full">
         <div className="film-card__header">

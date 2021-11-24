@@ -3,10 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AuthorizationStatus, AppRoute } from '../../const';
 import { logoutAction } from '../../store/user/api-actions';
-import {
-  getAuthorizationStatus,
-  getUser
-} from '../../store/user/selectors';
+import { getAuthorizationStatus, getUser } from '../../store/user/selectors';
 
 function UserMenu(): JSX.Element {
   const authorizationStatus = useSelector(getAuthorizationStatus);
@@ -26,7 +23,7 @@ function UserMenu(): JSX.Element {
             <Link to={AppRoute.MyList}>
               <img
                 src={user.avatarUrl}
-                alt="User avatar"
+                alt={`${user.name} avatar`}
                 width="63"
                 height="63"
               />

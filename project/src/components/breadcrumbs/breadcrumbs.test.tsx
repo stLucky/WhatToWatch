@@ -15,13 +15,15 @@ describe('Component: Breadcrumbs', () => {
         <Breadcrumbs filmName='film' id={FILM_ID}/>
       </Router>,
     );
-    expect(screen.getByText('film')).toBeInTheDocument();
-    expect(screen.getByText('Add review')).toBeInTheDocument();
+
+    expect(screen.getByText(/film/i)).toBeInTheDocument();
+    expect(screen.getByText(/add review/i)).toBeInTheDocument();
     expect(screen.getByRole('link')).toBeInTheDocument();
   });
 
-  it('should redirect to root url when user clicked to link', () => {
+  it('should redirect to film page when user clicked to link', () => {
     history.push('/fake');
+
     render(
       <Router history={history}>
         <Switch>
@@ -35,8 +37,8 @@ describe('Component: Breadcrumbs', () => {
       </Router>,
     );
 
-    expect(screen.queryByText(/This is film/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/this is film/i)).not.toBeInTheDocument();
     userEvent.click(screen.getByRole('link'));
-    expect(screen.queryByText(/This is film/i)).toBeInTheDocument();
+    expect(screen.queryByText(/this is film/i)).toBeInTheDocument();
   });
 });

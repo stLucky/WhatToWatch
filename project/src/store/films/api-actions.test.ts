@@ -1,4 +1,3 @@
-
 import { fetchFilmsAction } from './api-actions';
 import { APIRoute, ERROR_404, SUCCESS_RESPONSE_CODE } from '../../const';
 import { loadFilmsError, loadFilmsRequest, loadFilmsSuccess } from '../actions';
