@@ -12,6 +12,9 @@ import {
 } from '../../store/reviews/selectors';
 import { fetchReviewsAction } from '../../store/reviews/api-actions';
 
+const LOADER_WIDTH = 40;
+const LOADER_HEIGHT = 40;
+
 function Reviews(): JSX.Element {
   const reviews = useSelector(getReviews);
   const isReviewsLoading = useSelector(getLoadingReviewsStatus);
@@ -32,7 +35,7 @@ function Reviews(): JSX.Element {
   if (isReviewsLoading) {
     return (
       <div className={styles.reviewsWrap} data-testid="loader">
-        <Loader type="Oval" color="#180202" height={40} width={40} />
+        <Loader type="Oval" color="#180202" height={LOADER_HEIGHT} width={LOADER_WIDTH} />
       </div>
     );
   }

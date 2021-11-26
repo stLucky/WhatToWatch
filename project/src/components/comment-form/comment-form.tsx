@@ -11,6 +11,8 @@ import { fetchSendReviewAction } from '../../store/reviews/api-actions';
 const MAX_NUMBER_RATING = 10;
 const MIN_LENGTH_COMMENT = 50;
 const MAX_LENTGH_COMMENT = 400;
+const LOADER_WIDTH = 50;
+const LOADER_HEIGHT = 50;
 
 const ratings = Array.from(
   { length: MAX_NUMBER_RATING },
@@ -57,7 +59,7 @@ function CommentForm(): JSX.Element {
   if (isSendReviewLoading) {
     return (
       <div className={formClasses} data-testid="loader">
-        <Loader type="Oval" color="#180202" height={50} width={50} />
+        <Loader type="Oval" color="#180202" height={LOADER_HEIGHT} width={LOADER_WIDTH} />
       </div>
     );
   }

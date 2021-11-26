@@ -13,6 +13,10 @@ import { MAX_VIDEO_PROGRESS } from '../../const';
 import { State } from '../../types/state';
 
 const INITIAL_PROGRESS = 0;
+const LOADER_WIDTH = 50;
+const LOADER_HEIGHT = 50;
+const RELOAD_WIDTH = 60;
+const RELOAD_HEIGHT = 60;
 
 function PlayerScreen(): JSX.Element {
   const { id }: { id: string } = useParams();
@@ -145,15 +149,15 @@ function PlayerScreen(): JSX.Element {
         <Loader
           type="Oval"
           color="#d9cd8d"
-          height={50}
-          width={50}
+          height={LOADER_HEIGHT}
+          width={LOADER_WIDTH}
           visible={isVisibleLoader}
         />
         {isEnded && progress === MAX_VIDEO_PROGRESS && (
           <Reload
             className={styles.reload}
-            height={60}
-            width={60}
+            height={RELOAD_HEIGHT}
+            width={RELOAD_WIDTH}
             color="#d9cd8d"
             onClick={handleReloadClick}
           />
@@ -173,6 +177,7 @@ function PlayerScreen(): JSX.Element {
         onEnded={handleEnded}
         onPlay={handlePlay}
         onPause={handlePause}
+        data-testid="video-player"
       />
 
       <button type="button" className="player__exit" onClick={handleExitClick}>
