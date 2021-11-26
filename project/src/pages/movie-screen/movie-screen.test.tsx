@@ -94,7 +94,7 @@ describe('Component: MovieScreen', () => {
     expect(screen.queryByRole('heading', {name: /more like this/i})).toBeNull();
     expect(screen.queryByAltText(`${fakeFilm.name}`)).toBeNull();
     expect(screen.getByTestId('error-page')).toBeInTheDocument();
-    expect(screen.getByRole('link', {name: /404 Not Found/i})).toBeInTheDocument();
+    expect(screen.getByText(/404 Not Found/i)).toBeInTheDocument();
     expect(screen.queryByRole('link', {name: /Oops... Something went wrong. Try again/i})).toBeNull();
     expect(screen.queryByTestId('loading')).toBeNull();
   });
@@ -123,7 +123,7 @@ describe('Component: MovieScreen', () => {
     expect(screen.queryByAltText(`${fakeFilm.name}`)).toBeNull();
     expect(screen.getByTestId('error-page')).toBeInTheDocument();
     expect(screen.queryByRole('link', {name: /404 Not Found/i})).toBeNull();
-    expect(screen.getByRole('link', {name: /Oops... Something went wrong. Try again/i})).toBeInTheDocument();
+    expect(screen.getByText(/Oops... Something went wrong. Try again/i)).toBeInTheDocument();
     expect(screen.queryByTestId('loading')).toBeNull();
   });
 
