@@ -25,6 +25,8 @@ import { fetchFilmAction } from '../../store/film/api-actions';
 import { fetchSimilarAction } from '../../store/similar-films/api-actions';
 
 const MAX_VISIBLE_SIMILAR_FILMS = 4;
+const LOADER_WIDTH = 50;
+const LOADER_HEIGHT = 50;
 
 function MovieScreen(): JSX.Element {
   const film = useSelector(getFilm);
@@ -51,7 +53,7 @@ function MovieScreen(): JSX.Element {
     if (isSimilarLoading) {
       return (
         <div className={styles.similarWrap}>
-          <Loader type="Oval" color="#eee5b5" height={50} width={50} />
+          <Loader type="Oval" color="#eee5b5" height={LOADER_HEIGHT} width={LOADER_WIDTH} />
         </div>
       );
     }

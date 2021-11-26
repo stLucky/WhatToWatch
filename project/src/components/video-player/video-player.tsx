@@ -5,7 +5,7 @@ type VideoPlayerProps = {
   posterSrc: string;
 };
 
-function Player(
+function VideoPlayer(
   { videoSrc, posterSrc }: VideoPlayerProps,
   ref: ForwardedRef<HTMLVideoElement>,
 ): JSX.Element {
@@ -23,6 +23,4 @@ function Player(
   );
 }
 
-const VideoPlayer = forwardRef(Player);
-
-export default VideoPlayer;
+export default forwardRef(VideoPlayer);

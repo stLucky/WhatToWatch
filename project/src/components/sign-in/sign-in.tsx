@@ -6,6 +6,9 @@ import Loader from 'react-loader-spinner';
 import { getLoadinAuthStatus } from '../../store/user/selectors';
 import { loginAction } from '../../store/user/api-actions';
 
+const LOADER_WIDTH = 30;
+const LOADER_HEIGHT = 30;
+
 const formFields = {
   email: 'Email address',
   password: 'Password',
@@ -135,8 +138,8 @@ function SignIn(): JSX.Element {
               <Loader
                 type="Oval"
                 color="#eee5b5"
-                height={30}
-                width={30}
+                height={LOADER_HEIGHT}
+                width={LOADER_WIDTH}
                 data-testid="loader"
               />
             ) : (

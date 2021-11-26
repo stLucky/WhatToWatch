@@ -35,7 +35,6 @@ export const checkAuthRequest = createAction<boolean>(
 );
 export const requireLogout = createAction(ActionTypes.requireLogout);
 export const redirectToRoute = createAction<string>(ActionTypes.RedirectToRoute);
-export const set404Error = createAction<boolean>(ActionTypes.requireLogout);
 export const loadUser = createAction<AuthUser>(ActionTypes.LoadUser);
 export const changeFavoriteStatus = createAction<FilmType>(ActionTypes.ChangeFavoriteStatus);
 export const loadMyListRequest = createAction<boolean>(ActionTypes.LoadMyListRequest);
