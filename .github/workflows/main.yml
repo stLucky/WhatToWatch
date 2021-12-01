@@ -17,13 +17,16 @@ jobs:
           persist-credentials: false
 
       - name: Install 🔧
-        run: npm install
+        run: |
+          if [ -d 'project' ]; then cd project && npm install; else echo 'Skip. The project directory does not exist'; fi
 
       - name: Run Test 🔨
-        run: npm run test
+        run: |
+          if [ -d 'project' ]; then cd project && npm test; else echo 'Skip. The project directory does not exist'; fi
 
       - name: Build 👷
-        run: npm run build
+        run: |
+          if [ -d 'project' ]; then cd project && npm build; else echo 'Skip. The project directory does not exist'; fi
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
