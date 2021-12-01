@@ -1,5 +1,8 @@
 name: Project test & build
 
+env: 
+  CI: false
+
 on:
   push:
     branches: [ master ]
