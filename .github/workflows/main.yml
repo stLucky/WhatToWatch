@@ -26,7 +26,7 @@ jobs:
 
       - name: Build 👷
         run: |
-          if [ -d 'project' ]; then cd project && npm build; else echo 'Skip. The project directory does not exist'; fi
+          if [ -d 'project' ]; then cd project && npm run build; else echo 'Skip. The project directory does not exist'; fi
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
