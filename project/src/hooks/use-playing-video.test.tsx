@@ -1,6 +1,6 @@
-import {renderHook, act} from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react-hooks';
 import { MutableRefObject } from 'react';
-import {usePlayingVideo} from './use-playing-video';
+import { usePlayingVideo } from './use-playing-video';
 
 const videoRef = {
   current: {},
