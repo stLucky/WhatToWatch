@@ -33,5 +33,5 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.ST_LUCKKY }}
           BRANCH: gh-pages
-          FOLDER: build
+          FOLDER: project/build
           CLEAN: true
