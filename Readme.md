@@ -3,6 +3,7 @@
 [![Project test & build](https://github.com/stLucky/WhatToWatch/actions/workflows/main.yml/badge.svg)](https://github.com/stLucky/WhatToWatch/actions/workflows/main.yml)
 # Что Посмотреть? 
 *Онлайн кинотеатр*
+https://wtw-stlucky.vercel.app/
 ## Особенности проекта
 * Приложение состоит из 6 страниц: `Main (/)`, `Sign In (/login)`, `MyList (/mylist)`, `Film (/films/:id)`, `Add review (/films/:id/review)`, `Player (/player/:id)`.
 * Страницы `MyList`, `Add review` доступны только авторизованным пользователям. Если пользователь не авторизован, то при переходе к этим страницам выполняется перенаправление на страницу `Sign In`.
